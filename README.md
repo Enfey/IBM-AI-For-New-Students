@@ -23,5 +23,5 @@ AI-for-New-Students/
 ├── tests/             # Test files
 ├── docs/              # Project documentation
 ├── config/            # Configuration files
-├── scripts/           # Automation scripts
+├── scripts/           # Possible scripts
 └── data/              # Dataset (if any)
