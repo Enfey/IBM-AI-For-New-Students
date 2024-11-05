@@ -12,7 +12,7 @@
 ## Tech Stack
 - **Backend**: IBM Watsonx API
 - **Frontend**: React
-- **Project Management**: Agile/Scrum methodology
+- **Project Management**: Agile/Scrum methodology and [Kanban Board](https://trello.com/b/udjBpvNW/ibm-ai-for-new-students)
 - [...]
 
 ## Directory Structure
