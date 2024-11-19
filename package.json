@@ -1,0 +1,22 @@
+{
+  "name": "carbon-tutorial-nextjs",
+  "version": "0.1.0",
+  "private": true,
+  "repository": "git@github.com:carbon-design-system/carbon-tutorial-nextjs.git",
+  "bugs": "https://github.com/carbon-design-system/carbon-tutorial-nextjs/issues",
+  "license": "Apache-2.0",
+  "scripts": {
+    "build": "next build",
+    "dev": "next dev",
+    "start": "next start",
+    "clean": "yarn cache clean && yarn install"
+  },
+  "dependencies": {
+    "@carbon/icons-react": "^11.52.0",
+    "@carbon/react": "1.33.0",
+    "next": "13.4.9",
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
+    "sass": "1.63.6"
+  }
+}
