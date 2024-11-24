@@ -2,6 +2,7 @@
 @use '../components/TutorialHeader/tutorial-header';
 @use 'home/landing-page';
 @use 'repos/repo-page';
+@use 'menu/menu-page';
 
 /// Remove overrides once Carbon bugs are fixed upstream.
 /// Need grid option to not add page gutters at large viewports, to also use when nesting grids
