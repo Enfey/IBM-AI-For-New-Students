@@ -1,7 +1,7 @@
 .grid_container {
   display: grid;
   grid-template-columns: 1fr 2fr 1fr;
-  grid-template-rows: repeat(3, 1fr);
+  grid-template-rows: 75vh 12.5vh 12.5vh;
   grid-gap: 10px;
   height: 100vh;
 }
@@ -29,7 +29,7 @@
 .text_input_section {
   grid-column: 2;
   grid-row: 2;
-  height: 25vh;
+  margin-bottom: 25px;
 }
 
 .submit_button_section {
@@ -38,7 +38,6 @@
   align-items: flex-start;
   grid-column: 2;
   grid-row: 3;
-  height: 25vh;
 }
 
 

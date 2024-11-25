@@ -29,8 +29,8 @@ const TutorialHeader = () => (
           <HeaderName prefix="IBM">Carbon Tutorial</HeaderName>
         </Link>
         <HeaderNavigation aria-label="Carbon Tutorial">
-          <Link href="/repos" passHref legacyBehavior>
-            <HeaderMenuItem>Repositories</HeaderMenuItem>
+          <Link href="/chat" passHref legacyBehavior>
+            <HeaderMenuItem>Chat</HeaderMenuItem>
           </Link>
         </HeaderNavigation>
         <SideNav
