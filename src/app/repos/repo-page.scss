@@ -1,0 +1,44 @@
+.grid_container {
+  display: grid;
+  grid-template-columns: 1fr 2fr 1fr;
+  grid-template-rows: repeat(3, 1fr);
+  grid-gap: 10px;
+  height: 100vh;
+}
+
+.left_column {
+  grid-column: 1;
+  grid-row: 1/3;
+  height: 100vh;
+}
+
+.right_column {
+  grid-column: 3;
+  grid-row: 1/3;
+  height: 100vh;
+}
+
+/// Chat section occupies 50% of screen height
+/// Text area and submit button occupy 25%
+.chat_section {
+  grid-column: 2;
+  grid-row: 1;
+  height: 50vh;
+}
+
+.text_input_section {
+  grid-column: 2;
+  grid-row: 2;
+  height: 25vh;
+}
+
+.submit_button_section {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  grid-column: 2;
+  grid-row: 3;
+  height: 25vh;
+}
+
+
