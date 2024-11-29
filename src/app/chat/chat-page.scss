@@ -12,6 +12,12 @@
   height: 100vh;
 }
 
+.middle_column {
+  grid-column: 2;
+  grid-row: 1/3;
+  height: 100vh;
+}
+
 .right_column {
   grid-column: 3;
   grid-row: 1/3;
