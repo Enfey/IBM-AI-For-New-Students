@@ -1,6 +1,5 @@
 @use '@carbon/react';
-@use '../components/TutorialHeader/tutorial-header';
-@use 'home/landing-page';
+@use '../components/AppHeader/app-header';
 @use 'chat/chat-page';
 
 /// Remove overrides once Carbon bugs are fixed upstream.
