@@ -18,25 +18,54 @@ const formatTimestamp = () => {
   return now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }); 
 };
 
+async function onSubmitClick() {
+    const textArea = document.querySelector('textarea');
+
+    const response = await fetch('/api', {
+        method: 'POST',
+        body: JSON.stringify({
+            message: textArea.value
+        }),
+        headers: {
+            "Content-type": "application/json; charset=UTF-8"
+        }
+    })
+
+    const json = await response.json();
+    const userMessage = document.createElement('div');
+    userMessage.className = 'message user_message';
+
+    const aiMessage = document.createElement('div');
+    aiMessage.className = 'message user_message';
+
+    let returnMessage;
+    switch (json.status) {
+        case "success":
+            returnMessage = json.text;
+            break
+        case "error":
+            returnMessage = "Sorry, I didn't get that. Could you repeat your message?";
+            break;
+    }
+
+    userMessage.textContent = "User: " + textArea.value;
+    aiMessage.textContent = "AI: " + returnMessage;
+
+    document.querySelector('.message_container').appendChild(userMessage)
+    document.querySelector('.message_container').appendChild(aiMessage);
+    textArea.value = '';
+}
+
 export default function ChatPage() {
   return (
     <div className='layout_container'>
       <div className="left_column"></div>
       <div className="message_container">
-        <div className="message user_message">Hello, I am a new student. Can you help me?</div>  
       </div>
 
       <div id="user_input_area">
           <TextArea placeholder="Enter your query." style={{ resize: 'none' }}/>
-
-          <Button onClick={() => {
-          const textArea = document.querySelector('textarea');
-          const userMessage = document.createElement('div');
-          userMessage.className = 'message user_message';
-          userMessage.textContent = textArea.value;
-          document.querySelector('.message_container').appendChild(userMessage);
-          textArea.value = '';
-        }}>Send</Button>
+          <Button onClick={() => onSubmitClick()}>Send</Button>
       </div>
 
       {/*<WebChatCustomElement config={watsonAssistantChatOptions} className='web_chat_column' /> */}
