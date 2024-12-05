@@ -28,7 +28,7 @@ const AppHeader = () => (
         <HeaderGlobalBar>
           <HeaderGlobalAction
             aria-label={isSideNavExpanded ? 'Close menu' : 'Open menu'} aria-expanded={isSideNavExpanded} isActive= {isSideNavExpanded} onClick={onClickSideNavExpand}
-            tooltipAlignment="center"
+            tooltipAlignment="end"
             className="action-icons"
           >
             <Menu size={20} />
