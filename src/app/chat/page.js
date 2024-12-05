@@ -1,5 +1,6 @@
 "use client";
 
+import { TextArea, Button } from '@carbon/react';
 import {WebChatCustomElement} from '@ibm-watson/assistant-web-chat-react';
 
 const watsonAssistantChatOptions = {
@@ -12,11 +13,33 @@ const watsonAssistantChatOptions = {
   }
 }
 
+const formatTimestamp = () => {
+  const now = new Date();
+  return now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }); 
+};
+
 export default function ChatPage() {
   return (
     <div className='layout_container'>
       <div className="left_column"></div>
-      <WebChatCustomElement config={watsonAssistantChatOptions} className='web_chat_column' />
+      <div className="message_container">
+        <div className="message user_message">Hello, I am a new student. Can you help me?</div>  
+      </div>
+
+      <div id="user_input_area">
+          <TextArea placeholder="Enter your query." style={{ resize: 'none' }}/>
+
+          <Button onClick={() => {
+          const textArea = document.querySelector('textarea');
+          const userMessage = document.createElement('div');
+          userMessage.className = 'message user_message';
+          userMessage.textContent = textArea.value;
+          document.querySelector('.message_container').appendChild(userMessage);
+          textArea.value = '';
+        }}>Send</Button>
+      </div>
+
+      {/*<WebChatCustomElement config={watsonAssistantChatOptions} className='web_chat_column' /> */}
       <div className="right_column"></div>
     </div>
   );

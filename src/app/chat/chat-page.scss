@@ -1,52 +1,111 @@
-.layout_container { // just looked silly to have a classname of "grid_container" when i set it to a flexbox in the media query later on. 
+
+.layout_container {
   display: grid;
   grid-template-columns: 1fr 2fr 1fr;
-  grid-template-rows: 75vh 12.5vh 12.5vh;
+  grid-template-rows: 1fr auto;
   grid-gap: 10px;
-  height: 100vh;
+  height: 90vh;
 }
 
 .left_column {
   grid-column: 1;
-  grid-row: 1/3;
+  grid-row: 1/2;
   height: 100vh;
-}
-
-.web_chat_column {
-  grid-column: 2;
-  grid-row: 1/3;
-  height: 90vh;
 }
 
 .right_column {
   grid-column: 3;
-  grid-row: 1/3;
+  grid-row: 1/2;
   height: 100vh;
 }
 
+.message_container {
+  grid-column: 2;
+  grid-row: 1/2;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
 
+.message {
+  padding: 12px 16px;
+  border-radius: 20px;
+  max-width: 75%;
+  font-size: 16px;
+  line-height: 1.4;
+  word-wrap: break-word;
+  margin-bottom: 20px;
+  background-color: #F4F4F4;
+}
 
-  @media (max-width: 768px) {
-    .layout_container {
-      display: flex;
-      height: 90vh;
-    }
-  
-    .left_column, .right_column {
-      display: none;
-    }
-  
-    .web_chat_column  {
-      flex-grow: 1;
-    }
+.user_message {
+  align-self: flex-end;
+}
+
+.watson_message {
+  align-self: flex-start;
+}
+
+.message {
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+#user_input_area {
+  grid-column: 2;
+  grid-row: 2/3;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-top: auto;
+  margin-bottom: 20px
+}
+
+button {
+  margin-top: 10px;
+  align-self: center; 
+}
+
+button {
+  margin-top: 10px;
+  align-self: center; 
+}
+
+@media (max-width: 768px) {
+  .layout_container {
+    display: flex;
+    flex-direction: column;
   }
 
+  .left_column,
+  .right_column {
+    display: none;
+  }
 
+  .message_container {
+    flex-grow: 1;
+    height: auto;
+  }
 
+  .message {
+    max-width: 90%;
+    font-size: 14px;
+  }
 
+  #user_input_area {
+    margin-top: 20px;
+  }
 
+  button {
+    margin-left: 10px;
+    margin-top: 0;
+  }
+}
 
-
-
-
-
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
