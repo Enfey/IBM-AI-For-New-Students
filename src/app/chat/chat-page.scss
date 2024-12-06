@@ -1,4 +1,6 @@
 
+@use "@carbon/colors";
+
 .layout_container {
   display: grid;
   grid-template-columns: 1fr 2fr 1fr;
@@ -35,7 +37,7 @@
   line-height: 1.4;
   word-wrap: break-word;
   margin-bottom: 20px;
-  background-color: #F4F4F4;
+  background-color: #f4f4f4;
 }
 
 .user_message {
@@ -43,6 +45,7 @@
 }
 
 .watson_message {
+  background-color: colors.$blue-50;
   align-self: flex-start;
 }
 

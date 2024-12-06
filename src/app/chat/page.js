@@ -37,7 +37,7 @@ async function onSubmitClick() {
     userMessage.className = 'message user_message';
 
     const aiMessage = document.createElement('div');
-    aiMessage.className = 'message user_message';
+    aiMessage.className = 'message watson_message';
 
     let returnMessage;
     switch (json.status) {
@@ -49,8 +49,8 @@ async function onSubmitClick() {
             break;
     }
 
-    userMessage.textContent = "User: " + textArea.value;
-    aiMessage.textContent = "AI: " + returnMessage;
+    userMessage.textContent = textArea.value;
+    aiMessage.textContent = returnMessage;
 
     document.querySelector('.message_container').appendChild(userMessage)
     document.querySelector('.message_container').appendChild(aiMessage);
