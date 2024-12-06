@@ -38,6 +38,7 @@ const AppHeader = () => (
           <SideNavMenu title="Menu">
             <SideNavItems>
               <SideNavLink href="/">Chat</SideNavLink>
+              <SideNavLink href="/settings">Settings</SideNavLink>
               <SideNavLink href="/about">About</SideNavLink>
             </SideNavItems>
           </SideNavMenu>

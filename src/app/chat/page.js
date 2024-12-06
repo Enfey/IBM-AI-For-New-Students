@@ -1,5 +1,6 @@
 "use client";
 
+import { ArrowRight } from '@carbon/icons-react';
 import { TextArea, Button } from '@carbon/react';
 import {WebChatCustomElement} from '@ibm-watson/assistant-web-chat-react';
 
@@ -65,7 +66,7 @@ export default function ChatPage() {
 
       <div id="user_input_area">
           <TextArea placeholder="Enter your query." style={{ resize: 'none' }}/>
-          <Button onClick={() => onSubmitClick()}>Send</Button>
+          <Button renderIcon = { ArrowRight } onClick={() => onSubmitClick()}>Send</Button>
       </div>
 
       {/*<WebChatCustomElement config={watsonAssistantChatOptions} className='web_chat_column' /> */}
