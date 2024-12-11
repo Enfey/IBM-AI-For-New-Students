@@ -1,5 +1,6 @@
 "use client";
 
+import React, { useEffect } from 'react';
 import { ArrowRight } from '@carbon/icons-react';
 import { TextArea, Button } from '@carbon/react';
 import {WebChatCustomElement} from '@ibm-watson/assistant-web-chat-react';
@@ -58,19 +59,53 @@ async function onSubmitClick() {
 }
 
 export default function ChatPage() {
-  return (
-    <div className='layout_container'>
-      <div className="left_column"></div>
-      <div className="message_container">
-      </div>
+    useEffect(() => {
+        const loadLive2DScript = () => {
+            return new Promise((resolve, reject) => {
+                if (window.OML2D) {
+                    resolve();
+                } else {
+                    const script = document.createElement('script');
+                    script.src = 'https://unpkg.com/oh-my-live2d@latest';
+                    script.async = true;
+                    script.onload = () => resolve();
+                    script.onerror = () => reject(new Error('Live2D 脚本加载失败'));
+                    document.body.appendChild(script);
+                }
+            });
+        };
 
-      <div id="user_input_area">
-          <TextArea placeholder="Enter your query." style={{ resize: 'none' }}/>
-          <Button renderIcon = { ArrowRight } onClick={() => onSubmitClick()}>Send</Button>
-      </div>
+        loadLive2DScript()
+            .then(() => {
+                window.OML2D.loadOml2d({
+                    models: [
+                        {
+                            path: '/test_model/index.json', //test the function right now
+                            position: [-10, 80],
+                            scale: 0.5
+                        }
+                    ],
+                    container: '.live2d_container'
+                });
+            })
+            .catch(err => console.error('加载 Live2D 失败:', err));
+    }, []);
 
-      {/*<WebChatCustomElement config={watsonAssistantChatOptions} className='web_chat_column' /> */}
-      <div className="right_column"></div>
-    </div>
-  );
+    return (
+        <div className='layout_container'>
+            <div className="left_column"></div>
+
+            <div className="live2d_container"></div>
+
+            <div className="message_container"></div>
+
+            <div id="user_input_area">
+                <TextArea placeholder="Enter your query." style={{resize: 'none'}}/>
+                <Button renderIcon={ArrowRight} onClick={() => onSubmitClick()}>Send</Button>
+            </div>
+
+            <div className="right_column"></div>
+        </div>
+    );
 }
+
