@@ -2,8 +2,8 @@ import './globals.scss';
 import { Providers } from './providers';
 
 export const metadata = {
-  title: 'Carbon + Next13',
-  description: 'IBM Carbon Tutorial with Next.js 13',
+  title: 'IBM - AI for New Students',
+  description: 'AI chatbot for new students of UoN',
 };
 
 export default function RootLayout({ children }) {
