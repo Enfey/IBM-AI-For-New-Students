@@ -63,7 +63,7 @@ async function onSubmitClick() {
 
     // Adds both of the divs to the message container
     document.querySelector('.message_container').appendChild(userMessage)
-    document.querySelector('.message_container').appendChild(aiMessage);#
+    document.querySelector('.message_container').appendChild(aiMessage);
 
     // Clears the contents of the textArea
     textArea.value = '';
