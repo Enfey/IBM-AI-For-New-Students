@@ -57,6 +57,11 @@ $height: 100vh;
   grid-row: 1 / 2;
   @include flex-column;
   padding-bottom: $spacing-md;
+
+  @media (max-width: 768px) {
+    flex-grow: 1;
+    height: auto;
+  }
 }
 
 #user_input_area {
@@ -68,10 +73,6 @@ $height: 100vh;
   bottom: 0;
   background-color: white; //covers messages
   padding: $spacing-md;
-
-  @media (max-width: 768px) {
-    margin-top: $spacing-md;
-  }
 }
 
 
