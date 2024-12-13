@@ -36,7 +36,7 @@ AI-for-New-Students/
 ```
 
 ## **Tech Stack**
-- **Frontend**: Carbon React, Next.js, Node.js 
+- **Frontend**: Carbon React, Next.js
 - **Backend**: IBM Watsonx Assistant API
 - **Testing**: Lighthouse, Jest unit testing 
 - **Project Management**: Agile / Scrum, Kanban Board (via [Trello](https://trello.com/b/udjBpvNW/ibm-ai-for-new-students))  
@@ -53,17 +53,17 @@ To run this project locally, follow these steps:
 
 2. **Install dependencies:**
    ```bash
-   npm install
+   yarn install
    ```
 
 3. **Build the project:**
    ```bash
-   npm build
+   next build
    ```
 
 4. **Start the local server:**
    ```bash
-   npm start
+   next start
    ```
 
 5. **Access the application:**
