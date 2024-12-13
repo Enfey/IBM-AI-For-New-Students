@@ -14,6 +14,14 @@ import { Menu, RightPanelOpen } from '@carbon/icons-react';
 import Link from 'next/link';
 
 // AppHeader component
+/**
+ * AppHeader component
+ * 
+ * This component renders the application header via Carbon Components for React.
+ * Contains a Hambuger menu icon that expands the side navigation menu which links to various pages.
+ * 
+ * @returns {JSX.Element} The application header component
+ */
 const AppHeader = () => (
   <HeaderContainer
     render={({ isSideNavExpanded, onClickSideNavExpand }) => (

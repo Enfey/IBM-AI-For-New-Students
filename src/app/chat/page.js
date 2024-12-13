@@ -22,6 +22,18 @@ const formatTimestamp = () => {
   return now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }); 
 };
 
+/**
+ * Handles the onClick event for the "Send" button
+ * 
+ * - Fetches user input from the textArea
+ * - Sends a POST request to the /api` endpoint with the user input to get a response from the WatsonX Assistant
+ * - Handles success and error responses
+ * - Displays both user input with a timestamp and the chatbot response in the message container
+ * 
+ * @async
+ * @function
+ * @returns {Promise<void>} 
+ */
 async function onSubmitClick() {
     // Fetches textArea for user input
     const textArea = document.querySelector('textarea');
@@ -69,6 +81,14 @@ async function onSubmitClick() {
     textArea.value = '';
 }
 
+/**
+ * ChatPage component
+ * 
+ * This component is responsible for rendering the chat page, including the user input area and a message
+ * container to display conversation.
+ * 
+ * @returns {JSX.Element} The chat page component
+ */
 export default function ChatPage() {
   return (
     <div className='layout_container'>
