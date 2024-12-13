@@ -3,18 +3,6 @@
 
 import { ArrowRight } from '@carbon/icons-react';
 import { TextArea, Button } from '@carbon/react';
-import {WebChatCustomElement} from '@ibm-watson/assistant-web-chat-react';
-
-// Options for the Watson Embedded Chatbot
-const watsonAssistantChatOptions = {
-  integrationID: "fdc6b027-684b-49a3-a8c0-82e0c7c90c97", // The ID of this integration.
-  region: "eu-gb", // The region your integration is hosted in.
-  serviceInstanceID: "f0d47658-0d2a-4a9e-a2b0-454062c0bf3d",// The ID of your service instance.
-  openChatByDefault: true,
-  headerConfig: {
-    hideMinimizeButton: true,
-  }
-}
 
 // Returns formatted timestamp
 const formatTimestamp = () => {
@@ -37,14 +25,18 @@ async function onSubmitClick() {
         }
     })
 
-    // Converts response object to JSON and creates two divs, one for user and one for the chatbot
+    // Converts response object to JSON and creates three divs, one for user and one for the chatbot and one for the timestamp of the user message
     // Assigns unique class identifiers so the respective styles can be applied
     const json = await response.json();
+
     const userMessage = document.createElement('div');
     userMessage.className = 'message user_message';
 
     const aiMessage = document.createElement('div');
     aiMessage.className = 'message watson_message';
+    
+    const userTimestamp = document.createElement('div');
+    userTimestamp.className = 'timestamp';
 
     // Handles the output message depending on if the status returned an error or success
     let returnMessage;
@@ -57,16 +49,21 @@ async function onSubmitClick() {
             break;
     }
 
-    // Sets the text of each message
+    // Sets the text of each message and timestamp
     userMessage.textContent = textArea.value;
     aiMessage.textContent = returnMessage;
+    userTimestamp.textContent = formatTimestamp();
 
-    // Adds both of the divs to the message container
+    // Adds both of the divs to the message container and appends the timestamp to the user message
     document.querySelector('.message_container').appendChild(userMessage)
     document.querySelector('.message_container').appendChild(aiMessage);
+    userMessage.appendChild(userTimestamp);
 
     // Clears the contents of the textArea
     textArea.value = '';
+
+    // Scrolls to the bottom of the page
+    window.scrollTo(0, document.body.scrollHeight);
 }
 
 export default function ChatPage() {
@@ -80,7 +77,6 @@ export default function ChatPage() {
           <Button renderIcon = { ArrowRight } onClick={() => onSubmitClick()}>Send</Button>
       </div>
 
-      {/*<WebChatCustomElement config={watsonAssistantChatOptions} className='web_chat_column' /> */}
       <div className="right_column"></div>
     </div>
   );
