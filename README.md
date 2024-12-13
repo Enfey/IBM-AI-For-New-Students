@@ -53,17 +53,17 @@ To run this project locally, follow these steps:
 
 2. **Install dependencies:**
    ```bash
-   npm install
+   yarn install
    ```
 
 3. **Build the project:**
    ```bash
-   npm build
+   yarn build
    ```
 
 4. **Start the local server:**
    ```bash
-   npm start
+   yarn dev
    ```
 
 5. **Access the application:**
