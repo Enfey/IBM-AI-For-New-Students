@@ -1,6 +1,5 @@
 # AI for New Students
 
----
 
 ## Project Overview
 **AI for New Students** is an intelligent chatbot project designed for freshmen to help them quickly adjust to campus life. Developed by Team 32, the project uses Watsonx Assistant Api to build a dialogue-based AI assistant that answers common questions and provides personalized recommendations.
@@ -12,12 +11,10 @@ Project Goals and Vision
     <img src="./docs/design-prototypes/iPhone 13 & 14 - Speech Bubbles.png" alt="Design Prototype" height="400">
 </div>
 
----
 
 ## Project Goals and Vision
 The vision of this project is to create an intuitive AI assistant that empowers students to independently navigate university life. By reducing reliance on human support staff, it provides students with timely, accessible, and personalized guidance. In the future, this system aims to expand to support multiple campuses and deliver cross-cultural assistance.
 
----
 
 ## Team members
 - **Team Leader**: Roberto Da Silva
@@ -25,7 +22,6 @@ The vision of this project is to create an intuitive AI assistant that empowers 
 - **Git Lead**: Zefei Xie
 - **Core Members**: Connor Saxton, Trey Kilian Alcantara, Felix Riley-Kay, Jeshuran Jebanesan, Parth Amreliya
 
----
 
 ## Directory Structure
 ```plaintext
@@ -39,7 +35,6 @@ AI-for-New-Students/
 └── data/              # Dataset (if any)
 ```
 
----
 ## **Tech Stack**
 - **Frontend**: Carbon React, Next.js, Node.js 
 - **Backend**: IBM Watsonx Assistant API
@@ -47,7 +42,6 @@ AI-for-New-Students/
 - **Project Management**: Agile / Scrum, Kanban Board (via [Trello](https://trello.com/b/udjBpvNW/ibm-ai-for-new-students))  
 
 
----
 
 ## **Installation and Setup**
 To run this project locally, follow these steps:
@@ -78,13 +72,11 @@ To run this project locally, follow these steps:
    http://localhost:3000
    ```
 
----
 
 ## **How to Use**
 1. **Ask Questions**: Users can ask questions like "Where is the library?" or "How do I book a sports facility?".
 2. **Get Personalized Recommendations**: The chatbot provides customized suggestions based on the student’s interests and behavior.
 
----
 
 ## **Key Features**
 - **Personalized Recommendations**: Tailored suggestions based on user input.
@@ -93,7 +85,6 @@ To run this project locally, follow these steps:
 - **IT service**: Provide service help to the students' IT issues.
 - **Clear Design**: Easy-to-use interface for smooth interaction.
 
----
 
 ## **Progress**
 | **Phase**                 | **Description**                              | **Completion Date** | **Status**  |
@@ -108,19 +99,16 @@ To run this project locally, follow these steps:
 | **Testing & QA**          | Conduct testing and bug fixes                | --------            | 🔄 Upcoming  |
 
 
----
 
 ## **Usage Scenarios**
 - **Freshman Onboarding**: New students can ask questions about facilities, schedules, and orientation activities.
 - **Campus Navigation**: Students can request navigation assistance for campus buildings.
 - **Event Recommendations**: Students can receive personalized event and activity suggestions.
 
----
 
 ## **Testing**
 We employ **Lighthouse** and **Jest unit testing** to ensure high code quality. Tests are located in the `tests/` directory.
 
----
 
 ## **Project Management**
 We follow the **Agile/Scrum** methodology and manage our tasks using a **Kanban board** on Trello. Key development phases include:
@@ -129,16 +117,14 @@ We follow the **Agile/Scrum** methodology and manage our tasks using a **Kanban 
 3. **Backlog Grooming**
 4. **Sprint Reviews**
 
----
 
 ## **Contact and Support**
 If you have questions or need support, please contact:
 - **Team Leader**: Roberto Da Silva
 - **Git Lead**: Zefei Xie 
 
----
 
 ## **Acknowledgements**
-We would like to thank IBM for providing support and access to the Watsonx API, as well as all team members for their hard work and dedication.
+We would like to thank IBM for providing support and access to the Watsonx  Assistant API, as well as all team members for their hard work and dedication.
 
 
