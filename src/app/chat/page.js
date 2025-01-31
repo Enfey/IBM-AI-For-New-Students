@@ -59,6 +59,7 @@ async function onSubmitClick() {
 }
 
 export default function ChatPage() {
+
     useEffect(() => {
         const loadLive2DScript = () => {
             return new Promise((resolve, reject) => {
@@ -80,15 +81,15 @@ export default function ChatPage() {
                 window.OML2D.loadOml2d({
                     models: [
                         {
-                            path: '/test_model/index.json', //test the function right now
-                            position: [-10, 80],
-                            scale: 0.5
+                            path: '/duck_model/duck.model3.json', //test the function right now
+                            position: [0, -10],
+                            scale: 0.15
                         }
                     ],
                     container: '.live2d_container'
                 });
             })
-            .catch(err => console.error('加载 Live2D 失败:', err));
+            .catch(err => console.error('Load Live2D Error:', err));
     }, []);
 
     return (
