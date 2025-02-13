@@ -26,6 +26,7 @@
   grid-row: 1/2;
   height: 100%;
   display: flex;
+  overflow-y: auto;
   flex-direction: column;
 }
 
@@ -36,17 +37,36 @@
   font-size: 16px;
   line-height: 1.4;
   word-wrap: break-word;
-  margin-bottom: 20px;
+  margin-bottom: 30px;
   background-color: #f4f4f4;
+  margin-top: -4%;
 }
 
 .user_message {
+  margin-right: 36px;
   align-self: flex-end;
 }
 
 .watson_message {
-  background-color: colors.$blue-50;
+  background-color: colors.$blue-40;
+  margin-left: 36px;
   align-self: flex-start;
+}
+
+.aiImg {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  align-self: flex-start;
+  margin-top: 2%;
+}
+
+.userImg {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  align-self: flex-end;
+  margin-top: 2%;
 }
 
 .message {

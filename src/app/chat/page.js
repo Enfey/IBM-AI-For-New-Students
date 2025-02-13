@@ -33,6 +33,7 @@ async function onSubmitClick() {
     const userMessage = document.createElement('div');
     userMessage.className = 'message user_message';
 
+
     const aiMessage = document.createElement('div');
     aiMessage.className = 'message watson_message';
 
@@ -54,12 +55,24 @@ async function onSubmitClick() {
             break
     }
 
-    // Sets the text of each message
+    // Creates an image element for the user and adds besides the message
     userMessage.textContent = textArea.value;
+    const userImg = document.createElement('img');
+    userImg.src = "/image/OIP.jpg";
+    userImg.alt = "User";
+    userImg.classList.add('userImg');
+
+    // Creates an image element for the chatbot and adds it besides the message
     aiMessage.textContent = message
+    const aiImg = document.createElement('img');
+    aiImg.src = "/image/duck.png";
+    aiImg.alt = "AI";
+    aiImg.classList.add('aiImg');
 
     // Adds both of the divs to the message container
+    document.querySelector('.message_container').appendChild(userImg)
     document.querySelector('.message_container').appendChild(userMessage)
+    document.querySelector('.message_container').appendChild(aiImg)
     document.querySelector('.message_container').appendChild(aiMessage);
 
     // Clears the contents of the textArea
