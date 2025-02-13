@@ -39,9 +39,15 @@ async function onSubmitClick() {
     const jsonOutput = await response.json();
 
     let message;
+    // Depending on the status of the response, sets the message text and adds suggestions if available
     switch (jsonOutput.status) {
         case "INPUT_SUCCESS":
-            message = jsonOutput.payload.output.generic[0].text
+            // If the response contains suggestions, display them in a separate message
+            if (jsonOutput.suggestions.length > 0){
+                message = "Suggestions: \n"+ jsonOutput.suggestions.join(", ")
+            }else{
+                message = jsonOutput.texts +　"\n" + jsonOutput.options
+            }
             break
         case "INPUT_FAIL":
             message = "Sorry, I didn't get that. Could you repeat your message again?"

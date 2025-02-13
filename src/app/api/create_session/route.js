@@ -8,9 +8,9 @@ const { IamAuthenticator } = require('ibm-watson/auth');
 const assistant = new AssistantV2({
     version: '2025-02-12',
     authenticator: new IamAuthenticator({
-        apikey: process.env.APIKEY
+        apikey: "qlbsVOz1nD7krY8DoaMPl17cttyVdpqhwlHczoj-W0Hz"
     }),
-    serviceUrl: process.env.APIURL
+    serviceUrl: "https://api.eu-gb.assistant.watson.cloud.ibm.com/instances/f0d47658-0d2a-4a9e-a2b0-454062c0bf3d"
 })
 
 export async function GET(request) {
