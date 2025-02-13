@@ -16,11 +16,29 @@ async function onSubmitClick() {
         sessionID = data.payload
     }
 
+    // Converts response object to JSON and creates two divs, one for user and one for the chatbot
+    // Assigns unique class identifiers so the respective styles can be applied
+    const userMessage = document.createElement('div');
+    userMessage.className = 'message user_message';
+
+    // Creates an image element for the user and adds besides the message
+    userMessage.textContent = textArea.value;
+    const userImg = document.createElement('img');
+    userImg.src = "/image/OIP.jpg";
+    userImg.alt = "User";
+    userImg.classList.add('userImg');
+
+    // Adds both of the divs to the message container
+    document.querySelector('.message_container').appendChild(userImg)
+    document.querySelector('.message_container').appendChild(userMessage)
+    // Clears the contents of the textArea
+    textArea.value = '';
+
     // Uses fetch API to send a POST request to the back-end to get a response from the WatsonX Assistant
     const response = await fetch('/api/send_message', {
         method: 'POST',
         body: JSON.stringify({
-            message: textArea.value,
+            message: userMessage.textContent,
             session_id: sessionID
         }),
         headers: {
@@ -28,15 +46,9 @@ async function onSubmitClick() {
         }
     })
 
-    // Converts response object to JSON and creates two divs, one for user and one for the chatbot
-    // Assigns unique class identifiers so the respective styles can be applied
-    const userMessage = document.createElement('div');
-    userMessage.className = 'message user_message';
-
-
+    // Fetches the response from the back-end and creates a div for the chatbot
     const aiMessage = document.createElement('div');
     aiMessage.className = 'message watson_message';
-
     const jsonOutput = await response.json();
 
     let message;
@@ -55,13 +67,6 @@ async function onSubmitClick() {
             break
     }
 
-    // Creates an image element for the user and adds besides the message
-    userMessage.textContent = textArea.value;
-    const userImg = document.createElement('img');
-    userImg.src = "/image/OIP.jpg";
-    userImg.alt = "User";
-    userImg.classList.add('userImg');
-
     // Creates an image element for the chatbot and adds it besides the message
     aiMessage.textContent = message
     const aiImg = document.createElement('img');
@@ -69,14 +74,9 @@ async function onSubmitClick() {
     aiImg.alt = "AI";
     aiImg.classList.add('aiImg');
 
-    // Adds both of the divs to the message container
-    document.querySelector('.message_container').appendChild(userImg)
-    document.querySelector('.message_container').appendChild(userMessage)
     document.querySelector('.message_container').appendChild(aiImg)
     document.querySelector('.message_container').appendChild(aiMessage);
 
-    // Clears the contents of the textArea
-    textArea.value = '';
 }
 
 export default function ChatPage() {
