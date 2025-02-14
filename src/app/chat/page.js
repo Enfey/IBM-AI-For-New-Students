@@ -6,6 +6,21 @@ import { TextArea, Button } from '@carbon/react';
 
 let sessionID = null
 
+function scrollToBottom() {
+    const container = document.querySelector('.message_container');
+    if (container) {
+        // use requestAnimationFrame to ensure smooth scrolling
+        requestAnimationFrame(() => {
+            container.scrollTop = container.scrollHeight;
+
+            // wait for the container to update and then scroll again to ensure smooth scrolling
+            setTimeout(() => {
+                container.scrollTop = container.scrollHeight;
+            }, 50);
+        });
+    }
+}
+
 async function onSubmitClick() {
     // Fetches textArea for user input
     const textArea = document.querySelector('textarea');
@@ -33,6 +48,14 @@ async function onSubmitClick() {
     document.querySelector('.message_container').appendChild(userMessage)
     // Clears the contents of the textArea
     textArea.value = '';
+
+    // Creates an image element for the chatbot
+    const aiImg = document.createElement('img');
+    aiImg.src = "/image/duck.png";
+    aiImg.alt = "AI";
+    aiImg.classList.add('aiImg');
+    document.querySelector('.message_container').appendChild(aiImg)
+    scrollToBottom();
 
     // Uses fetch API to send a POST request to the back-end to get a response from the WatsonX Assistant
     const response = await fetch('/api/send_message', {
@@ -67,16 +90,10 @@ async function onSubmitClick() {
             break
     }
 
-    // Creates an image element for the chatbot and adds it besides the message
+    // Adds the message to the chat container
     aiMessage.textContent = message
-    const aiImg = document.createElement('img');
-    aiImg.src = "/image/duck.png";
-    aiImg.alt = "AI";
-    aiImg.classList.add('aiImg');
-
-    document.querySelector('.message_container').appendChild(aiImg)
     document.querySelector('.message_container').appendChild(aiMessage);
-
+    scrollToBottom();
 }
 
 export default function ChatPage() {
@@ -85,9 +102,20 @@ export default function ChatPage() {
             <div className="left_column"></div>
             <div className="message_container">
             </div>
-            <div id="user_input_area">
-                <TextArea placeholder="Enter your query." style={{ resize: 'none' }}/>
-                <Button renderIcon = { ArrowRight } onClick={() => onSubmitClick()}>Send</Button>
+
+            <div id="chat_container">
+                <div id="user_input_area">
+                    <TextArea
+                        className="chat-textarea"
+                        placeholder="Enter your query here."
+                    />
+                    <Button
+                        className="send-button"
+                        renderIcon={ArrowRight}
+                        onClick={() => onSubmitClick()}
+                    >
+                    </Button>
+                </div>
             </div>
 
             <div className="right_column"></div>
