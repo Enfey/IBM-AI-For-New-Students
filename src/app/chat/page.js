@@ -1,6 +1,7 @@
 // Use client directive to run this code clientside
 "use client";
 
+import React, { useEffect } from 'react';
 import { ArrowRight } from '@carbon/icons-react';
 import { TextArea, Button } from '@carbon/react';
 
@@ -97,9 +98,77 @@ async function onSubmitClick() {
 }
 
 export default function ChatPage() {
+
+    useEffect(() => {
+        const loadLive2DScript = () => {
+            return new Promise((resolve, reject) => {
+                if (window.OML2D) {
+                    resolve();
+                } else {
+                    const script = document.createElement('script');
+                    script.src = 'https://unpkg.com/oh-my-live2d@latest';
+                    script.async = true;
+                    script.onload = () => resolve();
+                    script.onerror = () => reject(new Error('Live2D 脚本加载失败'));
+                    document.body.appendChild(script);
+                }
+            });
+        };
+
+        loadLive2DScript()
+            .then(() => {
+                const live2d = window.OML2D.loadOml2d({
+                    models: [
+                        {
+                            path: '/duck_model/duck.model3.json', //test the function right now
+                            position: [0, -10],
+                            scale:0.15,
+                        }
+                    ],
+                    statusBar: {
+                        restMessage: 'Resting',
+                        loadSuccessMessage: 'Success'
+                    },
+                    tips: {
+                        style: {
+                            position: 'fixed',
+                            bottom: '300px',
+                            display: 'none',
+                        }
+                    },
+                    menus: {
+                        styles: {
+                            y: '100px !important',
+                        },
+                        items: [
+                            {
+                                id: 'Rest',
+                                icon: 'icon-rest',
+                                title: 'rest',
+                                onClick: (oml2d) => {
+                                    oml2d.stageSlideOut();
+                                    oml2d.setStatusBarClickEvent(
+                                        () => {
+                                            oml2d.stageSlideIn();
+                                            oml2d.statusBarClose('Success');
+                                        }
+                                    );
+                                    oml2d.statusBarOpen('Resting');
+                                }
+                            }
+                        ]
+                    },
+                    container: '.live2d_container'
+                });
+            })
+            .catch(error => console.error(error));
+    }, []);
+
+
     return (
         <div className='layout_container'>
             <div className="left_column"></div>
+            <div className="live2d_container"></div>
             <div className="message_container">
             </div>
 
