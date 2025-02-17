@@ -10,7 +10,7 @@ import {
   SideNavLink,
   HeaderPanel,
 } from '@carbon/react';
-import { Menu, RightPanelOpen } from '@carbon/icons-react';
+import { Menu } from '@carbon/icons-react';
 import Link from 'next/link';
 
 
@@ -40,6 +40,7 @@ const AppHeader = () => (
               <SideNavLink href="/chat">Chat</SideNavLink>
               <SideNavLink href="/settings">Settings</SideNavLink>
               <SideNavLink href="/about">About</SideNavLink>
+              <SideNavLink href="/logout">Logout</SideNavLink>
             </SideNavItems>
           </SideNavMenu>
         </HeaderPanel>
