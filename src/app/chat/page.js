@@ -126,6 +126,9 @@ export default function ChatPage() {
                         }
                     ],
                     statusBar: {
+                        style: {
+                            marginBottom: '80px',
+                        },
                         restMessage: 'Resting',
                         loadSuccessMessage: 'Success'
                     },
@@ -137,8 +140,8 @@ export default function ChatPage() {
                         }
                     },
                     menus: {
-                        styles: {
-                            y: '100px !important',
+                        style: {
+                            marginRight: '20px',
                         },
                         items: [
                             {
