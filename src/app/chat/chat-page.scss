@@ -12,13 +12,17 @@
 .left_column {
   grid-column: 1;
   grid-row: 1/2;
-  height: 70vh;
+  height: 82vh;
+  border-right: 1px solid rgba(100,105,125,0.2);
+  margin-top: -10vh;
 }
 
 .right_column {
   grid-column: 3;
   grid-row: 1/2;
-  height: 70vh;
+  height: 82vh;
+  border-left: 1px solid rgba(100,105,125,0.2);
+  margin-top: -10vh;
 }
 
 .message_container {
@@ -26,6 +30,8 @@
   grid-row: 1/2;
   height: 100%;
   display: flex;
+  overflow-y: auto;
+  overflow-scrolling: auto;
   flex-direction: column;
 }
 
@@ -36,17 +42,36 @@
   font-size: 16px;
   line-height: 1.4;
   word-wrap: break-word;
-  margin-bottom: 20px;
+  margin-bottom: 30px;
   background-color: #f4f4f4;
+  margin-top: -4%;
 }
 
 .user_message {
+  margin-right: 36px;
   align-self: flex-end;
 }
 
 .watson_message {
-  background-color: colors.$blue-50;
+  background-color: colors.$blue-40;
+  margin-left: 36px;
   align-self: flex-start;
+}
+
+.aiImg {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  align-self: flex-start;
+  margin-top: 2%;
+}
+
+.userImg {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  align-self: flex-end;
+  margin-top: 2%;
 }
 
 .message {
@@ -54,23 +79,66 @@
 }
 
 #user_input_area {
-  grid-column: 2;
-  grid-row: 2/3;
+  position: fixed;
+  width: 48.5%;
+  bottom: 0;
+  left: 25.75%;
+  right: translateX(-25.75%);
+  padding: 24px;
+  background: white;
   display: flex;
-  flex-direction: column;
-  justify-content: center;
-  margin-top: auto;
-  margin-bottom: 20px
+  align-items: center;
+  gap: 12px;
+  box-shadow: 0 -4px 12px rgba(0,0,0,0.05);
+  z-index: 100;
+  border-radius: 8px;
 }
 
-button {
-  margin-top: 10px;
-  align-self: center; 
+.chat-textarea {
+  flex-grow: 1;
+  background-color: white !important;
+  resize: vertical;
+  padding: 8px 8px 8px 8px;
+  border: 1px solid #e5e5e5;
+  border-radius: 8px;
+  font-size: 20px;
+  line-height: 1;
+  transition: all 0.3s ease-out;
 }
 
-button {
-  margin-top: 10px;
-  align-self: center; 
+.chat-textarea textarea {
+  background-color: inherit !important;
+  line-height: 0.9 !important;
+  border: none !important;
+  outline: none !important;
+}
+
+.chat-textarea textarea:focus {
+  border: none !important;
+}
+
+.chat-textarea:focus {
+  outline: none;
+  border-color: colors.$blue-50;
+  box-shadow: 0 0 0 2px rgba(100,105,125,0.2);
+}
+
+.send-button {
+  background: colors.$blue-50 !important;
+  color: white !important;
+  border: none;
+  border-radius: 8px;
+  padding: 16px 24px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+  display: flex;
+  align-items: center;
+  margin-bottom: -2%;
+  gap: 8px;
+}
+
+.send-button:hover {
+  background: colors.$blue-50-hover !important;
 }
 
 @media (max-width: 768px) {
@@ -97,6 +165,9 @@ button {
 
   #user_input_area {
     margin-top: 20px;
+    width: 100%;
+    left: 0;
+    right: 0;
   }
 
   button {

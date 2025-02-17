@@ -37,7 +37,7 @@ const AppHeader = () => (
         <HeaderPanel expanded={isSideNavExpanded} onHeaderPanelFocus={onClickSideNavExpand}>
           <SideNavMenu title="Menu">
             <SideNavItems>
-              <SideNavLink href="/">Chat</SideNavLink>
+              <SideNavLink href="/chat">Chat</SideNavLink>
               <SideNavLink href="/settings">Settings</SideNavLink>
               <SideNavLink href="/about">About</SideNavLink>
             </SideNavItems>
