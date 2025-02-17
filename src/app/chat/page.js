@@ -78,18 +78,51 @@ export default function ChatPage() {
 
         loadLive2DScript()
             .then(() => {
-                window.OML2D.loadOml2d({
+                const live2d = window.OML2D.loadOml2d({
                     models: [
                         {
                             path: '/duck_model/duck.model3.json', //test the function right now
                             position: [0, -10],
-                            scale: 0.15
+                            scale:0.15,
                         }
                     ],
+                    statusBar: {
+                        restMessage: 'Resting',
+                        loadSuccessMessage: 'Success'
+                    },
+                    tips: {
+                        style: {
+                            position: 'fixed',
+                            bottom: '300px',
+                            display: 'none',
+                        }
+                    },
+                    menus: {
+                        styles: {
+                            y: '100px !important',
+                        },
+                        items: [
+                            {
+                                id: 'Rest',
+                                icon: 'icon-rest',
+                                title: 'rest',
+                                onClick: (oml2d) => {
+                                    oml2d.stageSlideOut();
+                                    oml2d.setStatusBarClickEvent(
+                                        () => {
+                                            oml2d.stageSlideIn();
+                                            oml2d.statusBarClose('Success');
+                                        }
+                                    );
+                                    oml2d.statusBarOpen('Resting');
+                                }
+                            }
+                        ]
+                    },
                     container: '.live2d_container'
                 });
             })
-            .catch(err => console.error('Load Live2D Error:', err));
+            .catch(error => console.error(error));
     }, []);
 
     return (
