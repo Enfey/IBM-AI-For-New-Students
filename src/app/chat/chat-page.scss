@@ -1,67 +1,33 @@
 @use "@carbon/colors";
 
-//This file is delicate, please handle with care ^x^
-$spacing-sm: 10px;
-$spacing-md: 20px;
-$radius: 20px;
-$font-size-default: 16px;
-$font-size-small: 14px;
-$grid-gap: $spacing-sm;
-$transition-duration: 0.3s;
-$height: 100vh;
-
-@mixin flex-column {
-  display: flex;
-  flex-direction: column;
-}
-
-@mixin padding($vertical, $horizontal) {
-  padding: $vertical $horizontal;
-}
-
-@mixin fade-in {
-  animation: fadeIn $transition-duration ease-in-out;
-}
-
 .layout_container {
   display: grid;
   grid-template-columns: 1fr 2fr 1fr;
   grid-template-rows: 1fr auto;
-  gap: $grid-gap;
-  height: $height;
-
-  @media (max-width: 768px) {
-    @include flex-column;
-  }
-}
-
-.left_column,
-.right_column {
-  grid-row: 1 / 2;
-
-  @media (max-width: 768px) {
-    display: none;
-  }
+  grid-gap: 10px;
+  height: 70vh;
 }
 
 .left_column {
   grid-column: 1;
   grid-row: 1/2;
-  height: 82vh;
-  border-right: 1px solid rgba(100,105,125,0.2);
-  margin-top: -10vh;
+  height: 100%;
+  overflow-y: auto;
 }
 
 .right_column {
   grid-column: 3;
   grid-row: 1/2;
-  height: 82vh;
-  border-left: 1px solid rgba(100,105,125,0.2);
-  margin-top: -10vh;
+  height: 100%;
+  overflow-y: auto;
 }
 
 .message_container {
+  margin-top: -1%;
   grid-column: 2;
+  border: 1px solid colors.$gray-20;
+  padding: 5px;
+  border-radius: 10px;
   grid-row: 1/2;
   height: 100%;
   display: flex;
@@ -72,8 +38,8 @@ $height: 100vh;
 
 .message {
   padding: 12px 16px;
-  border-radius: 20px;
-  max-width: 75%;
+  border-radius: 10px;
+  max-width: 65%;
   font-size: 16px;
   line-height: 1.4;
   word-wrap: break-word;
@@ -176,9 +142,23 @@ $height: 100vh;
   background: colors.$blue-50-hover !important;
 }
 
-  @media (max-width: 768px) {
-    max-width: 90%;
-    font-size: $font-size-small;
+@media (max-width: 768px) {
+  .layout_container {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .left_column,
+  .right_column {
+    display: none;
+  }
+
+  .message_container {
+    flex-grow: 1;
+  }
+
+  .message {
+    font-size: 14px;
   }
 
   #user_input_area {
@@ -188,32 +168,18 @@ $height: 100vh;
     right: 0;
   }
 
-  &.watson_message {
-    background-color: colors.$blue-50;
-    align-self: flex-start;
-  }
-}
-
-.timestamp {
-  font-size: $font-size-small;
-  color: colors.$gray-70;
-  margin-top: $spacing-sm;
-}
-
-button {
-  margin-top: $spacing-sm;
-  align-self: center;
-
-  @media (max-width: 768px) {
-    margin: 0 $spacing-sm;
+  button {
+    margin-left: 10px;
+    margin-top: 0;
   }
 }
 
 @keyframes fadeIn {
-  from {
+  0% {
     opacity: 0;
   }
-  to {
+  100% {
     opacity: 1;
   }
 }
+
