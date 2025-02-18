@@ -7,7 +7,7 @@ import { useAuth } from '../../hooks/useAuth';
 import './home.scss';
 
 const Home = () => {
-  const { isLoggedIn } = useAuth();
+  const { isLoggedIn, isInitialised } = useAuth();
   const [showChat, setShowChat] = useState(false);
 
   // Show chat after 4.5 seconds
@@ -22,6 +22,10 @@ const Home = () => {
     }
     return () => clearTimeout(timer);
   }, [isLoggedIn]);
+
+  if (!isInitialised) {
+    return null;
+  }
 
   if (!isLoggedIn) {
     return (

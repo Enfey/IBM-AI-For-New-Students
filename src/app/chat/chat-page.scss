@@ -85,7 +85,7 @@ $colors: (
 
   @include mobile {
     font-size: map-get($font-sizes, small);
-    margin-top: -8%;
+    margin-top: -10%;
   }
 }
 
@@ -115,21 +115,21 @@ $colors: (
 .left_column {
   @extend %column-shared;
   grid-column: 1;
-  border-left: $border-style;
 }
 
 .right_column {
   @extend %column-shared;
   grid-column: 3;
-  border-right: $border-style;
 }
 
 .message_container {
-  margin-top: -1%;
   grid-column: 2;
   grid-row: 1 / 2;
   @include flex(column);
   padding-bottom: 100px;
+  border: 1px solid colors.$gray-20;
+  padding-bottom: 100px;
+  border-radius: 10px;
 
   @include mobile {
     flex-grow: 1;
