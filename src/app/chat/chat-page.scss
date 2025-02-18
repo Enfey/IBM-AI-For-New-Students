@@ -115,13 +115,11 @@ $colors: (
 .left_column {
   @extend %column-shared;
   grid-column: 1;
-  border-left: $border-style;
 }
 
 .right_column {
   @extend %column-shared;
   grid-column: 3;
-  border-right: $border-style;
 }
 
 .message_container {
