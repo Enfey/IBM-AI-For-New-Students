@@ -9,7 +9,7 @@ const assistant = new AssistantV2({
     version: '2025-02-12',
     authenticator: new IamAuthenticator({
         // !!!!  Replace with your API key !!!!
-        apikey: "put-your-apikey-here"
+        apikey: process.env.APIKEY
     }),
     serviceUrl: "https://api.eu-gb.assistant.watson.cloud.ibm.com/instances/f0d47658-0d2a-4a9e-a2b0-454062c0bf3d"
 })
