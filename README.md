@@ -20,6 +20,7 @@
 AI-for-New-Students/
 │
 ├── src/               # Source code files
+├── public/            # The resources folder for React / Next.js
 ├── tests/             # Test files
 ├── docs/              # Project documentation
 ├── config/            # Configuration files

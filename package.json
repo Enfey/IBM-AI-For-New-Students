@@ -17,6 +17,7 @@
     "@ibm-watson/assistant-web-chat-react": "^2.0.0",
     "ibm-watson": "^9.1.0",
     "next": "13.4.9",
+    "oh-my-live2d": "^0.19.3",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "sass": "1.63.6"
