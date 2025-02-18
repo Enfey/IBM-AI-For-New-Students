@@ -6,11 +6,11 @@ const AssistantV2 = require('ibm-watson/assistant/v2');
 const { IamAuthenticator } = require('ibm-watson/auth');
 
 const assistant = new AssistantV2({
-    version: '2025-02-12',
+    version: '2025-02-18',
     authenticator: new IamAuthenticator({
-        apikey: "?????"
+        apikey: process.env.APIKEY
     }),
-    serviceUrl: "https://api.eu-gb.assistant.watson.cloud.ibm.com/instances/f0d47658-0d2a-4a9e-a2b0-454062c0bf3d"
+    serviceUrl: process.env.APIURL
 })
 
 export async function GET(request) {
