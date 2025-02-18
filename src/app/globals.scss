@@ -9,6 +9,7 @@
   .cds--grid--no-gutter {
     padding-left: 1rem;
     padding-right: 1rem;
+    padding-top: 0;
   }
 }
 
@@ -16,5 +17,8 @@
 /// @link https://github.com/carbon-design-system/carbon/issues/3010
 .cds--content {
   margin-top: 3rem;
+  padding-left: 0;
+  padding-right: 0;
+  padding-top: 0;
   background: var(--cds-background);
 }

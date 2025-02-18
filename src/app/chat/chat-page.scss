@@ -106,6 +106,9 @@ $colors: (
   gap: map-get($layout, grid-gap);
   min-height: 100vh;
   height: auto;
+  min-width: 100vw;
+  margin-top: -30px;
+  padding-top: -30px;
 
   @include mobile {
     @include flex(column);
@@ -126,9 +129,9 @@ $colors: (
   grid-column: 2;
   grid-row: 1 / 2;
   @include flex(column);
-  padding-bottom: 100px;
+  background-color: white;
   border: 1px solid colors.$gray-20;
-  padding-bottom: 100px;
+  padding: 20px 5px 100px;
   border-radius: 10px;
 
   @include mobile {
@@ -161,10 +164,10 @@ $colors: (
 // ───────────────
 #user_input_area {
   position: fixed;
-  width: 48.5%;
+  width: 60%;
   bottom: 0;
-  left: 25.75%;
-  right: translateX(-25.75%);
+  left: 20%;
+  right: translateX(-20%);
   padding: 24px;
   background: white;
   display: flex;
