@@ -4,10 +4,12 @@ import { onAuthStateChanged, signOut } from 'firebase/auth';
 
 export const useAuth = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isInitialised, setIsInitialised] = useState(false);
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       setIsLoggedIn(!!user);
+      setIsInitialised(true);
     });
     return () => unsubscribe();
   }, []);
@@ -20,5 +22,5 @@ export const useAuth = () => {
     }
   };
 
-  return { isLoggedIn, logout };
+  return { isLoggedIn, logout, isInitialised };
 };
