@@ -121,7 +121,8 @@ export default function ChatPage() {
                         {
                             stageStyle:{
                                 marginBottom: '10px',
-                                marginLeft: '15px',
+                                marginLeft: '10px',
+                                border: '1px solid #E0E0E0FF',
                                 shadow: '0 0 10px rgba(0, 0, 0, 0.05)',
                                 borderRadius: '20px',
                                 backgroundColor: '#FFFFFF',
