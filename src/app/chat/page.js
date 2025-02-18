@@ -8,18 +8,13 @@ import { TextArea, Button } from '@carbon/react';
 let sessionID = null
 
 function scrollToBottom() {
-    const container = document.querySelector('.message_container');
-    if (container) {
-        // use requestAnimationFrame to ensure smooth scrolling
-        requestAnimationFrame(() => {
-            container.scrollTop = container.scrollHeight;
-
-            // wait for the container to update and then scroll again to ensure smooth scrolling
-            setTimeout(() => {
-                container.scrollTop = container.scrollHeight;
-            }, 50);
+    // Ensure DOM updated
+    setTimeout(() => {
+        window.scrollTo({
+            top: document.documentElement.scrollHeight,
+            behavior: 'smooth'
         });
-    }
+    }, 100); //delay
 }
 
 async function onSubmitClick() {
@@ -32,8 +27,11 @@ async function onSubmitClick() {
         sessionID = data.payload
     }
 
-    // Converts response object to JSON and creates two divs, one for user and one for the chatbot
-    // Assigns unique class identifiers so the respective styles can be applied
+    //
+    const messageWrapper = document.createElement('div');
+    messageWrapper.className = 'message_wrapper';
+
+    // Creates a div for the user message
     const userMessage = document.createElement('div');
     userMessage.className = 'user_message';
 
