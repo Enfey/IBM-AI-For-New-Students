@@ -1,7 +1,9 @@
 import { useState, useEffect } from 'react';
 import { auth } from '../../util/firebase';
-import { Form, TextInput, FormLabel, Button } from '@carbon/react';
+import { Form, TextInput, FormLabel, Button, PasswordInput } from '@carbon/react';
 import { signInWithEmailAndPassword } from 'firebase/auth';
+import './login-form.scss';
+import { Password } from '@carbon/icons-react';
 
 const LoginForm = () => {
     const [email, setEmail] = useState('');
@@ -17,7 +19,7 @@ const LoginForm = () => {
         try {
             const credential = await signInWithEmailAndPassword(auth, email, password);
             const user = credential.user;
-            console.log(user.email)
+            console.log(user.email);
 
             setEmail('');
             setPassword('');
@@ -46,35 +48,35 @@ const LoginForm = () => {
     };
 
     return (
-        <div className="login-form">
+        <div className="login_form_container">
             <Form onSubmit={handleLogin}>
-              
-                    <TextInput
-                        id="email"
-                        labelText="Email"
-                        type="email"
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                        required
-                    >
-                    </TextInput>
-               
-               
-                    <TextInput
-                        id="password"
-                        labelText="Password"
-                        type="password"
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
-                        required
-                    >
-                    </TextInput>
-                
-                <Button 
-                    type="submit" 
-                    disabled={loading}
+                <TextInput
+                    id="email"
+                    labelText="Email"
+                    type="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    required
+                    className="login_input"
+                    
                 >
-                    {loading ? 'Logging in...' : 'Login'} 
+                </TextInput>
+                <PasswordInput
+                    id="password"
+                    labelText="Password"
+                    type="password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    required
+                    className="login_input" 
+                >
+                </PasswordInput>
+                <Button
+                    type="submit"
+                    disabled={loading}
+                    className="login_button" 
+                >
+                    {loading ? 'Logging in...' : 'Login'}
                 </Button>
                 {error && <p className="error">{error}</p>}
             </Form>

@@ -12,41 +12,53 @@ import {
 } from '@carbon/react';
 import { Menu } from '@carbon/icons-react';
 import Link from 'next/link';
+import { useAuth } from '../../hooks/useAuth';
 
 
 
-const AppHeader = () => (
-  <HeaderContainer
-    render={({ isSideNavExpanded, onClickSideNavExpand }) => (
-      <Header aria-label="Team 32 Header">
-        <SkipToContent />
+const AppHeader = () => {
+  const { isLoggedIn, logout } = useAuth();
 
-        <Link href="/" passHref legacyBehavior>
-          <HeaderName prefix="IBM">AI For New Students</HeaderName>
-        </Link>
+  return (
+    <HeaderContainer
+      render={({ isSideNavExpanded, onClickSideNavExpand }) => (
+        <Header aria-label="Team 32 Header">
+          <SkipToContent />
 
-        <HeaderGlobalBar>
-          <HeaderGlobalAction
-            aria-label={isSideNavExpanded ? 'Close menu' : 'Open menu'} aria-expanded={isSideNavExpanded} isActive= {isSideNavExpanded} onClick={onClickSideNavExpand}
-            tooltipAlignment="end"
-            className="action-icons"
-          >
-            <Menu size={20} />
-          </HeaderGlobalAction>
-        </HeaderGlobalBar>
-        <HeaderPanel expanded={isSideNavExpanded} onHeaderPanelFocus={onClickSideNavExpand}>
-          <SideNavMenu title="Menu">
-            <SideNavItems>
-              <SideNavLink href="/chat">Chat</SideNavLink>
-              <SideNavLink href="/settings">Settings</SideNavLink>
-              <SideNavLink href="/about">About</SideNavLink>
-              <SideNavLink href="/logout">Logout</SideNavLink>
-            </SideNavItems>
-          </SideNavMenu>
-        </HeaderPanel>
-      </Header>
-    )}
-  /> 
-);
+          <Link href="/" passHref legacyBehavior>
+            <HeaderName prefix="IBM">AI For New Students</HeaderName>
+          </Link>
+
+          <HeaderGlobalBar>
+            {isLoggedIn && (
+              <HeaderGlobalAction
+                aria-label={isSideNavExpanded ? 'Close menu' : 'Open menu'}
+                aria-expanded={isSideNavExpanded}
+                isActive={isSideNavExpanded}
+                onClick={onClickSideNavExpand}
+                tooltipAlignment="end"
+                className="action-icons"
+              >
+                <Menu size={20} />
+              </HeaderGlobalAction>
+            )}
+          </HeaderGlobalBar>
+          {isLoggedIn && (
+            <HeaderPanel expanded={isSideNavExpanded} onHeaderPanelFocus={onClickSideNavExpand}>
+              <SideNavMenu title="Menu">
+                <SideNavItems>
+                  <SideNavLink href="/chat">Chat</SideNavLink>
+                  <SideNavLink href="/settings">Settings</SideNavLink>
+                  <SideNavLink href="/about">About</SideNavLink>
+                  <SideNavLink href="/" onClick={logout}>Logout</SideNavLink>
+                </SideNavItems>
+              </SideNavMenu>
+            </HeaderPanel>
+          )}
+        </Header>
+      )}
+    />
+  );
+};
 
 export default AppHeader;

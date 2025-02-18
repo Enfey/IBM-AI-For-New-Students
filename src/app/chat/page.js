@@ -35,14 +35,14 @@ async function onSubmitClick() {
     // Converts response object to JSON and creates two divs, one for user and one for the chatbot
     // Assigns unique class identifiers so the respective styles can be applied
     const userMessage = document.createElement('div');
-    userMessage.className = 'message user_message';
+    userMessage.className = 'user_message';
 
     // Creates an image element for the user and adds besides the message
     userMessage.textContent = textArea.value;
     const userImg = document.createElement('img');
     userImg.src = "/image/OIP.jpg";
     userImg.alt = "User";
-    userImg.classList.add('userImg');
+    userImg.classList.add('user_img');
 
     // Adds both of the divs to the message container
     document.querySelector('.message_container').appendChild(userImg)
@@ -54,7 +54,7 @@ async function onSubmitClick() {
     const aiImg = document.createElement('img');
     aiImg.src = "/image/duck.png";
     aiImg.alt = "AI";
-    aiImg.classList.add('aiImg');
+    aiImg.classList.add('ai_img');
     document.querySelector('.message_container').appendChild(aiImg)
     scrollToBottom();
 
@@ -72,7 +72,7 @@ async function onSubmitClick() {
 
     // Fetches the response from the back-end and creates a div for the chatbot
     const aiMessage = document.createElement('div');
-    aiMessage.className = 'message watson_message';
+    aiMessage.className = 'ai_message';
     const jsonOutput = await response.json();
 
     let message;
@@ -175,11 +175,11 @@ export default function ChatPage() {
             <div id="chat_container">
                 <div id="user_input_area">
                     <TextArea
-                        className="chat-textarea"
+                        className="chat_textarea"
                         placeholder="Enter your query here."
                     />
                     <Button
-                        className="send-button"
+                        className="send_button"
                         renderIcon={ArrowRight}
                         onClick={() => onSubmitClick()}
                     >

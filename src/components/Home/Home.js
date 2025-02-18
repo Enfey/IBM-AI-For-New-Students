@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import ChatPage from '../../app/chat/page';
 import LoginForm from '../LoginForm/LoginForm';
 import { useAuth } from '../../hooks/useAuth';
+import './home.scss';
 
 const Home = () => {
   const { isLoggedIn } = useAuth();
@@ -11,11 +12,16 @@ const Home = () => {
 
   // Show chat after 4.5 seconds
   useEffect(() => {
-    const timer = setTimeout(() => {
-      setShowChat(true);
-    }, 4500);
+    let timer;
+    if (isLoggedIn) {
+      // Reset chat view on new login
+      setShowChat(false);
+      timer = setTimeout(() => {
+        setShowChat(true);
+      }, 4500);
+    }
     return () => clearTimeout(timer);
-  }, []);
+  }, [isLoggedIn]);
 
   if (!isLoggedIn) {
     return (
