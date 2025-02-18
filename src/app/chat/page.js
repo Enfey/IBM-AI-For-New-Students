@@ -109,7 +109,7 @@ export default function ChatPage() {
                     script.src = 'https://unpkg.com/oh-my-live2d@latest';
                     script.async = true;
                     script.onload = () => resolve();
-                    script.onerror = () => reject(new Error('Live2D 脚本加载失败'));
+                    script.onerror = () => reject(new Error('Live2D failed to load.'));
                     document.body.appendChild(script);
                 }
             });
@@ -118,14 +118,25 @@ export default function ChatPage() {
         loadLive2DScript()
             .then(() => {
                 const live2d = window.OML2D.loadOml2d({
+                    primaryColor: '#4589FFFF',
                     models: [
                         {
+                            stageStyle:{
+                                marginBottom: '10px',
+                                marginLeft: '15px',
+                                shadow: '0 0 10px rgba(0, 0, 0, 0.05)',
+                                borderRadius: '20px',
+                                backgroundColor: '#FFFFFF',
+                            },
                             path: '/duck_model/duck.model3.json', //test the function right now
-                            position: [0, -10],
+                            position: [0,0],
                             scale:0.15,
                         }
                     ],
                     statusBar: {
+                        style: {
+                            marginBottom: '80px',
+                        },
                         restMessage: 'Resting',
                         loadSuccessMessage: 'Success'
                     },
@@ -137,8 +148,8 @@ export default function ChatPage() {
                         }
                     },
                     menus: {
-                        styles: {
-                            y: '100px !important',
+                        style: {
+                            marginRight: '20px',
                         },
                         items: [
                             {
