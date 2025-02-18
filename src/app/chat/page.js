@@ -97,6 +97,14 @@ async function onSubmitClick() {
     scrollToBottom();
 }
 
+/**
+ * ChatPage component
+ * 
+ * This component is responsible for rendering the chat page, including the user input area and a message
+ * container to display conversation.
+ * 
+ * @returns {JSX.Element} The chat page component
+ */
 export default function ChatPage() {
 
     useEffect(() => {
