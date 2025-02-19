@@ -5,6 +5,8 @@ import React, { useEffect } from 'react';
 import { ArrowRight } from '@carbon/icons-react';
 import { TextArea, Button } from '@carbon/react';
 import { marked } from 'marked';
+import { useRouter } from 'next/navigation';
+import { useAuth } from '../../hooks/useAuth';
 
 let sessionID = null
 
@@ -37,9 +39,9 @@ async function onSubmitClick() {
         sessionID = data.payload
     }
 
-    //
-    const messageWrapper = document.createElement('div');
-    messageWrapper.className = 'message_wrapper';
+    // Create a div for the user message wrapper
+    const userMessageWrapper = document.createElement('div');
+    userMessageWrapper.className = 'user_message_wrapper';
 
     // Creates a div for the user message
     const userMessage = document.createElement('div');
@@ -52,11 +54,17 @@ async function onSubmitClick() {
     userImg.alt = "User";
     userImg.classList.add('user_img');
 
-    // Adds both of the divs to the message container
-    document.querySelector('.message_container').appendChild(userImg)
-    document.querySelector('.message_container').appendChild(userMessage)
+    // Appends the user message and image to the message wrapper
+    userMessageWrapper.appendChild(userImg);
+    userMessageWrapper.appendChild(userMessage);
+    document.querySelector('.message_container').appendChild(userMessageWrapper)
+
     // Clears the contents of the textArea
     textArea.value = '';
+
+    // / Create a div for the ai message wrapper
+    const aiMessageWrapper = document.createElement('div');
+    aiMessageWrapper.className = 'ai_message_wrapper';
 
     // Creates an image element for the chatbot
     const aiImg = document.createElement('img');
@@ -106,11 +114,22 @@ async function onSubmitClick() {
 
     // Adds the message to the chat container
     aiMessage.innerHTML = marked.parse(message);
-    document.querySelector('.message_container').appendChild(aiMessage);
+
+    aiMessageWrapper.appendChild(aiImg);
+    aiMessageWrapper.appendChild(aiMessage);
+    document.querySelector('.message_container').appendChild(aiMessageWrapper);
     maybeScrollToBottom();
 }
 
 export default function ChatPage() {
+    const { isLoggedIn, isInitialised } = useAuth();
+    const router = useRouter();
+
+    useEffect(() => {
+        if (isInitialised && !isLoggedIn) {
+          router.replace('/'); // could redirect to /login in future and separate / from its component parts 
+        }
+      }, [isInitialised, isLoggedIn, router]);
 
     useEffect(() => {
         const loadLive2DScript = () => {
@@ -209,31 +228,28 @@ export default function ChatPage() {
             .catch(error => console.error(error));
     }, []);
 
-
+    
     return (
-        <div className='layout_container'>
-            <div className="left_column"></div>
-            <div className="live2d_container"></div>
-            <div className="message_container">
-            </div>
-
-            <div id="chat_container">
+        <>
+          {!isLoggedIn ? null : ( //ensures hooks are called deterministically
+            <div className="layout_container">
+              <div className="left_column"></div>
+              <div className="live2d_container"></div>
+              <div className="message_container"></div>
+              <div id="chat_container">
                 <div id="user_input_area">
-                    <TextArea
-                        className="chat_textarea"
-                        placeholder="Enter your query here."
-                    />
-                    <Button
-                        className="send_button"
-                        renderIcon={ArrowRight}
-                        onClick={() => onSubmitClick()}
-                    >
-                    </Button>
+                  <TextArea className="chat_textarea" placeholder="Enter your query here." />
+                  <Button
+                    className="send_button"
+                    renderIcon={ArrowRight}
+                    onClick={onSubmitClick}
+                  />
                 </div>
+              </div>
+              <div className="right_column"></div>
             </div>
-
-            <div className="right_column"></div>
-        </div>
-    );
-}
+          )}
+        </>
+      );
+    }
 

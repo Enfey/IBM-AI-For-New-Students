@@ -75,17 +75,12 @@ $colors: (
   font-size: map-get($font-sizes, default);
   line-height: 1.4;
   word-wrap: break-word;
-  margin-bottom: 5%;
+  margin-bottom: 6%;
   @include fade-in;
-
-
-  @media (max-width: 1620px) {
-    margin-top: -6%;
-  }
 
   @include mobile {
     font-size: map-get($font-sizes, small);
-    margin-top: -6%;
+    margin-bottom: 10%;
   }
 }
 
@@ -93,7 +88,7 @@ $colors: (
   width: 30px;
   height: 30px;
   border-radius: 50%;
-  margin-bottom: 1%;
+  margin-top: 1%; //looks uneven due to radius of message and image not matching
 }
 
 // ───────────────
@@ -145,17 +140,29 @@ $colors: (
 // Message Styles
 // ───────────────
 
+.ai_message_wrapper {
+  display: flex;
+  align-items: flex-start;
+  gap: map-get($spacing, sm);
+}
+
+.user_message_wrapper {
+  display: flex;
+  gap: map-get($spacing, sm);
+  flex-direction: row-reverse;
+}
+
 .user_message {
   @extend %message-shared;
   background-color: map-get($colors, user-bg);
-  margin-right: 36px;
+  margin-right: 5px;
   align-self: flex-end;
 }
 
 .ai_message {
   @extend %message-shared;
   background-color: map-get($colors, ai-bg);
-  margin-left: 36px;
+  margin-left: 5px;
   align-self: flex-start;
 }
 
@@ -237,14 +244,13 @@ $colors: (
 // Image Styles
 // ───────────────
 
+// Semantic
 .user_img {
   @extend %img-shared;
-  align-self: flex-end;
 }
 
 .ai_img {
   @extend %img-shared;
-  align-self: flex-start;
 }
 
 // ───────────────

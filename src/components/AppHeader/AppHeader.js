@@ -14,24 +14,26 @@ import {
 import { Menu } from '@carbon/icons-react';
 import Link from 'next/link';
 import { useAuth } from '../../hooks/useAuth';
+import { usePathname } from 'next/navigation';
 
 const AppHeader = () => {
     const { isLoggedIn, logout } = useAuth();
     const [isSideNavExpanded, setIsSideNavExpanded] = useState(false);
+    const pathname = usePathname();
+    const isChatPage = pathname === '/chat';
 
-    // Listen for window resize and toggle side nav accordingly
     useEffect(() => {
-        const handleResize = () => {
-            if (window.innerWidth > 1024) {
-                setIsSideNavExpanded(true);  // open on desktop
-            } else {
-                setIsSideNavExpanded(false); // close on mobile
-            }
+        const mq = window.matchMedia('(min-width: 1024px)');
+        setIsSideNavExpanded(mq.matches);
+
+        const handleMediaChange = (e) => {
+          setIsSideNavExpanded(e.matches);
         };
 
-        handleResize(); // initial call
-        window.addEventListener('resize', handleResize);
-        return () => window.removeEventListener('resize', handleResize);
+        mq.addEventListener('change', handleMediaChange);
+        return () => {
+          mq.removeEventListener('change', handleMediaChange);
+        };
     }, []);
 
     return (
@@ -45,7 +47,7 @@ const AppHeader = () => {
                     </Link>
 
                     <HeaderGlobalBar>
-                        {isLoggedIn && (
+                        {isLoggedIn && isChatPage && (
                             <HeaderGlobalAction
                                 aria-label={isSideNavExpanded ? 'Close menu' : 'Open menu'}
                                 aria-expanded={isSideNavExpanded}
@@ -59,7 +61,7 @@ const AppHeader = () => {
                         )}
                     </HeaderGlobalBar>
 
-                    {isLoggedIn && (
+                    {isLoggedIn && isChatPage && (
                         <HeaderPanel expanded={isSideNavExpanded}>
                             <SideNavMenu title="Menu">
                                 <SideNavItems>
