@@ -133,6 +133,12 @@ $colors: (
     flex-grow: 1;
     height: auto;
   }
+
+  a:link { color: #FFFFFF; }
+  a:visited { color: #FFFFFF; }
+  a:hover { color: colors.$magenta-60; }
+  a:active { color: #FF66CC; }
+  a { font-weight: bold; }
 }
 
 
