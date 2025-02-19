@@ -265,3 +265,15 @@ $colors: (
   color: map-get($colors, timestamp);
   margin-top: map-get($spacing, sm);
 }
+
+// ───────────────
+// Body Styles
+// ───────────────
+body {
+  background-color: #f4f4f4;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: map-get($spacing, md);
+}
