@@ -128,6 +128,7 @@ export default function ChatPage() {
             .then(() => {
                 const live2d = window.OML2D.loadOml2d({
                     primaryColor: '#4589FFFF',
+                    mobileDisplay: true,
                     models: [
                         {
                             stageStyle:{
@@ -141,16 +142,32 @@ export default function ChatPage() {
                             path: '/duck_model/duck.model3.json', //test the function right now
                             position: [0,0],
                             scale:0.15,
+                            mobileScale:0.15,
+                            mobilePosition: [0,0],
+                            mobileStageStyle:{
+                                marginBottom: '10px',
+                                marginLeft: '10px',
+                                border: '1px solid #E0E0E0FF',
+                                shadow: '0 0 10px rgba(0, 0, 0, 0.05)',
+                                borderRadius: '20px',
+                                backgroundColor: '#FFFFFF',
+                            }
                         }
                     ],
                     statusBar: {
+                        mobileStyle: {
+                            marginBottom: '100px',
+                        },
                         style: {
                             marginBottom: '80px',
                         },
                         restMessage: 'Resting',
-                        loadSuccessMessage: 'Success'
+                        loadSuccessMessage: 'Ready'
                     },
                     tips: {
+                        mobileStyle:{
+                            display: 'none',
+                        },
                         style: {
                             position: 'fixed',
                             bottom: '300px',
@@ -158,6 +175,9 @@ export default function ChatPage() {
                         }
                     },
                     menus: {
+                        mobileStyle: {
+                            marginRight: '20px',
+                        },
                         style: {
                             marginRight: '20px',
                         },
