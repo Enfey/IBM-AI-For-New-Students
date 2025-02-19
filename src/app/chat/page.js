@@ -4,6 +4,7 @@
 import React, { useEffect } from 'react';
 import { ArrowRight } from '@carbon/icons-react';
 import { TextArea, Button } from '@carbon/react';
+import { marked } from 'marked';
 
 let sessionID = null
 
@@ -84,14 +85,17 @@ async function onSubmitClick() {
     aiMessage.className = 'ai_message';
     const jsonOutput = await response.json();
 
-    let message;
+    // Rather than being uninitialsed, send this message if one of the cases isn't entered like expected
+    let message = "Sorry, something went wrong; please try again.";
     // Depending on the status of the response, sets the message text and adds suggestions if available
     switch (jsonOutput.status) {
         case "INPUT_SUCCESS":
-            // If the response contains suggestions, display them in a separate message
-            if (jsonOutput.suggestions.length > 0){
+            if (jsonOutput == []) {
+                console.log("Error: empty response received")
+            // If the response contains suggestions, display them in a separate message    
+            } else if (jsonOutput.suggestions.length > 0) {
                 message = "Suggestions: \n"+ jsonOutput.suggestions.join(", ")
-            }else{
+            } else {
                 message = jsonOutput.texts +　"\n" + jsonOutput.options
             }
             break
@@ -101,7 +105,7 @@ async function onSubmitClick() {
     }
 
     // Adds the message to the chat container
-    aiMessage.textContent = message
+    aiMessage.innerHTML = marked.parse(message);
     document.querySelector('.message_container').appendChild(aiMessage);
     maybeScrollToBottom();
 }
