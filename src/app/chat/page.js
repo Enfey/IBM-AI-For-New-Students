@@ -7,14 +7,23 @@ import { TextArea, Button } from '@carbon/react';
 
 let sessionID = null
 
-function scrollToBottom() {
-    // Ensure DOM updated
-    setTimeout(() => {
-        window.scrollTo({
-            top: document.documentElement.scrollHeight,
-            behavior: 'smooth'
-        });
-    }, 100); //delay
+// Scrolls to the bottom of the chat container if the element is at least 60% of the container height
+function maybeScrollToBottom() {
+    const messageContainer = document.querySelector('.message_container');
+    const lastChild = messageContainer.lastElementChild;
+    if (!lastChild) return; // if no element, do nothing
+
+    const containerHeight = messageContainer.clientHeight; // Get the height of the container
+    const lastChildOffset = lastChild.offsetTop - messageContainer.scrollTop; // Calculate the offset of the last child from the top of the container
+
+    if (lastChildOffset > containerHeight * 0.6) {
+        setTimeout(() => {
+            window.scrollTo({
+                top: document.documentElement.scrollHeight,
+                behavior: 'smooth'
+            });
+        }, 100);
+    }
 }
 
 async function onSubmitClick() {
@@ -54,7 +63,9 @@ async function onSubmitClick() {
     aiImg.alt = "AI";
     aiImg.classList.add('ai_img');
     document.querySelector('.message_container').appendChild(aiImg)
-    scrollToBottom();
+
+    // Scrolls to the bottom of the chat container
+    maybeScrollToBottom();
 
     // Uses fetch API to send a POST request to the back-end to get a response from the WatsonX Assistant
     const response = await fetch('/api/send_message', {
@@ -92,7 +103,7 @@ async function onSubmitClick() {
     // Adds the message to the chat container
     aiMessage.textContent = message
     document.querySelector('.message_container').appendChild(aiMessage);
-    scrollToBottom();
+    maybeScrollToBottom();
 }
 
 export default function ChatPage() {

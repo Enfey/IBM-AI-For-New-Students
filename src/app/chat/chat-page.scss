@@ -75,7 +75,7 @@ $colors: (
   font-size: map-get($font-sizes, default);
   line-height: 1.4;
   word-wrap: break-word;
-  margin-top: -4%;
+  margin-bottom: 5%;
   @include fade-in;
 
 
@@ -85,7 +85,7 @@ $colors: (
 
   @include mobile {
     font-size: map-get($font-sizes, small);
-    margin-top: -10%;
+    margin-top: -6%;
   }
 }
 
@@ -93,7 +93,7 @@ $colors: (
   width: 30px;
   height: 30px;
   border-radius: 50%;
-  margin-top: 2%;
+  margin-bottom: 1%;
 }
 
 // ───────────────
@@ -132,7 +132,7 @@ $colors: (
   background-color: white;
   border: 1px solid colors.$gray-20;
   padding: 20px 5px 100px;
-  border-radius: 10px;
+  border-radius: 10px 10px 0 0;
 
   @include mobile {
     flex-grow: 1;
