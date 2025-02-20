@@ -126,8 +126,10 @@ $colors: (
   @include flex(column);
   background-color: white;
   border: 1px solid colors.$gray-20;
-  padding: 20px 5px 100px;
+  padding: 30px 5px 100px;
   border-radius: 10px 10px 0 0;
+  max-width: 100%;
+  overflow-x: hidden;
 
   @include mobile {
     flex-grow: 1;
@@ -150,12 +152,20 @@ $colors: (
   display: flex;
   align-items: flex-start;
   gap: map-get($spacing, sm);
+  max-width: 100%;
+  overflow-wrap: break-word;
+  word-break: break-word;
+  overflow-x: hidden;
 }
 
 .user_message_wrapper {
   display: flex;
   gap: map-get($spacing, sm);
   flex-direction: row-reverse;
+  max-width: 100%;
+  overflow-wrap: break-word;
+  word-break: break-word;
+  overflow-x: hidden;
 }
 
 .user_message {
@@ -288,4 +298,5 @@ body {
   align-items: center;
   min-height: 100vh;
   padding: map-get($spacing, md);
+  overflow-x: hidden !important;
 }
