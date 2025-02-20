@@ -20,7 +20,7 @@ const AppHeader = () => {
     const { isLoggedIn, logout } = useAuth();
     const [isSideNavExpanded, setIsSideNavExpanded] = useState(false);
     const pathname = usePathname();
-    const isChatPage = pathname === '/chat';
+    const hasSideNav = pathname === '/chat' || pathname === '/settings' || pathname === '/about';
 
     useEffect(() => {
         const mq = window.matchMedia('(min-width: 1024px)');
@@ -47,7 +47,7 @@ const AppHeader = () => {
                     </Link>
 
                     <HeaderGlobalBar>
-                        {isLoggedIn && isChatPage && (
+                        {isLoggedIn && hasSideNav && (
                             <HeaderGlobalAction
                                 aria-label={isSideNavExpanded ? 'Close menu' : 'Open menu'}
                                 aria-expanded={isSideNavExpanded}
@@ -61,16 +61,16 @@ const AppHeader = () => {
                         )}
                     </HeaderGlobalBar>
 
-                    {isLoggedIn && isChatPage && (
+                    {hasSideNav && (
                         <HeaderPanel expanded={isSideNavExpanded}>
-                            <SideNavMenu title="Menu">
-                                <SideNavItems>
-                                    <SideNavLink href="/chat">Chat</SideNavLink>
-                                    <SideNavLink href="/settings">Settings</SideNavLink>
-                                    <SideNavLink href="/about">About</SideNavLink>
-                                    <SideNavLink href="/" onClick={logout}>Logout</SideNavLink>
-                                </SideNavItems>
-                            </SideNavMenu>
+
+                            <SideNavItems>
+                                <SideNavLink href="/chat">Chat</SideNavLink>
+                                <SideNavLink href="/settings">Settings</SideNavLink>
+                                <SideNavLink href="/about">About</SideNavLink>
+                                <SideNavLink href="/" onClick={logout}>Logout</SideNavLink>
+                            </SideNavItems>
+
                         </HeaderPanel>
                     )}
                 </Header>
