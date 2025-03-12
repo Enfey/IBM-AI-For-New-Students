@@ -7,6 +7,7 @@ import { TextArea, Button } from '@carbon/react';
 import { marked } from 'marked';
 import { useRouter } from 'next/navigation';
 import { useAuth } from '../../hooks/useAuth';
+import DynamicMap from '../api/google_map/route'
 
 let sessionID = null
 
@@ -233,7 +234,9 @@ export default function ChatPage() {
         <>
           {!isLoggedIn ? null : ( //ensures hooks are called deterministically
             <div className="layout_container">
-              <div className="left_column"></div>
+              <div className="left_column">
+                  <DynamicMap location="Nottingham, UK" />
+              </div>
               <div className="live2d_container"></div>
               <div className="message_container"></div>
               <div id="chat_container">
