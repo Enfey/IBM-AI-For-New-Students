@@ -64,14 +64,21 @@ const AppHeader = () => {
                     {hasSideNav && (
                         <HeaderPanel expanded={isSideNavExpanded}>
 
-                            <SideNavItems>
-                                <SideNavLink href="/chat">Chat</SideNavLink>
-                                <SideNavLink href="/settings">Settings</SideNavLink>
-                                <SideNavLink href="/about">About</SideNavLink>
-                                <SideNavLink href="/announcement">Announcements</SideNavLink>
-                                <SideNavLink href="/playground">Playground</SideNavLink>
-                                <SideNavLink href="/resource">Resources</SideNavLink>
-                                <SideNavLink href="/" onClick={logout}>Logout</SideNavLink>
+                            <SideNavItems className="side-nav-items">
+                                <div className="side-nav-pages" >
+                                    <SideNavLink href="/chat">Chat</SideNavLink>
+                                    <SideNavLink href="/settings">Settings</SideNavLink>
+                                    <SideNavLink href="/about">About</SideNavLink>
+                                    <SideNavLink href="/announcement">Announcements</SideNavLink>
+                                    <SideNavLink href="/playground">Playground</SideNavLink>
+                                    <SideNavLink href="/resource">Resources</SideNavLink>
+                                    <SideNavMenu title="History" defaultExpanded={true}>
+                                        <SideNavLink href="/history1">History1</SideNavLink>
+                                        <SideNavLink href="/history2">History1</SideNavLink>
+                                        <SideNavLink href="/history3">History1</SideNavLink>
+                                    </SideNavMenu>
+                                </div>
+                                <SideNavLink href="/" onClick={logout} className="logout">Logout</SideNavLink>
                             </SideNavItems>
 
                         </HeaderPanel>

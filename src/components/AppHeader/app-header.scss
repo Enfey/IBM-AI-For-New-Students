@@ -6,3 +6,18 @@
 .cds--header__global .cds--popover-content {
   background-color: colors.$gray-20;
 }
+
+.side-nav-items {
+  display: flex;
+  flex-direction: column;
+  height: 100%
+}
+
+.side-nav-pages {
+  flex: 1;
+}
+
+.logout{
+  margin-top: auto;
+  margin-bottom: 10px;
+}
