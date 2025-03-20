@@ -1,13 +1,14 @@
 // Use client directive to run this code clientside
 "use client";
 
-import React, { useEffect } from 'react';
+import React, {useEffect, useState} from 'react';
 import {Add, ArrowRight} from '@carbon/icons-react';
-import { TextArea, Button } from '@carbon/react';
+import {TextArea, Button, ComposedModal, ModalFooter, ModalHeader, ModalBody} from '@carbon/react';
 import { marked } from 'marked';
 import { useRouter } from 'next/navigation';
 import { useAuth } from '../../hooks/useAuth';
 import DynamicMap from '../api/google_map/route'
+import * as ReactDOM from "react-dom";
 
 let sessionID = null
 
@@ -28,6 +29,44 @@ function maybeScrollToBottom() {
             });
         }, 100);
     }
+}
+
+// This function creates a custom modal for creating a new session
+// It is called when the user clicks the "New Session" button
+// Still need to link newSession() to the button click event
+
+function CustomModal() {
+    const [open, setOpen] = useState(false);
+
+    return (
+        <>
+            <Button onClick={() => setOpen(true)} className="send_button" renderIcon={Add}></Button>
+
+            <ComposedModal
+                size="xs"
+                open={open}
+                onRequestClose={() => setOpen(false)}
+                preventCloseOnClickOutside={true}
+            >
+                <ModalBody>
+                    <h3> Create a new session </h3>
+                    <br/>
+                    <div style={{display: "flex", justifyContent: "center", alignItems: "center", textAlign: "center"}}>
+                        <p>This behaviour will stop the current session and create a new one. Are you sure you want to continue?</p>
+                    </div>
+                    </ModalBody>
+                <ModalFooter
+                    danger
+                    primaryButtonText="OK"
+                    secondaryButtonText="Cancel"
+                    onRequestClose={() => setOpen(false)}
+                    onRequestSubmit={() => {
+                        setOpen(false);
+                    }}
+                />
+            </ComposedModal>
+        </>
+    );
 }
 
 async function newSession() {
@@ -233,10 +272,9 @@ export default function ChatPage() {
             .catch(error => console.error(error));
     }, []);
 
-    
     return (
         <>
-          {!isLoggedIn ? null : ( //ensures hooks are called deterministically
+          {!isLoggedIn ? null : (//ensures hooks are called deterministically
             <div className="layout_container">
               <div className="left_column">
                   <DynamicMap location="Nottingham, UK" />
@@ -248,7 +286,7 @@ export default function ChatPage() {
                   <TextArea className="chat_textarea" placeholder="Enter your query here." />
                     <div className="button-group">
                         <Button className="send_button" renderIcon={ArrowRight} onClick={onSubmitClick} />
-                        <Button className="send_button" renderIcon={Add} onClick={newSession} />
+                        <CustomModal />
                     </div>
                 </div>
               </div>
