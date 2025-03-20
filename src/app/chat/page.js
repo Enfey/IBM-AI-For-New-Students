@@ -2,7 +2,7 @@
 "use client";
 
 import React, { useEffect } from 'react';
-import { ArrowRight } from '@carbon/icons-react';
+import {Add, ArrowRight} from '@carbon/icons-react';
 import { TextArea, Button } from '@carbon/react';
 import { marked } from 'marked';
 import { useRouter } from 'next/navigation';
@@ -28,6 +28,10 @@ function maybeScrollToBottom() {
             });
         }, 100);
     }
+}
+
+async function newSession() {
+
 }
 
 async function onSubmitClick() {
@@ -242,11 +246,10 @@ export default function ChatPage() {
               <div id="chat_container">
                 <div id="user_input_area">
                   <TextArea className="chat_textarea" placeholder="Enter your query here." />
-                  <Button
-                    className="send_button"
-                    renderIcon={ArrowRight}
-                    onClick={onSubmitClick}
-                  />
+                    <div className="button-group">
+                        <Button className="send_button" renderIcon={ArrowRight} onClick={onSubmitClick} />
+                        <Button className="send_button" renderIcon={Add} onClick={newSession} />
+                    </div>
                 </div>
               </div>
               <div className="right_column"></div>

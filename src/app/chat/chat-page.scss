@@ -256,6 +256,14 @@ $colors: (
     margin: 0 map-get($spacing, sm);
   }
 }
+
+.button-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+
 // ───────────────
 // Image Styles
 // ───────────────
