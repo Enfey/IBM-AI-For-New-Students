@@ -60,8 +60,13 @@ function CustomModal() {
                     primaryButtonText="OK"
                     secondaryButtonText="Cancel"
                     onRequestClose={() => setOpen(false)}
-                    onRequestSubmit={() => {
-                        setOpen(false);
+                    onRequestSubmit={async () => {
+                        try {
+                            await newSession();
+                            setOpen(false);
+                        } catch (error) {
+                            console.error("Error in newSession:", error);
+                        }
                     }}
                 />
             </ComposedModal>
@@ -70,7 +75,15 @@ function CustomModal() {
 }
 
 async function newSession() {
+    // TODO save the history
 
+    // create a new session by sending a POST request to the back-end
+    const response = await fetch('/api/create_session');
+    const data = await response.json();
+    sessionID = data.payload
+
+    // Clears the chat container
+    document.querySelector('.message_container').innerHTML = "";
 }
 
 async function onSubmitClick() {
