@@ -3,12 +3,13 @@
 
 import React, {useEffect, useState} from 'react';
 import {Add, ArrowRight} from '@carbon/icons-react';
-import {TextArea, Button, ComposedModal, ModalFooter, ModalHeader, ModalBody} from '@carbon/react';
+import {TextArea, Button, ComposedModal, ModalFooter, ModalBody} from '@carbon/react';
 import { marked } from 'marked';
 import { useRouter } from 'next/navigation';
 import { useAuth } from '../../hooks/useAuth';
 import DynamicMap from '../api/google_map/route'
 import * as ReactDOM from "react-dom";
+import Loading from "@carbon/react/es/components/Loading/Loading";
 
 let sessionID = null
 
@@ -74,6 +75,9 @@ function CustomModal() {
     );
 }
 
+// This function creates a new session by sending a POST request to the back-end
+// Clean the current chat history and create a new session
+
 async function newSession() {
     // TODO save the history
 
@@ -128,7 +132,17 @@ async function onSubmitClick() {
     aiImg.src = "/image/duck.png";
     aiImg.alt = "AI";
     aiImg.classList.add('ai_img');
-    document.querySelector('.message_container').appendChild(aiImg)
+    aiMessageWrapper.appendChild(aiImg);
+
+    // Creates a message div for the chatbot message
+    const aiMessage = document.createElement('div');
+    aiMessage.className = 'ai_message';
+    aiMessageWrapper.appendChild(aiMessage);
+    ReactDOM.render(
+        <Loading active={true} className="some-class" description="Loading" />,
+        aiMessage
+    );
+    document.querySelector('.message_container').appendChild(aiMessageWrapper);
 
     // Scrolls to the bottom of the chat container
     maybeScrollToBottom();
@@ -146,8 +160,6 @@ async function onSubmitClick() {
     })
 
     // Fetches the response from the back-end and creates a div for the chatbot
-    const aiMessage = document.createElement('div');
-    aiMessage.className = 'ai_message';
     const jsonOutput = await response.json();
 
     // Rather than being uninitialsed, send this message if one of the cases isn't entered like expected
@@ -168,13 +180,9 @@ async function onSubmitClick() {
             message = "Sorry, I didn't get that. Could you repeat your message again?"
             break
     }
-
     // Adds the message to the chat container
     aiMessage.innerHTML = marked.parse(message);
 
-    aiMessageWrapper.appendChild(aiImg);
-    aiMessageWrapper.appendChild(aiMessage);
-    document.querySelector('.message_container').appendChild(aiMessageWrapper);
     maybeScrollToBottom();
 }
 
