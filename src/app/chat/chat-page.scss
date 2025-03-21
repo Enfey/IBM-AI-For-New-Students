@@ -145,8 +145,8 @@ $colors: (
     height: auto;
   }
 
-  a:link { color: #FFFFFF; }
-  a:visited { color: #FFFFFF; }
+  a:link { color: colors.$blue-60; }
+  a:visited { color: colors.$blue-60; }
   a:hover { color: colors.$magenta-60; }
   a:active { color: #FF66CC; }
   a { font-weight: bold; }
