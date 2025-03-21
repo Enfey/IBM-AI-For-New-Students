@@ -52,7 +52,7 @@ export default function AnnouncementPage() {
 
     // calculate current items and total pages
     const [currentPage, setCurrentPage] = useState(1);
-    const itemsPerPage = 5;
+    const itemsPerPage = 3;
 
     // calculate current items
     const indexOfLastItem = currentPage * itemsPerPage;
@@ -74,10 +74,11 @@ export default function AnnouncementPage() {
                             tileCollapsedIconText="Interact to Expand tile"
                             tileExpandedIconText="Interact to Collapse tile"
                             className="announcement-tile"
+                            expanded={true}
                         >
                             {/* Tile */}
                             <TileAboveTheFoldContent>
-                                <div style={{ height: "100px", width: "100%", padding: "20px" }}>
+                                <div style={{ height: "auto", width: "100%", padding: "20px" }}>
                                     <h3 className="bx--type-productive-heading-03"> {item.title} </h3>
                                     <p className="bx--type-body-long-01"> {item.date} </p>
                                 </div>
@@ -85,7 +86,7 @@ export default function AnnouncementPage() {
 
                             {/* Tile  */}
                             <TileBelowTheFoldContent>
-                                <div style={{ height: "150px", width: "100%", padding: "20px" }}>
+                                <div style={{ height: "auto", width: "100%", padding: "20px" }}>
                                     <p className="bx--type-body-long-01">
                                         {item.content}
                                     </p>
@@ -104,7 +105,7 @@ export default function AnnouncementPage() {
                             disabled={currentPage === 1}
                         >
                         </Button>
-                        <span style={{ marginLeft: "20%", marginRight: "20%", marginTop: "5px" }}> {currentPage}  /  {totalPages}  </span>
+                        <span style={{ marginLeft: "20px", marginRight: "20px", textAlign: "center" }}> {currentPage}  /  {totalPages}  </span>
                         <Button
                             renderIcon={ArrowRight}
                             onClick={() => setCurrentPage(prev => Math.min(prev + 1, totalPages))}

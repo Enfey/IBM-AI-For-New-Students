@@ -17,6 +17,7 @@
   background-color: white;
   padding: 30px 20px;
   border-radius: 10px;
+  box-shadow: 2px 4px 10px rgba(0, 0, 0, 0.1);
 }
 
 .about-us, .about-products {
@@ -26,7 +27,9 @@
   margin: 0 auto;
   position: relative;
   border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  line-height: 1.6;
+  box-shadow: 2px 4px 10px rgba(0, 0, 0, 0.1);
+  font-weight: 500;
 }
 
 ul {
@@ -60,6 +63,8 @@ h3 {
   height: 20vh;
   object-fit: cover;
   object-position: center;
+  border-radius: 5px;
+  box-shadow: 2px 4px 10px rgba(0, 0, 0, 0.1);
 }
 
 .slideshow-container {

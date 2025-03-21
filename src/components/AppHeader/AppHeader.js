@@ -20,7 +20,7 @@ const AppHeader = () => {
     const { isLoggedIn, logout } = useAuth();
     const [isSideNavExpanded, setIsSideNavExpanded] = useState(false);
     const pathname = usePathname();
-    const hasSideNav = pathname === '/chat' || pathname === '/settings' || pathname === '/about' || pathname === '/announcement' || pathname === '/playground' || pathname === '/resource';
+    const hasSideNav = pathname === '/chat' || pathname === '/settings' || pathname === '/about' || pathname === '/announcement' || pathname === '/contact' || pathname === '/resource';
 
     useEffect(() => {
         const mq = window.matchMedia('(min-width: 1024px)');
@@ -70,7 +70,7 @@ const AppHeader = () => {
                                     <SideNavLink href="/settings">Settings</SideNavLink>
                                     <SideNavLink href="/about">About</SideNavLink>
                                     <SideNavLink href="/announcement">Announcements</SideNavLink>
-                                    <SideNavLink href="/playground">Playground</SideNavLink>
+                                    <SideNavLink href="/contact">Contact Us</SideNavLink>
                                     <SideNavLink href="/resource">Resources</SideNavLink>
                                     <SideNavMenu title="History" defaultExpanded={true}>
                                         <SideNavLink href="/history1">History1</SideNavLink>
