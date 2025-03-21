@@ -301,7 +301,21 @@ export default function ChatPage() {
                   <DynamicMap location="Nottingham, UK" />
               </div>
               <div className="live2d_container"></div>
-              <div className="message_container"></div>
+              <div className="message_container">
+                  <div className="ai_message_wrapper">
+                      <img src="/image/duck.png" alt="AI" className="ai_img"/>
+                          <div className="ai_message">
+                              Hi! I’m your friendly chatbot Nock powered by IBM Watsonx, here to help you settle
+                              in and make the most of your time at Nottingham. Whether you have questions about your
+                              course, campus facilities, student life, or even the best spots to grab a coffee,
+                              I’ve got you covered! ☕️
+                              <br/>
+                              Feel free to ask me anything, and if I can’t help, I’ll guide you to someone who can.
+                              Let’s make your journey at the University of Nottingham an amazing one – just say the
+                              word, and we’ll get started! 😊
+                          </div>
+                  </div>
+              </div>
               <div id="chat_container">
                 <div id="user_input_area">
                   <TextArea className="chat_textarea" placeholder="Enter your query here." />

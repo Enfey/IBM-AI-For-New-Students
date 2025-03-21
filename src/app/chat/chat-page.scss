@@ -27,7 +27,7 @@ $layout: (
 
 $colors: (
   user-bg: colors.$gray-20,
-  ai-bg: colors.$blue-50,
+  button-bg:  colors.$blue-50,
   ai-bg-hover: colors.$blue-50-hover,
   text-highlight: colors.$blue-50,
   timestamp: colors.$gray-70
@@ -76,7 +76,16 @@ $colors: (
   line-height: 1.4;
   word-wrap: break-word;
   margin-bottom: 6%;
-  @include fade-in;
+  box-shadow: 2px 4px 10px rgba(0, 0, 0, 0.1);
+  font-weight: 500;
+
+
+  animation: fadeIn 0.3s ease-in-out;
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(5px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
 
   @include mobile {
     font-size: map-get($font-sizes, small);
@@ -177,7 +186,10 @@ $colors: (
 
 .ai_message {
   @extend %message-shared;
-  background-color: map-get($colors, ai-bg);
+  background-image: url("ai_background.png");
+  background-position: center center;
+  background-size: cover;
+  background-repeat: no-repeat;
   margin-left: 5px;
   align-self: flex-start;
 }
@@ -237,7 +249,7 @@ $colors: (
 }
 
 .send_button {
-  background: map-get($colors, ai-bg) !important;
+  background: map-get($colors, button-bg) !important;
   color: white !important;
   border: none;
   border-radius: 8px;
