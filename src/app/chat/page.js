@@ -203,7 +203,7 @@ export default function ChatPage() {
                     resolve();
                 } else {
                     const script = document.createElement('script');
-                    script.src = 'https://unpkg.com/oh-my-live2d@latest';
+                    script.src = 'https://cdn.jsdelivr.net/npm/oh-my-live2d@latest';
                     script.async = true;
                     script.onload = () => resolve();
                     script.onerror = () => reject(new Error('Live2D failed to load.'));
