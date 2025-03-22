@@ -79,6 +79,16 @@ function CustomModal() {
 // Clean the current chat history and create a new session
 
 async function newSession() {
+    // Add a loading screen
+    const container = document.createElement("div");
+    container.className = "loading-container";
+    document.body.appendChild(container);
+
+    ReactDOM.render(
+        <Loading active={true} className="some-class" description="Loading" />,
+        container
+    );
+
     // TODO save the history
 
     // create a new session by sending a POST request to the back-end
@@ -88,17 +98,33 @@ async function newSession() {
 
     // Clears the chat container
     document.querySelector('.message_container').innerHTML = "";
+
+    // Clean the current loading
+    document.body.removeChild(container);
 }
 
 async function onSubmitClick() {
     // Fetches textArea for user input
     const textArea = document.querySelector('textarea');
 
+    const container = document.createElement("div");
+    container.className = "loading-container";
+    document.body.appendChild(container);
+
+    // Add a loading screen
+    ReactDOM.render(
+        <Loading active={true} className="some-class" description="Loading" />,
+        container
+    );
+
     if (sessionID == null) {
         const response = await fetch('/api/create_session');
         const data = await response.json();
         sessionID = data.payload
     }
+
+    // Clean the current loading
+    document.body.removeChild(container);
 
     // Create a div for the user message wrapper
     const userMessageWrapper = document.createElement('div');
