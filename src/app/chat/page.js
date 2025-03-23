@@ -89,8 +89,6 @@ async function newSession() {
         container
     );
 
-    // TODO save the history
-
     // create a new session by sending a POST request to the back-end
     const response = await fetch('/api/create_session');
     const data = await response.json();
@@ -140,6 +138,9 @@ async function onSubmitClick() {
     userImg.src = "/image/OIP.jpg";
     userImg.alt = "User";
     userImg.classList.add('user_img');
+
+    // Saving user message to localStorage
+    saveMessageToHistory(userMessage.textContent, true);
 
     // Appends the user message and image to the message wrapper
     userMessageWrapper.appendChild(userImg);
@@ -209,7 +210,38 @@ async function onSubmitClick() {
     // Adds the message to the chat container
     aiMessage.innerHTML = marked.parse(message);
 
+    // Saving AI message to localStorage
+    saveMessageToHistory(aiMessage.textContent, false);
+
     maybeScrollToBottom();
+}
+
+/**
+ * This function saves chat history messages to `localStorage`
+ * The chat history is stored as an array of objects with the following
+ * structure:
+ * - message: the message content
+ * - isUser: a boolean indicating whether the message was sent by the user
+ * 
+ * The history is incrementally updated and this function should be called each
+ * time the user sends a message or a message is received from the chatbot
+ * 
+ * @param {string} message 
+ * @param {boolean} isUser 
+ */
+function saveMessageToHistory(message, isUser) {
+    // Get any previous chat history from `localStorage`
+    const history = JSON.parse(localStorage.getItem(`chatHistory${sessionID}`))
+                    || []; // If there isn't any, default to empty array
+
+    // Add the new message to the chat history
+    history.push({
+          message: message,
+          isUser: isUser
+    });
+
+    // Save the updated chat history back to `localStorage`
+    localStorage.setItem(`chatHistory${sessionID}`, JSON.stringify(history));
 }
 
 export default function ChatPage() {
@@ -331,14 +363,14 @@ export default function ChatPage() {
                   <div className="ai_message_wrapper">
                       <img src="/image/duck.png" alt="AI" className="ai_img"/>
                           <div className="ai_message">
-                              Hi! I’m your friendly chatbot Nock powered by IBM Watsonx, here to help you settle
+                              Hi! I'm your friendly chatbot Nock powered by IBM Watsonx, here to help you settle
                               in and make the most of your time at Nottingham. Whether you have questions about your
                               course, campus facilities, student life, or even the best spots to grab a coffee,
-                              I’ve got you covered! ☕️
+                              I've got you covered! ☕️
                               <br/>
-                              Feel free to ask me anything, and if I can’t help, I’ll guide you to someone who can.
-                              Let’s make your journey at the University of Nottingham an amazing one – just say the
-                              word, and we’ll get started! 😊
+                              Feel free to ask me anything, and if I can't help, I'll guide you to someone who can.
+                              Let's make your journey at the University of Nottingham an amazing one - just say the
+                              word, and we'll get started! 😊
                           </div>
                   </div>
               </div>
