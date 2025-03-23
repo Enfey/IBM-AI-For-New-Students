@@ -46,15 +46,19 @@ const AppHeader = () => {
     */
     useEffect(() => {
         const histories = [];
+        let chatHistoriesCount = 0;
 
         for (let i = 0; i < localStorage.length; i++) {
             const key = localStorage.key(i);
 
             if(key.startsWith("chatHistory")) {
+                chatHistoriesCount += 1;
+
                 const chatHistoryData = JSON.parse(localStorage.getItem(key));
                 histories.push({
                     ...chatHistoryData,
-                    id: key
+                    id: chatHistoriesCount,
+                    key: key
                 });
             }
         }
@@ -108,8 +112,8 @@ const AppHeader = () => {
                                                     /* This is just place holder, I don't know how to
                                                        dynamically generate links for this, also might
                                                        be a security risk using sessionID */
-                                                    href={`/chat/${encodeURIComponent(history.id)}`}>
-                                                    {history.key}
+                                                    href={`/chat/${encodeURIComponent(history.key)}`}>
+                                                    Chat history {history.id}
                                                 </SideNavLink>
                                             ))
                                         ) : (
