@@ -40,9 +40,18 @@ const AppHeader = () => {
     }, []);
 
     /*
-    This hook loads the chat histories from local storage, (by seeing if it
-    starts with "chatHistory") and then sets the `chatHistories` state defined
-    above to the loaded chat histories
+    This hook loads the chat histories from local storage, (by seeing if each
+    item in localStorage starts with "chatHistory") and then sets the
+    `chatHistories` state defined above to the loaded chat histories
+
+    The histories constant is an array of objects following the format:
+        - The previous fields from `chatHistoryData`
+        - key: The key (sessionID) of the chat history in localStorage
+        - id: The numeric index of the chat history
+
+    IMPORTANT IMPORTANT IMPORTANT IMPORTANT IMPORTANT IMPORTANT IMPORTANT
+    localStorage doesn't actually have an order, so I'm not sure how to
+    order the chats in the menu sidebar when loading them
     */
     useEffect(() => {
         const histories = [];
@@ -52,13 +61,13 @@ const AppHeader = () => {
             const key = localStorage.key(i);
 
             if(key.startsWith("chatHistory")) {
-                chatHistoriesCount += 1;
+                chatHistoriesCount++;
 
                 const chatHistoryData = JSON.parse(localStorage.getItem(key));
                 histories.push({
                     ...chatHistoryData,
-                    id: chatHistoriesCount,
-                    key: key
+                    key: key,
+                    id: chatHistoriesCount
                 });
             }
         }
@@ -109,9 +118,9 @@ const AppHeader = () => {
                                             chatHistories.map((history) => (
                                                 <SideNavLink
                                                     key={history.key}
-                                                    /* This is just place holder, I don't know how to
-                                                       dynamically generate links for this, also might
-                                                       be a security risk using sessionID */
+                                                    /* When this link element is clicked, it redirects
+                                                    the user to a new page where all the messages from
+                                                    a previous conversation are stored */
                                                     href={`/chat/${encodeURIComponent(history.key)}`}>
                                                     Chat history {history.id}
                                                 </SideNavLink>

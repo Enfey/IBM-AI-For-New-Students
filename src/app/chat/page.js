@@ -1,7 +1,7 @@
 // Use client directive to run this code clientside
 "use client";
 
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import {Add, ArrowRight} from '@carbon/icons-react';
 import {TextArea, Button, ComposedModal, ModalFooter, ModalBody} from '@carbon/react';
 import { marked } from 'marked';
@@ -244,7 +244,59 @@ function saveMessageToHistory(message, isUser) {
     localStorage.setItem(`chatHistory${sessionID}`, JSON.stringify(history));
 }
 
-export default function ChatPage() {
+function renderChatHistory(historyKey) {
+    const historyData = JSON.parse(localStorage.getItem(`${historyKey}`));
+
+    const messageContainer = document.querySelector('.message_container');
+    messageContainer.innerHTML = '';
+
+    for(let i = 0; i < historyData.length; i++) {
+        if(historyData[i].isUser) {
+            const userMessageWrapper = document.createElement('div');
+            userMessageWrapper.className = 'user_message_wrapper';
+
+            const userImg = document.createElement('img');
+            userImg.src = "/image/OIP.jpg";
+            userImg.alt = "User";
+            userImg.classList.add('user_img');
+
+            const userMessage = document.createElement('div');
+            userMessage.className = 'user_message';
+            userMessage.textContent = historyData[i].message;
+
+            userMessageWrapper.appendChild(userImg);
+            userMessageWrapper.appendChild(userMessage);
+            messageContainer.appendChild(userMessageWrapper);
+        } else {
+            const aiMessageWrapper = document.createElement('div');
+            aiMessageWrapper.className = 'ai_message_wrapper';
+
+            const aiImg = document.createElement('img');
+            aiImg.src = "/image/duck.png";
+            aiImg.alt = "AI";
+            aiImg.classList.add('ai_img');
+
+            const aiMessage = document.createElement('div');
+            aiMessage.className = 'ai_message';
+            aiMessage.textContent = historyData[i].message
+
+            aiMessageWrapper.appendChild(aiImg);
+            aiMessageWrapper.appendChild(aiMessage);
+            messageContainer.appendChild(aiMessageWrapper);
+        }
+    }
+}
+
+
+/**
+ * Note that THE `historyKey` PARAMETER IS OPTIONAL; if not provided,
+ * the chat page will not load any chat history and instead the user will start
+ * a new conversation with the chatbot
+ * 
+ * @param {string} historyKey 
+ * @returns a page with a chatbot, a map, and a Live2D model 
+ */
+export default function ChatPage({ historyKey }) {
     const { isLoggedIn, isInitialised } = useAuth();
     const router = useRouter();
 
@@ -252,7 +304,18 @@ export default function ChatPage() {
         if (isInitialised && !isLoggedIn) {
           router.replace('/'); // could redirect to /login in future and separate / from its component parts 
         }
-      }, [isInitialised, isLoggedIn, router]);
+    }, [isInitialised, isLoggedIn, router]);
+
+    useEffect(() => {
+        /* A message container is fetched here so that this hook only runs when
+           the DOM has loaded; otherwise, when running the `renderChatHistory`
+           function, you get an error about how the message container is null */
+        const messageContainer = document.querySelector('.message_container');
+
+        if (historyKey && messageContainer) {
+            renderChatHistory(historyKey);
+        }
+    });
 
     useEffect(() => {
         const loadLive2DScript = () => {
