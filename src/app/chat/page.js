@@ -7,9 +7,9 @@ import {TextArea, Button, ComposedModal, ModalFooter, ModalBody} from '@carbon/r
 import { marked } from 'marked';
 import { useRouter } from 'next/navigation';
 import { useAuth } from '../../hooks/useAuth';
-import DynamicMap from '../api/google_map/route'
 import * as ReactDOM from "react-dom";
 import Loading from "@carbon/react/es/components/Loading/Loading";
+import DynamicMap from "@/app/api/google_map/route";
 
 let sessionID = null
 
@@ -55,7 +55,7 @@ function CustomModal() {
                     <div style={{display: "flex", justifyContent: "center", alignItems: "center", textAlign: "center"}}>
                         <p>This behaviour will stop the current session and create a new one. Are you sure you want to continue?</p>
                     </div>
-                    </ModalBody>
+                </ModalBody>
                 <ModalFooter
                     danger
                     primaryButtonText="OK"
@@ -88,6 +88,7 @@ async function newSession() {
         <Loading active={true} className="some-class" description="Loading" />,
         container
     );
+
 
     // create a new session by sending a POST request to the back-end
     const response = await fetch('/api/create_session');
@@ -196,7 +197,7 @@ async function onSubmitClick() {
         case "INPUT_SUCCESS":
             if (jsonOutput == []) {
                 console.log("Error: empty response received")
-            // If the response contains suggestions, display them in a separate message    
+                // If the response contains suggestions, display them in a separate message
             } else if (jsonOutput.suggestions.length > 0) {
                 message = "Suggestions: \n"+ jsonOutput.suggestions.join(", ")
             } else {
@@ -214,6 +215,8 @@ async function onSubmitClick() {
     saveMessageToHistory(aiMessage.textContent, false);
 
     maybeScrollToBottom();
+
+    return jsonOutput["location"]
 }
 
 /**
@@ -298,11 +301,12 @@ function renderChatHistory(historyKey) {
  */
 export default function ChatPage({ historyKey }) {
     const { isLoggedIn, isInitialised } = useAuth();
+    const [location, setLocation] = useState("Nottingham, UK");
     const router = useRouter();
 
     useEffect(() => {
         if (isInitialised && !isLoggedIn) {
-          router.replace('/'); // could redirect to /login in future and separate / from its component parts 
+            router.replace('/'); // could redirect to /login in future and separate / from its component parts
         }
     }, [isInitialised, isLoggedIn, router]);
 
@@ -414,6 +418,15 @@ export default function ChatPage({ historyKey }) {
             .catch(error => console.error(error));
     }, []);
 
+    const handleAsyncEvent = async () => {
+        try {
+            const location = await onSubmitClick();
+            setLocation(location);
+        } catch (error) {
+            console.error(error);
+        }
+    };
+
     return (
         <>
           {!isLoggedIn ? null : (//ensures hooks are called deterministically
@@ -444,12 +457,21 @@ export default function ChatPage({ historyKey }) {
                         <Button className="send_button" renderIcon={ArrowRight} onClick={onSubmitClick} />
                         <CustomModal />
                     </div>
+                    <div className="live2d_container"></div>
+                    <div className="message_container"></div>
+                    <div id="chat_container">
+                        <div id="user_input_area">
+                            <TextArea className="chat_textarea" placeholder="Enter your query here." />
+                            <div className="button-group">
+                                <Button className="send_button" renderIcon={ArrowRight} onClick={handleAsyncEvent} />
+                                <CustomModal />
+                            </div>
+                        </div>
+                    </div>
+                    <div className="right_column"></div>
                 </div>
-              </div>
-              <div className="right_column"></div>
-            </div>
-          )}
+            )}
         </>
-      );
-    }
+    );
+}
 
