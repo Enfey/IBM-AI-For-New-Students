@@ -6,7 +6,7 @@ const AssistantV2 = require('ibm-watson/assistant/v2');
 const { IamAuthenticator } = require('ibm-watson/auth');
 
 const assistant = new AssistantV2({
-    version: '2025-02-18',
+    version: '2025-03-22',
     authenticator: new IamAuthenticator({
         apikey: process.env.APIKEY
     }),
@@ -21,7 +21,10 @@ export async function POST(request) {
         sessionId: data.session_id,
         input: {
             'message_type': 'text',
-            'text': data.message
+            'text': data.message,
+            'options': {
+                return_context : true
+            }
         }
     }
 
@@ -52,12 +55,15 @@ export async function POST(request) {
             suggestions = suggestionItems.suggestions.map(sug => sug.label);
         }
 
+        let sessionVariables = res.result.context.skills["actions skill"].skill_variables
+
         // Return response
         return NextResponse.json({
             payload: res.result,
             texts: textResponses.length > 0? textResponses : null,
             options: options,
             suggestions: suggestions,
+            location: sessionVariables["target_location"],
             status: "INPUT_SUCCESS"
         })
     } catch (err) {
