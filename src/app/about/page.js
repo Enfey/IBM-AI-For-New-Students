@@ -26,20 +26,21 @@ export default function AboutPage() {
 
     return (
         <div className="about-container">
+        <div className="about-inner-container">
             <div className="slideshow-container">
                 <div className="mySlides fade" style={{ display: slideIndex === 0 ? 'block' : 'none' }} align="center">
                     <div className="number-text">1 / 3</div>
-                    <img src="https://www.jyshare.com/wp-content/uploads/2017/01/img_mountains_wide.jpg" style={{ width: "100%", height: "20vh"}} />
+                    <img className="slide-image" src="https://q8.itc.cn/images01/20240407/308db82405b547849a205cce9ec145b6.jpeg" style={{ width: "100%", height: "20vh"}} />
                 </div>
 
                 <div className="mySlides fade" style={{ display: slideIndex === 1 ? 'block' : 'none' }} align="center">
                     <div className="number-text">2 / 3</div>
-                    <img src="https://www.jyshare.com/wp-content/uploads/2017/01/img_fjords_wide.jpg" style={{ width: "100%", height: "20vh"}} />
+                    <img className="slide-image" src="https://p5.itc.cn/images01/20231101/08fd94843fbd458591cecad5248a4bff.jpeg" style={{ width: "100%", height: "20vh"}} />
                 </div>
 
                 <div className="mySlides fade" style={{ display: slideIndex === 2 ? 'block' : 'none' }} align="center">
                     <div className="number-text">3 / 3</div>
-                    <img src="https://www.jyshare.com/wp-content/uploads/2017/01/img_nature_wide.jpg" style={{ width: "100%", height: "20vh"}} />
+                    <img className="slide-image" src="https://picx.zhimg.com/100/v2-f3758da8b7896ce36f2b886da5409af7_r.jpg" style={{ width: "100%", height: "20vh"}} />
                 </div>
 
                 <div style={{ textAlign: "center" }}>
@@ -49,7 +50,7 @@ export default function AboutPage() {
                 </div>
             </div>
 
-
+            <br/>
             <br/>
 
             <div className="about-us">
@@ -57,6 +58,7 @@ export default function AboutPage() {
                 <p>
                     We are <strong>Team 32</strong>, a dedicated group of developers and AI enthusiasts working together to create innovative solutions for real-world problems. Our team is composed of talented individuals with diverse skill sets, united by a passion for technology and a commitment to excellence.
                 </p>
+                <br/>
                 <div className="team-members">
                     <h3>Our Team</h3>
                     <ul>
@@ -69,12 +71,14 @@ export default function AboutPage() {
             </div>
 
             <br/>
+            <br/>
 
             <div className="about-products">
                 <h2>About Our Project</h2>
                 <p>
                     <strong>AI for New Students</strong> is an intelligent chatbot designed to help freshmen quickly adapt to campus life. Developed by Team 32, this project leverages cutting-edge technologies to provide a seamless and personalized experience for new students.
                 </p>
+                <br/>
                 <div className="project-details">
                     <h3>Key Features</h3>
                     <ul>
@@ -83,6 +87,7 @@ export default function AboutPage() {
                         <li><strong>24/7 Availability:</strong> Always ready to help, day or night.</li>
                     </ul>
                 </div>
+                <br/>
                 <div className="technology-stack">
                     <h3>Technology Stack</h3>
                     <ul>
@@ -97,8 +102,7 @@ export default function AboutPage() {
             </div>
 
             <br/>
-            <br/>
-
+        </div>
         </div>
     );
 }

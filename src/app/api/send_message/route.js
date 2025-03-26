@@ -1,9 +1,9 @@
-"use server"
-
 import {NextResponse} from "next/server";
 
 const AssistantV2 = require('ibm-watson/assistant/v2');
 const { IamAuthenticator } = require('ibm-watson/auth');
+
+export const dynamic = 'force-dynamic';
 
 const assistant = new AssistantV2({
     version: '2025-03-22',

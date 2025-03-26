@@ -1,7 +1,7 @@
 // Use client directive to run this code clientside
 "use client";
 
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import {Add, ArrowRight} from '@carbon/icons-react';
 import {TextArea, Button, ComposedModal, ModalFooter, ModalBody} from '@carbon/react';
 import { marked } from 'marked';
@@ -79,7 +79,15 @@ function CustomModal() {
 // Clean the current chat history and create a new session
 
 async function newSession() {
-    // TODO save the history
+    // Add a loading screen
+    const container = document.createElement("div");
+    container.className = "loading-container";
+    document.body.appendChild(container);
+
+    ReactDOM.render(
+        <Loading active={true} className="some-class" description="Loading" />,
+        container
+    );
 
 
     // create a new session by sending a POST request to the back-end
@@ -89,17 +97,33 @@ async function newSession() {
 
     // Clears the chat container
     document.querySelector('.message_container').innerHTML = "";
+
+    // Clean the current loading
+    document.body.removeChild(container);
 }
 
 async function onSubmitClick() {
     // Fetches textArea for user input
     const textArea = document.querySelector('textarea');
 
+    const container = document.createElement("div");
+    container.className = "loading-container";
+    document.body.appendChild(container);
+
+    // Add a loading screen
+    ReactDOM.render(
+        <Loading active={true} className="some-class" description="Loading" />,
+        container
+    );
+
     if (sessionID == null) {
         const response = await fetch('/api/create_session');
         const data = await response.json();
         sessionID = data.payload
     }
+
+    // Clean the current loading
+    document.body.removeChild(container);
 
     // Create a div for the user message wrapper
     const userMessageWrapper = document.createElement('div');
@@ -115,6 +139,9 @@ async function onSubmitClick() {
     userImg.src = "/image/OIP.jpg";
     userImg.alt = "User";
     userImg.classList.add('user_img');
+
+    // Saving user message to localStorage
+    saveMessageToHistory(userMessage.textContent, true);
 
     // Appends the user message and image to the message wrapper
     userMessageWrapper.appendChild(userImg);
@@ -184,12 +211,95 @@ async function onSubmitClick() {
     // Adds the message to the chat container
     aiMessage.innerHTML = marked.parse(message);
 
+    // Saving AI message to localStorage
+    saveMessageToHistory(aiMessage.textContent, false);
+
     maybeScrollToBottom();
 
     return jsonOutput["location"]
 }
 
-export default function ChatPage() {
+/**
+ * This function saves chat history messages to `localStorage`
+ * The chat history is stored as an array of objects with the following
+ * structure:
+ * - message: the message content
+ * - isUser: a boolean indicating whether the message was sent by the user
+ * 
+ * The history is incrementally updated and this function should be called each
+ * time the user sends a message or a message is received from the chatbot
+ * 
+ * @param {string} message 
+ * @param {boolean} isUser 
+ */
+function saveMessageToHistory(message, isUser) {
+    // Get any previous chat history from `localStorage`
+    const history = JSON.parse(localStorage.getItem(`chatHistory${sessionID}`))
+                    || []; // If there isn't any, default to empty array
+
+    // Add the new message to the chat history
+    history.push({
+          message: message,
+          isUser: isUser
+    });
+
+    // Save the updated chat history back to `localStorage`
+    localStorage.setItem(`chatHistory${sessionID}`, JSON.stringify(history));
+}
+
+function renderChatHistory(historyKey) {
+    const historyData = JSON.parse(localStorage.getItem(`${historyKey}`));
+
+    const messageContainer = document.querySelector('.message_container');
+    messageContainer.innerHTML = '';
+
+    for(let i = 0; i < historyData.length; i++) {
+        if(historyData[i].isUser) {
+            const userMessageWrapper = document.createElement('div');
+            userMessageWrapper.className = 'user_message_wrapper';
+
+            const userImg = document.createElement('img');
+            userImg.src = "/image/OIP.jpg";
+            userImg.alt = "User";
+            userImg.classList.add('user_img');
+
+            const userMessage = document.createElement('div');
+            userMessage.className = 'user_message';
+            userMessage.textContent = historyData[i].message;
+
+            userMessageWrapper.appendChild(userImg);
+            userMessageWrapper.appendChild(userMessage);
+            messageContainer.appendChild(userMessageWrapper);
+        } else {
+            const aiMessageWrapper = document.createElement('div');
+            aiMessageWrapper.className = 'ai_message_wrapper';
+
+            const aiImg = document.createElement('img');
+            aiImg.src = "/image/duck.png";
+            aiImg.alt = "AI";
+            aiImg.classList.add('ai_img');
+
+            const aiMessage = document.createElement('div');
+            aiMessage.className = 'ai_message';
+            aiMessage.textContent = historyData[i].message
+
+            aiMessageWrapper.appendChild(aiImg);
+            aiMessageWrapper.appendChild(aiMessage);
+            messageContainer.appendChild(aiMessageWrapper);
+        }
+    }
+}
+
+
+/**
+ * Note that THE `historyKey` PARAMETER IS OPTIONAL; if not provided,
+ * the chat page will not load any chat history and instead the user will start
+ * a new conversation with the chatbot
+ * 
+ * @param {string} historyKey 
+ * @returns a page with a chatbot, a map, and a Live2D model 
+ */
+export default function ChatPage({ historyKey }) {
     const { isLoggedIn, isInitialised } = useAuth();
     const [location, setLocation] = useState("Nottingham, UK");
     const router = useRouter();
@@ -201,13 +311,24 @@ export default function ChatPage() {
     }, [isInitialised, isLoggedIn, router]);
 
     useEffect(() => {
+        /* A message container is fetched here so that this hook only runs when
+           the DOM has loaded; otherwise, when running the `renderChatHistory`
+           function, you get an error about how the message container is null */
+        const messageContainer = document.querySelector('.message_container');
+
+        if (historyKey && messageContainer) {
+            renderChatHistory(historyKey);
+        }
+    });
+
+    useEffect(() => {
         const loadLive2DScript = () => {
             return new Promise((resolve, reject) => {
                 if (window.OML2D) {
                     resolve();
                 } else {
                     const script = document.createElement('script');
-                    script.src = 'https://unpkg.com/oh-my-live2d@latest';
+                    script.src = 'https://cdn.jsdelivr.net/npm/oh-my-live2d@latest';
                     script.async = true;
                     script.onload = () => resolve();
                     script.onerror = () => reject(new Error('Live2D failed to load.'));
@@ -308,10 +429,33 @@ export default function ChatPage() {
 
     return (
         <>
-            {!isLoggedIn ? null : (//ensures hooks are called deterministically
-                <div className="layout_container">
-                    <div className="left_column">
-                        <DynamicMap location={location}></DynamicMap>
+          {!isLoggedIn ? null : (//ensures hooks are called deterministically
+            <div className="layout_container">
+              <div className="left_column">
+                  <DynamicMap location="Nottingham, UK" />
+              </div>
+              <div className="live2d_container"></div>
+              <div className="message_container">
+                  <div className="ai_message_wrapper">
+                      <img src="/image/duck.png" alt="AI" className="ai_img"/>
+                          <div className="ai_message">
+                              Hi! I'm your friendly chatbot Nock powered by IBM Watsonx, here to help you settle
+                              in and make the most of your time at Nottingham. Whether you have questions about your
+                              course, campus facilities, student life, or even the best spots to grab a coffee,
+                              I've got you covered! ☕️
+                              <br/>
+                              Feel free to ask me anything, and if I can't help, I'll guide you to someone who can.
+                              Let's make your journey at the University of Nottingham an amazing one - just say the
+                              word, and we'll get started! 😊
+                          </div>
+                  </div>
+              </div>
+              <div id="chat_container">
+                <div id="user_input_area">
+                  <TextArea className="chat_textarea" placeholder="Enter your query here." />
+                    <div className="button-group">
+                        <Button className="send_button" renderIcon={ArrowRight} onClick={onSubmitClick} />
+                        <CustomModal />
                     </div>
                     <div className="live2d_container"></div>
                     <div className="message_container"></div>
