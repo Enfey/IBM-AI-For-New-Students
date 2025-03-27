@@ -1,323 +1,63 @@
-// ───────────────
-// Variables
-// ───────────────
-@use "@carbon/colors";
-
-$mobile-breakpoint: 768px;
-$transition-duration: 0.3s;
-
-$border-style: 1px solid rgba(100, 105, 125, 0.2);
-
-$spacing: (
-  sm: 10px,
-  md: 20px
-);
-
-$radius: 8px;
-$font-sizes: (
-  default: 16px,
-  small: 14px
-);
-
-$layout: (
-  height: 100vh,
-  radius: $radius,
-  grid-gap: map-get($spacing, sm)
-);
-
-$colors: (
-  user-bg: colors.$gray-20,
-  button-bg:  colors.$blue-50,
-  ai-bg-hover: colors.$blue-50-hover,
-  text-highlight: colors.$blue-50,
-  timestamp: colors.$gray-70
-);
-
-// ───────────────
-// Mixins
-// ───────────────
-@mixin flex($direction: row) {
-  display: flex;
-  flex-direction: $direction;
-}
-
-@mixin padding($vertical, $horizontal) {
-  padding: $vertical $horizontal;
-}
-
-@mixin fade-in {
-  animation: fadeIn $transition-duration ease-in-out;
-}
-
-@mixin mobile {
-  @media (max-width: $mobile-breakpoint) {
-    @content;
-  }
-}
+@use "../styles/main" as *;
+@use "components/ChatInput/chat-input" as chat-input;
+@use "components/MessageContainer/message-container" as message-container;
 
 // ───────────────
 // Shared Styles
 // ───────────────
 %column-shared {
-  grid-row: 1 / 2;
-  height: 100vh;
-  //margin-top: -10vh;
+    grid-row: 1 / 2;
+    height: height('screen');
 
-  @include mobile {
-    display: none;
-  }
-}
-
-%message-shared {
-  padding: 12px;
-  border-radius: map-get($layout, radius);
-  max-width: 65%;
-  font-size: map-get($font-sizes, default);
-  line-height: 1.4;
-  word-wrap: break-word;
-  margin-bottom: 6%;
-  box-shadow: 2px 4px 10px rgba(0, 0, 0, 0.1);
-  font-weight: 500;
-
-
-  animation: fadeIn 0.3s ease-in-out;
-  @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(5px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-
-
-  @include mobile {
-    font-size: map-get($font-sizes, small);
-    margin-bottom: 10%;
-  }
-}
-
-%img-shared {
-  width: 30px;
-  height: 30px;
-  border-radius: 50%;
-  margin-top: 1%; //looks uneven due to radius of message and image not matching
+    @include respond-below('md') {
+        display: none;
+    }
 }
 
 // ───────────────
 // Layout Styles
 // ───────────────
 .layout_container {
-  display: grid;
-  grid-template-columns: 1fr 2fr 1fr;
-  grid-template-rows: 1fr auto;
-  gap: map-get($layout, grid-gap);
-  min-height: 100vh;
-  height: auto;
-  min-width: 100vw;
-  margin-top: -30px;
-  padding-top: -30px;
+    @include three-column-layout('sm');
+    min-width: width('screen');
+    margin-top: calc(-1 * spacing("lg")); //negate
 
-  @include mobile {
-    @include flex(column);
-  }
+    @include respond-below('md') {
+        @include flex-direction($direction: column);
+        min-height: height("screen");
+    }
 }
 
 .left_column {
-  @extend %column-shared;
-  grid-column: 1;
+    @extend %column-shared;
+    grid-column: 1;
 }
 
 .right_column {
-  @extend %column-shared;
-  grid-column: 3;
-}
-
-.message_container {
-  grid-column: 2;
-  grid-row: 1 / 2;
-  @include flex(column);
-  background-color: white;
-  border: 1px solid colors.$gray-20;
-  padding: 30px 5px 100px;
-  border-radius: 10px 10px 0 0;
-  max-width: 100%;
-  overflow-x: hidden;
-
-  @include mobile {
-    flex-grow: 1;
-    height: auto;
-  }
-
-  a:link { color: colors.$blue-60; }
-  a:visited { color: colors.$blue-60; }
-  a:hover { color: colors.$magenta-60; }
-  a:active { color: #FF66CC; }
-  a { font-weight: bold; }
-}
-
-
-// ───────────────
-// Message Styles
-// ───────────────
-
-.ai_message_wrapper {
-  display: flex;
-  align-items: flex-start;
-  gap: map-get($spacing, sm);
-  max-width: 100%;
-  overflow-wrap: break-word;
-  word-break: break-word;
-  overflow-x: hidden;
-}
-
-.user_message_wrapper {
-  display: flex;
-  gap: map-get($spacing, sm);
-  flex-direction: row-reverse;
-  max-width: 100%;
-  overflow-wrap: break-word;
-  word-break: break-word;
-  overflow-x: hidden;
-}
-
-.user_message {
-  @extend %message-shared;
-  background-color: map-get($colors, user-bg);
-  margin-right: 5px;
-  align-self: flex-end;
-}
-
-.ai_message {
-  @extend %message-shared;
-  background-image: url("ai_background.png");
-  background-position: center center;
-  background-size: cover;
-  background-repeat: no-repeat;
-  margin-left: 5px;
-  align-self: flex-start;
-}
-
-// ───────────────
-// Input Area Styles
-// ───────────────
-#user_input_area {
-  position: fixed;
-  width: 49.6%;
-  bottom: 0;
-  left: 25.2%;
-  right: translateX(-25.2%);
-  padding: 24px;
-  background: white;
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.05);
-  z-index: 100;
-  border-radius: 8px;
-
-  @include mobile {
-    width: 100%;
-    left: 0;
-    padding: 16px;
-  }
-}
-
-.chat_textarea {
-  flex-grow: 1;
-  background-color: white !important;
-  resize: vertical;
-  padding: 8px;
-  border: 1px solid #e5e5e5;
-  border-radius: 8px;
-  font-size: 20px;
-  line-height: 1;
-  transition: all $transition-duration ease-out;
-
-  textarea {
-    background-color: inherit !important;
-    line-height: 0.9 !important;
-    border: none !important;
-    outline: none !important;
-
-    &:focus {
-      border: none !important;
-    }
-  }
-
-  &:focus {
-    outline: none;
-    border-color: map-get($colors, text-highlight);
-    box-shadow: 0 0 0 2px rgba(100, 105, 125, 0.2);
-  }
-}
-
-.send_button {
-  background: map-get($colors, button-bg) !important;
-  color: white !important;
-  border: none;
-  border-radius: 8px;
-  padding: 16px 24px;
-  transition: background $transition-duration ease;
-  display: flex;
-  align-items: center;
-  margin-bottom: -2%;
-  gap: 8px;
-
-  &:hover {
-    background: map-get($colors, ai-bg-hover) !important;
-  }
-
-  @include mobile {
-    margin: 0 map-get($spacing, sm);
-  }
-}
-
-.button-group {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-}
-
-
-// ───────────────
-// Image Styles
-// ───────────────
-
-// Semantic
-.user_img {
-  @extend %img-shared;
-}
-
-.ai_img {
-  @extend %img-shared;
+    @extend %column-shared;
+    grid-column: 3;
 }
 
 // ───────────────
 // Animations
 // ───────────────
 @keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
-
-//speculative
-.timestamp {
-  font-size: map-get($font-sizes, small);
-  color: map-get($colors, timestamp);
-  margin-top: map-get($spacing, sm);
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
 }
 
 // ───────────────
 // Body Styles
 // ───────────────
 body {
-  background-color: #f4f4f4;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh;
-  max-width: 100vw;
-  padding: map-get($spacing, md);
-  overflow-x: hidden !important;
+    @include var-theme-color("background", background-color);
+    @include flex($direction: row, $justify: center, $align: center);
+    min-height: height("screen");
+    max-width: width("screen");
+    padding: spacing("md");
+    overflow-x: hidden !important;
 }

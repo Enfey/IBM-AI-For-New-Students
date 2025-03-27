@@ -1,0 +1,83 @@
+@use "variables" as *;
+
+/// ───────────────
+/// THEMES - contain categories like colours, and can be extended if need be, use 'colors' spelling for convention to traditional css.
+/// ───────────────
+$theme-light: (
+    "colors": (
+        "primary": color("blue", "base"),
+        "primary-hover": color("blue", "hover"),
+        "secondary": color("gray", "20"),
+        "background": color("gray", "10"),
+        "surface": color("white", "base"),
+        "text-primary": color("gray", "100"),
+        "text-secondary": color("gray", "70"),
+        "border": rgba(100, 105, 125, 0.2),
+        "error": color("red", "base"),
+        "success": color("green", "base"),
+        // Adding chat-specific colors
+        "link": color("blue", "base"),
+        "link-hover": color("blue", "hover"),
+        "link-visited": color("blue", "dark"),
+        "link-active": color("blue", "light"),
+        "user-message": color("gray", "10"),
+        "ai-message-hover": color("blue", "hover")
+    )
+);
+
+$theme-dark: (
+    "colors": (
+        "primary": color("blue", "light"),
+        "primary-hover": color("blue", "base"),
+        "secondary": color("gray", "70"),
+        "background": #121212,
+        "surface": #1e1e1e,
+        "text-primary": color("gray", "10"),
+        "text-secondary": color("gray", "20"),
+        "border": rgba(255, 255, 255, 0.1),
+        "error": color("red", "light"),
+        "success": color("green", "light"),
+        // Adding chat-specific colors
+        "link": color("blue", "light"),
+        "link-hover": color("blue", "base"),
+        "link-visited": color("blue", "dark"),
+        "link-active": color("blue", "base"),
+        "user-message": #2e2e2e,
+        "ai-message-hover": color("blue", "base")
+    )
+);
+
+/// Default theme
+/// To switch the theme do: $current-theme: $theme-dark;
+$current-theme: $theme-light !default;
+
+/// Generate CSS variables from nested theme map, takes top level categories, iterates over them, and then iterates over the key-value pairs in each category creating variables: --category-key: value;
+///
+/// @param {Map} $theme - Nested theme map to convert to CSS variables
+@mixin generate-theme-vars($theme) {
+    @each $category, $values in $theme {
+        @each $key, $value in $values {
+            --#{$category}-#{$key}: #{$value};
+        }
+    }
+}
+
+/// Setup theme variables for light and dark themes, respectively.
+/// Generates CSS variables for the light theme by default, and then applies the dark theme variables to the .dark-theme class, applied to the body and all of its children.
+@mixin setup-theme-vars {
+    :root {
+        @include generate-theme-vars($theme-light);
+    }
+
+    .dark-theme {
+        @include generate-theme-vars($theme-dark);
+    }
+}
+
+/// Apply theme color using CSS variables
+///
+/// @param {String} $key - Color key from theme
+/// @param {String} $property - CSS property to apply color to e.g., background-color
+@mixin var-theme-color($key, $property: color) {
+    #{$property}: var(--colors-#{$key}) !important;
+}

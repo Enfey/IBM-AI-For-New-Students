@@ -1,0 +1,163 @@
+@use "sass:map";
+@use 'variables' as *;
+/// ───────────────
+/// MIXINS
+/// ───────────────
+
+/// Media query for minimum width - limited to previously defined breakpoints via $breakpoints map
+///
+/// @see $breakpoints
+/// @param {String} $breakpoint - Breakpoint name from $breakpoints map
+@mixin respond-above($breakpoint) {
+    @if map.has-key($breakpoints, $breakpoint) {
+        @media (min-width: breakpoint($breakpoint)) {
+            @content;
+        }
+    } @else {
+        @error "Unknown breakpoint: `#{$breakpoint}`. Valid breakpoints are: #{map.keys($breakpoints)}";
+    }
+}
+
+/// Media query for maximum width - limited to previously defined breakpoints via $breakpoints map
+///
+/// @see $breakpoints
+/// @param {String} $breakpoint - Breakpoint name from $breakpoints map
+@mixin respond-below($breakpoint) {
+    @if map.has-key($breakpoints, $breakpoint) {
+        @media (max-width: breakpoint($breakpoint)) {
+            @content;
+        }
+    } @else {
+        @error "Unknown breakpoint: `#{$breakpoint}`. Valid breakpoints are: #{map.keys($breakpoints)}";
+    }
+}
+
+/// 'Flexible' flexbox shorthand, with defaults.
+///
+/// @param {String} $direction - Flex direction
+/// @param {String} $justify - Justify content values
+/// @param {String} $align - Align items
+/// @param {String} $wrap  - Flex wrap
+@mixin flex($direction: row, $justify: flex-start, $align: stretch, $wrap: nowrap) {
+    display: flex;
+    flex-direction: $direction;
+    justify-content: $justify;
+    align-items: $align;
+    flex-wrap: $wrap;
+}
+
+/// Flexbox shorthand for only direction, defaulting to column
+/// 
+/// @param {String} $direction - Flex direction
+@mixin flex-direction($direction: column)  {
+    display: flex;
+    flex-direction: $direction;
+}
+
+/// Center an element horizontally and vertically using flexbox
+@mixin center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/// Apply padding with consistent spacing units
+///
+/// @param {String} $vertical - Vertical padding value
+/// @param {String} $horizontal - Horizontal padding value
+@mixin padding($vertical, $horizontal) {
+    padding: $vertical $horizontal;
+}
+
+/// Apply margin with consistent spacing units
+///
+/// @param {String} $vertical - Vertical margin value
+/// @param {String} $horizontal - Horizontal margin value
+@mixin margin($vertical, $horizontal) {
+    margin: $vertical $horizontal;
+}
+
+/// Apply border radius - default to medium.
+///
+/// @param {String} $radius - Border radius value
+@mixin border-radius($radius: "md") {
+    @if map.has-key($border-radius, $radius) {
+        border-radius: radius($radius);
+    } @else {
+        border-radius: $radius;
+    }
+}
+
+/// Apply border with 'normal' default
+///
+/// @param {String} $width - Border width value
+/// @param {String} $style - Border style value
+@mixin border($width: "md", $style: $border-style) {
+    @if map.has-key($border-widths, $width) {
+        border: border-width($width) $style;
+    } @else {
+        border: $width $style;
+    }
+}
+
+@mixin transition($property: all, $duration: "normal") {
+    transition: $property duration($duration) ease;
+}
+
+/// Standard page container for simple pages with consistent spacing and structure
+///
+/// @param {String} $padding-top - Padding top value, defaults to 80px
+@mixin page-container($padding-top: 80px) {
+    min-width: 100vw;
+    min-height: 100vh;
+    padding: $padding-top spacing("xl") spacing("xl");
+    margin-top: -50px;
+    margin-bottom: -80px;
+    @include theme-color("surface", background-color);
+    border-radius: radius("lg");
+}
+
+/// Mixin for reusable content tiles with consistent spacing and structure
+///
+/// @param {String} $width - Width of the tile as percentage or fixed value, defaults to 80%
+@mixin content-tile($width: 80%) {
+    width: $width;
+    margin: auto auto spacing("md");
+    padding: spacing("md") spacing("xl");
+    border-radius: radius("md");
+    @include theme-color("secondary", background-color);
+    border: border-width("xs") solid theme("colors", "border");
+
+    &:hover {
+        transform: scale(1.05);
+        transition: transform duration("fast") ease;
+    }
+}
+
+/// Two-column layout with responsive behavior
+/// 
+/// @param {String} $gap - Gap between columns
+@mixin two-column-layout($gap: "md") {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr auto;
+    gap: spacing("md");
+
+    @include respond-below("md") {
+        grid-template-columns: 1fr;
+    }
+}
+
+/// Three-column layout with responsive behavior
+/// 
+/// @param {String} $gap - Gap between columns
+@mixin three-column-layout ($gap: "md") {
+    display: grid;
+    grid-template-columns: 1fr 2fr 1fr;
+    grid-template-rows: 1fr auto;
+    gap: spacing("md");
+
+    @include respond-below("md") {
+        grid-template-columns: 1fr;
+    }
+}

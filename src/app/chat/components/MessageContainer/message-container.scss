@@ -1,0 +1,126 @@
+@use "../../../styles/main" as *;
+
+%message-shared {
+    padding: spacing('sm') + 2px; //12px
+    border-radius: radius('md');
+    max-width: 65%;
+    font-size: font-size('base');
+    line-height: line-height('normal');
+    word-wrap: break-word;
+    margin-bottom: 6%;
+    box-shadow: shadow("lg");
+    font-weight: font-weight('medium');
+
+    animation: fadeIn duration('normal') ease-in-out;
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+            transform: translateY(5px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    p,
+    div,
+    span {
+        font-size: inherit !important; //override new ai messages coming in
+    }
+
+    @include respond-below('md') {
+        font-size: font-size('sm');
+        margin-bottom: 10%;
+    }
+}
+
+%img-shared {
+    width: spacing('lg');
+    height: spacing('lg');
+    border-radius: radius('circle');
+    margin-top: 1%;
+}
+
+.message_container {
+    grid-row: 1 / 2;
+    @include flex-direction($direction: column);
+    @include var-theme-color('surface', background-color);
+    border: border-width('xs') solid color('gray', '20'); ///change to theme color mixin @see var-theme-color
+    padding: spacing('lg') spacing('none') spacing('max'); // delicate
+    border-radius: radius('md') + 2 radius('md') + 2 0 0;
+    max-width: width('full');
+
+    @include respond-below("md") {
+        flex-grow: 1;
+        height: auto;
+    }
+
+    //might not work, can't test currently.
+    a:link {
+        @include var-theme-color('link');
+    }
+    a:visited {
+        @include var-theme-color('link-visited');
+    }
+    a:hover {
+        @include var-theme-color('link-hover');
+    }
+    a:active {
+        @include var-theme-color('link-active');
+    }
+    a {
+        font-weight: font-weight('bold');
+    }
+}
+
+// ───────────────
+// Message Styles
+// ───────────────
+
+%message-wrapper-shared {
+    display: flex;
+    gap: spacing('sm');
+    max-width: width('full');
+    overflow-wrap: break-word;
+    word-break: break-word;
+    overflow-x: hidden;
+}
+
+.ai_message_wrapper {
+    @extend %message-wrapper-shared;
+    align-items: flex-start;
+}
+
+.user_message_wrapper {
+    @extend %message-wrapper-shared;
+    flex-direction: row-reverse;
+}
+
+.user_message {
+    @extend %message-shared;
+    @include var-theme-color('user-message', background-color);
+    margin-right: spacing('xs');
+    align-self: flex-end;
+}
+
+.ai_message {
+    @extend %message-shared;
+    background-image: url("../../ai_background.png");
+    background-size: cover;
+    margin-left: spacing('xs');
+    align-self: flex-start;
+}
+
+// ───────────────
+// Image Styles
+// ───────────────
+.user_img {
+    @extend %img-shared;
+    margin-right: spacing('xs');
+}
+
+.ai_img {
+    @extend %img-shared;
+    margin-left: spacing('xs');
+}
