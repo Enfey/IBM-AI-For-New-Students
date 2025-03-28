@@ -9,23 +9,23 @@ import { useCallback } from "react";
  * @returns {Function} Function to trigger scrolling to bottom
  */
 export function useScrollToBottom(containerRef) {
-  return useCallback(() => {
-    if (!containerRef.current) return;
+	return useCallback(() => {
+		if (!containerRef.current) return;
 
-    const container = containerRef.current;
-    const lastChild = container.lastElementChild;
-    if (!lastChild) return;
+		const container = containerRef.current;
+		const lastChild = container.lastElementChild;
+		if (!lastChild) return;
 
-    const containerHeight = container.clientHeight;
-    const lastChildOffset = lastChild.offsetTop - container.scrollTop;
+		const containerHeight = container.clientHeight;
+		const lastChildOffset = lastChild.offsetTop - container.scrollTop;
 
-    if (lastChildOffset > containerHeight * 0.6) {
-      setTimeout(() => {
-        window.scrollTo({
-          top: document.documentElement.scrollHeight,
-          behavior: "smooth",
-        });
-      }, 100);
-    }
-  }, [containerRef]);
+		if (lastChildOffset > containerHeight * 0.6) {
+			setTimeout(() => {
+				window.scrollTo({
+					top: document.documentElement.scrollHeight,
+					behavior: "smooth",
+				});
+			}, 100);
+		}
+	}, [containerRef]);
 }
