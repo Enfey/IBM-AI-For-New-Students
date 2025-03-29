@@ -12,7 +12,7 @@ import { useScrollToBottom } from "./hooks/useScrollToBottom";
 import { useChatSession } from "./hooks/useChatSession";
 import { useSendMessage } from "./hooks/useSendMessage";
 import { useMessages } from "./hooks/useMessages";
-import { setupLive2D } from "./live2DSetup";
+import { setupLive2D } from "./live2dsetup";
 
 /**
  * Main Chat page component
@@ -34,7 +34,7 @@ import { setupLive2D } from "./live2DSetup";
  *
  * @returns {JSX.Element} Rendered chatPage component, null if not logged in.
  */
-export default function ChatPage() {
+export default function ChatPage({ historyKey = null }) {
 	const { isLoggedIn, isInitialised } = useAuth();
 	const router = useRouter();
 	const messageContainerRef = useRef(null);
@@ -107,6 +107,9 @@ export default function ChatPage() {
 	//Conditional render based on login state
 	if (!isLoggedIn) return null;
 
+	// Check if a historyKey has been passed (if a previous chat should be displayed)
+	const isHistory = historyKey !== null;
+
 	return (
 		<div className="layout_container">
 			<div className="left_column">
@@ -114,10 +117,19 @@ export default function ChatPage() {
 			</div>
 			<div className="live2d_container"></div>
 
-			<MessageContainer
-				messages={messages}
-				containerRef={messageContainerRef}
-			/>
+			{isHistory ? (
+				<MessageContainer
+					// pretty big todo: investigate way to render messages from localStorage
+					// messages={localStorage.getItem(historyKey).messages}
+					containerRef={messageContainerRef}
+				/>
+			) : (
+
+				<MessageContainer
+					messages={messages}
+					containerRef={messageContainerRef}
+				/>
+			)}
 
 			<ChatInput
 				onSubmit={handleSubmit}

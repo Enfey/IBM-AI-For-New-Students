@@ -15,15 +15,17 @@ import { Menu } from '@carbon/icons-react';
 import Link from 'next/link';
 import { useAuth } from '../../hooks/useAuth';
 import { usePathname } from 'next/navigation';
+import { useChatHistory } from '../../hooks/useChatHistory';
 
 const AppHeader = () => {
     const { isLoggedIn, logout } = useAuth();
     const [isSideNavExpanded, setIsSideNavExpanded] = useState(false);
     /* Sets the chat history's initial state to an empty array
        and a function that updates the state */
-    const [chatHistories, setChatHistories] = useState([]);
+    // const [chatHistories, setChatHistories] = useState([]);
     const pathname = usePathname();
     const hasSideNav = pathname === '/chat' || pathname === '/settings' || pathname === '/about' || pathname === '/announcement' || pathname === '/contact' || pathname === '/resource';
+    const { chatHistories, getHistories } = useChatHistory();
 
     useEffect(() => {
         const mq = window.matchMedia('(min-width: 1024px)');
@@ -39,32 +41,10 @@ const AppHeader = () => {
         };
     }, []);
 
-    /*
-    This hook loads the chat histories from local storage, (by seeing if it
-    starts with "chatHistory") and then sets the `chatHistories` state defined
-    above to the loaded chat histories
-    */
-    useEffect(() => {
-        const histories = [];
-        let chatHistoriesCount = 0;
-
-        for (let i = 0; i < localStorage.length; i++) {
-            const key = localStorage.key(i);
-
-            if(key.startsWith("chatHistory")) {
-                chatHistoriesCount += 1;
-
-                const chatHistoryData = JSON.parse(localStorage.getItem(key));
-                histories.push({
-                    ...chatHistoryData,
-                    id: chatHistoriesCount,
-                    key: key
-                });
-            }
-        }
-
-        setChatHistories(histories);
-    }, []);
+    // Fetching the localStorage chat histories
+    useEffect(()  => {
+        getHistories();
+    }, chatHistories);
 
     return (
         <HeaderContainer
@@ -108,12 +88,11 @@ const AppHeader = () => {
                                         { chatHistories.length > 0 ? (
                                             chatHistories.map((history) => (
                                                 <SideNavLink
-                                                    key={history.key}
                                                     /* This is just place holder, I don't know how to
                                                        dynamically generate links for this, also might
                                                        be a security risk using sessionID */
                                                     href={`/chat/${encodeURIComponent(history.key)}`}>
-                                                    Chat history {history.id}
+                                                        {history.id}
                                                 </SideNavLink>
                                             ))
                                         ) : (
