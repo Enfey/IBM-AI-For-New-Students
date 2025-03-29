@@ -4,8 +4,8 @@ import { Button, ComposedModal, ModalFooter, ModalBody } from "@carbon/react";
 
 /**
  * Modal component for creating a new chat session
- * Displays confirmation dialog before starting a new session
- * Handles submission and cancellation actions
+ * * Displays confirmation dialog before starting a new session
+ * * Handles submission and cancellation actions
  *
  * @param {Object} props - Component props
  * @param {Function} props.onNewSession - Callback for creation of new session.
@@ -16,11 +16,11 @@ export default function NewSessionModal({ onNewSession }) {
 
 	/**
 	 * Handles the submission of the new session request
-	 * Calls onNewSession and closes the modal
-	 * Handles any errors that occur during session creation
+	 * * Calls onNewSession and closes the modal
+	 * * Handles any errors that occur during session creation
 	 *
 	 * @returns {Promise<void>}
-     * @throws {Error} if session failed to create, probably pointless here tbh
+	 * @throws {Error} if session failed to create, probably pointless here tbh
 	 */
 	const handleSubmit = async () => {
 		try {

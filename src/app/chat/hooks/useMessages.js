@@ -6,11 +6,11 @@ import { processResponse } from "../utils/messages";
  * Custom hook for managing chat messages and operations
  *
  * This hook encapsulates all message-related state and actions including:
- * - Maintaining message state
- * - Adding user messages
- * - Processing API responses
- * - Handling errors
- * - Persisting messages to localStorage
+ * * Maintaining message state
+ * * Adding user messages
+ * * Processing API responses
+ * * Handling errors
+ * * Persisting messages to localStorage
  *
  * @see {@link ../utils/message.js} for handling message processing which don't need React features
  *
@@ -28,8 +28,8 @@ export function useMessages({ sessionId, sendMessage }) {
 	const [isSubmitting, setIsSubmitting] = useState(false);
 
 	/**
-	 * Clear all messages from state and localStorage
-	 * Used when starting a new chat session
+	 * Clear all messages from state and localStorage,
+	 * used when starting a new chat session
 	 *
 	 * @returns {void}
 	 */
@@ -54,8 +54,8 @@ export function useMessages({ sessionId, sendMessage }) {
 
 	/**
 	 * Handle message submission and processing
-	 * Adds user message to state, sends to API via 'sendMessage' and processes response via 'processResponse'
-	 * Updates message state accordingly.
+	 * * Adds user message to state, sends to API via 'sendMessage' and processes response via 'processResponse'
+	 * * Updates message state accordingly.
 	 *
 	 * @param {string} text - User message text
 	 * @returns {Promise<void>}

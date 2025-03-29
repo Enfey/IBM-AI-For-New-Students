@@ -81,7 +81,7 @@ export default function ChatPage() {
 
 	/**
 	 * Handle new user message submission
-	 * Delegates to the useMessages hook's handler
+	 * * Delegates to the useMessages hook's handler
 	 *
 	 * @param {string} text - User message text
 	 * @returns {Promise<void>}
@@ -95,7 +95,7 @@ export default function ChatPage() {
 
 	/**
 	 * Handle new session creation
-	 * Creates a new session and clears messages
+	 * * Creates a new session and clears messages
 	 *
 	 * @returns {Promise<void>}
 	 */

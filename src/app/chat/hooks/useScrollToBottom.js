@@ -2,8 +2,8 @@ import { useCallback } from "react";
 
 /**
  * Custom hook to handle scrolling to bottom of messages
- * Checks if the last message is visible by comparing offset to container's height
- * Automatically scrolls to new messages when they're outside the visible area
+ * * Checks if the last message is visible by comparing offset to container's height
+ * * Automatically scrolls to new messages when they're outside the visible area
  *
  * @param {React.RefObject} containerRef - Reference to the message container element
  * @returns {Function} Function to trigger scrolling to bottom

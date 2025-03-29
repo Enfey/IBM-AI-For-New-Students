@@ -1,9 +1,6 @@
 /**
- * @fileoverview Live2D setup for the chatbot
- */
-
-/**
  * Sets up the Live2D model using some form of black magic :D
+ * @todo pls can someone else do the scss for this using @app/styles cheers
  * @returns {Promise<void>}
  */
 export function setupLive2D() {

@@ -18,8 +18,8 @@ export function useChatSession() {
 
 	/**
 	 * Creates a new chat session
-	 * Makes a request to /api/create_session endpoint and stores the returned session id
-	 * Sets loading state during the request
+	 * * Makes a request to /api/create_session endpoint and stores the returned session id
+	 * * Sets loading state during the request
 	 *
 	 * @returns {Promise<string>} The new session ID
 	 * @throws {Error} If the session creation fails

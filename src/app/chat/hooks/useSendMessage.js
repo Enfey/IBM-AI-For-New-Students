@@ -5,9 +5,9 @@ import { useState, useCallback } from "react";
  * Removes previous circular dependency between hooks.
  *
  * This hook:
- * - Handles API communication for message sending
- * - Manages loading state during API operations
- * - Provides error handling for failed requests
+ * * Handles API communication for message sending
+ * * Manages loading state during API operations
+ * * Provides error handling for failed requests
  *
  * @returns {Object} Message sending methods and state
  * @returns {Function} return.sendMessage - Function to send a message to the API

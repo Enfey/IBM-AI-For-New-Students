@@ -19,7 +19,7 @@ export default function ChatInput({ onSubmit, onNewSession, isLoading }) {
 
 	/**
 	 * Handles submission of the current message
-	 * Validates input, calls submission callback, and clears input
+	 * * Validates input, calls submission callback, and clears input
 	 *
 	 * @returns {void}
 	 */

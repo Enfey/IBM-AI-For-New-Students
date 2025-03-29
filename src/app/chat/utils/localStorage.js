@@ -7,7 +7,7 @@
 export function saveMessagesToLocalStorage(messages, sessionId) {
 	if (!sessionId) return;
 
-    //transform!
+	//transform!
 	const history = messages.map((msg) => ({
 		message: msg.content,
 		isUser: msg.isUser,
@@ -17,7 +17,7 @@ export function saveMessagesToLocalStorage(messages, sessionId) {
 }
 
 /**
- * Retrieves chat history from localStorage 
+ * Retrieves chat history from localStorage
  *
  * @param {string} sessionId - The session ID to retrieve history for
  * @returns {Array} Array of message objects

@@ -1,12 +1,12 @@
 "use client";
 
-import Home from "../components/Home/Home";
+import Root from "./root/page";
 import { ThemeProvider } from "./contexts/ThemeContext";
 
 export default function Page() {
 	return (
 		<ThemeProvider>
-			<Home />
+			<Root />
 		</ThemeProvider>
 	);
 }

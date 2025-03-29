@@ -1,7 +1,8 @@
 /**
- * Processes the raw API response into a format suitable for display
- * Handles different response formats and extracts the message content
- * 
+ * Utility function to process API response for chat messages
+ * * Processes the raw API response into a format suitable for display
+ * * Handles different response formats and extracts the message content
+ *
  * @param {Object} response - Raw response from the message API
  * @returns {string} Processed message content ready for display
  */
