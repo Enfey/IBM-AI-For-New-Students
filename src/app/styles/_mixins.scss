@@ -1,5 +1,6 @@
 @use "sass:map";
 @use 'variables' as *;
+@use 'theming' as *;
 /// ───────────────
 /// MIXINS
 /// ───────────────
@@ -113,7 +114,7 @@
     padding: $padding-top spacing("xl") spacing("xl");
     margin-top: -50px;
     margin-bottom: -80px;
-    @include theme-color("surface", background-color);
+    @include var-theme-color("surface", background-color);
     border-radius: radius("lg");
 }
 
@@ -125,7 +126,7 @@
     margin: auto auto spacing("md");
     padding: spacing("md") spacing("xl");
     border-radius: radius("md");
-    @include theme-color("secondary", background-color);
+    @include var-theme-color("surface", background-color);
     border: border-width("xs") solid theme("colors", "border");
 
     &:hover {

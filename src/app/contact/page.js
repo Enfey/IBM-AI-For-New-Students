@@ -2,10 +2,10 @@
 import {useAuth} from "@/hooks/useAuth";
 import {useRouter} from "next/navigation";
 import {useEffect} from "react";
-import {Button, ExpandableTile, TileAboveTheFoldContent, TileBelowTheFoldContent} from "@carbon/react";
-import {ArrowLeft, ArrowRight} from "@carbon/icons-react";
+import ContactTile from "./components/ContactTile/ContactTile";
 
-const tiles = [
+
+const contactMethods = [
     {
         title: "📞 Phone Contact",
         content: "Call us on +1 555 555 5555",
@@ -25,13 +25,26 @@ const tiles = [
     }
 ];
 
+/**
+ * Contact page component
+ * 
+ * * Protected by auth - redirects to login if not authenticated.
+ * * Renders a list of contact methods using the ContactTile component.
+ * 
+ * * Uses:
+ * @see {@link useAuth} Custom hook for authentication state
+ * @see {@link useRouter} From next/navigation for routing
+ * @see {@link ContactTile} Component for rendering individual contact methods
+ * 
+ * @returns {JSX.Element|null} The contact page UI, null when not logged in
+ */
 export default function ContactPage() {
     const { isLoggedIn, isInitialised } = useAuth();
     const router = useRouter();
 
     useEffect(() => {
         if (isInitialised && !isLoggedIn) {
-            router.replace('/');
+            router.replace('/login');
         }
     }, [isInitialised, isLoggedIn, router]);
 
@@ -39,37 +52,14 @@ export default function ContactPage() {
     return (
         <>
             {!isLoggedIn ? null : (
-                <div className="contact-us-container">
-                    {tiles.map((item, index) => (
-                        <ExpandableTile
-                            key={index}
-                            onClick={() => console.log("click")}
-                            id={`expandable-tile-${index}`}
-                            tileCollapsedIconText="Interact to Expand tile"
-                            tileExpandedIconText="Interact to Collapse tile"
-                            className="contact-us-tile"
-                            expanded={true}
-                        >
-                            {/* Tile */}
-                            <TileAboveTheFoldContent>
-                                <div style={{ height: "auto", width: "100%", padding: "20px" }}>
-                                    <h3 className="bx--type-productive-heading-03"> {item.title} </h3>
-                                </div>
-                            </TileAboveTheFoldContent>
-
-                            {/* Tile  */}
-                            <TileBelowTheFoldContent>
-                                <div style={{ height: "auto", width: "100%", padding: "20px" }}>
-                                    <p className="bx--type-body-long-01">
-                                        {item.content}
-                                    </p>
-                                </div>
-                            </TileBelowTheFoldContent>
-                        </ExpandableTile>
+                <div className="contact_tile_container">
+                    {contactMethods.map((item, index) => (
+                        <ContactTile 
+                            title={item.title}
+                            content={item.content}
+                            index={index}
+                        />
                     ))}
-
-                    <br/>
-                    <br/>
                 </div>
             )}
         </>

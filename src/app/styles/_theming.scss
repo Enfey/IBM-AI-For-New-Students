@@ -21,7 +21,9 @@ $theme-light: (
         "link-visited": color("blue", "dark"),
         "link-active": color("blue", "light"),
         "user-message": color("gray", "10"),
-        "ai-message-hover": color("blue", "hover")
+        "ai-message-hover": color("blue", "hover"),
+        //quick fix for tiles
+        "tile-background": color("white", "off"),
     )
 );
 
@@ -43,7 +45,9 @@ $theme-dark: (
         "link-visited": color("blue", "dark"),
         "link-active": color("blue", "base"),
         "user-message": #2e2e2e,
-        "ai-message-hover": color("blue", "base")
+        "ai-message-hover": color("blue", "base"),
+        //quick fix for tiles
+        "tile-background": color("gray", "20"),
     )
 );
 

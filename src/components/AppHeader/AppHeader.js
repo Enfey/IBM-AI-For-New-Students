@@ -17,6 +17,7 @@ import { useAuth } from '../../hooks/useAuth';
 import { usePathname } from 'next/navigation';
 import { useChatHistory } from '../../hooks/useChatHistory';
 
+//this whole component is such a fat mess
 const AppHeader = () => {
     const { isLoggedIn, logout } = useAuth();
     const [isSideNavExpanded, setIsSideNavExpanded] = useState(false);
@@ -35,11 +36,17 @@ const AppHeader = () => {
           setIsSideNavExpanded(e.matches);
         };
 
+        const pagesToCloseNavOn = ['/settings', '/about', '/announcement', '/contact', '/resource']; //10x developer
+        
+        if (pagesToCloseNavOn.includes(pathname)) {
+            setIsSideNavExpanded(false);
+        }
+
         mq.addEventListener('change', handleMediaChange);
         return () => {
           mq.removeEventListener('change', handleMediaChange);
         };
-    }, []);
+    }, [pathname]);
 
     // Fetching the localStorage chat histories
     useEffect(()  => {

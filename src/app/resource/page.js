@@ -1,10 +1,11 @@
 "use client";
 
 import React, {useEffect} from 'react';
-import { ClickableTile } from "@carbon/react";
 import {Book, Events, Globe, Home, Screen, User} from "@carbon/icons-react";
+import ResourceTile from "./components/ResourceTile/ResourceTile";
 import {useAuth} from "@/hooks/useAuth";
 import {useRouter} from "next/navigation";
+import "./resource-page.scss";
 
 const resources = [
     { title: "University Homepage", link: "https://www.nottingham.ac.uk/", icon: <Globe size={64} /> },
@@ -28,20 +29,17 @@ export default function ResourcePage() {
     return (
         <>
             {!isLoggedIn ? null : (
-        <div className="resource-container">
-            {resources.map((resource, index) => (
-                <ClickableTile
-                    href={resource.link}
-                    id={`tile-${index}`}
-                    className="resource-tile"
-                >
-                    <div align="center">
-                        {resource.icon}
-                        <p className="resource-title"> {resource.title} </p>
-                    </div>
-                </ClickableTile>
-            ))}
-        </div>)}
+                <div className="resource-container">
+                    {resources.map((resource, index) => (
+                        <ResourceTile
+                            title={resource.title}
+                            link={resource.link}
+                            icon={resource.icon}
+                            index={index}
+                        />
+                    ))}
+                </div>
+            )}
         </>
     );
 }

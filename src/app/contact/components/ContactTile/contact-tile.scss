@@ -1,0 +1,11 @@
+@use "../../../styles/main.scss" as *;
+
+.contact_us_tile {
+    margin: auto auto spacing("md");
+    @include border-radius("md");
+    @include transition();
+    
+    &:hover {
+      box-shadow: shadow("md");
+    }
+  }
