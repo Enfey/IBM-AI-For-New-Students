@@ -102,7 +102,7 @@ export default function ChatPage({ historyKey = null }) {
 	 */
 	const handleNewSession = useCallback(async () => {
 		await createSession();
-		clearMessages();
+		window.location.reload();
 	}, [createSession, clearMessages]);
 
 	//Conditional render based on login state

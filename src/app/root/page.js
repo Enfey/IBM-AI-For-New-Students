@@ -3,6 +3,7 @@
 import { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { useAuth } from '@/hooks/useAuth';
+import Loading from "@carbon/react/es/components/Loading/Loading";
 
 export default function RootPage() {
   const { isLoggedIn, isInitialised } = useAuth();
@@ -23,7 +24,8 @@ export default function RootPage() {
   return (
     <div className="container">
       <div className="loading-screen">
-        <p className="loading-text">Loading...</p>
+        <h1>The application is loading...</h1>
+        <Loading active={true}  description="Loading" />
       </div>
     </div>
   );
