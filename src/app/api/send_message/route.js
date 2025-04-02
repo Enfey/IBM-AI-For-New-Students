@@ -1,4 +1,5 @@
 import {NextResponse} from "next/server";
+import {franc} from "franc";
 
 const AssistantV2 = require('ibm-watson/assistant/v2');
 const { IamAuthenticator } = require('ibm-watson/auth');
@@ -6,7 +7,7 @@ const { IamAuthenticator } = require('ibm-watson/auth');
 export const dynamic = 'force-dynamic';
 
 const assistant = new AssistantV2({
-    version: '2025-03-27',
+    version: '2025-04-02',
     authenticator: new IamAuthenticator({
         apikey: process.env.APIKEY
     }),
@@ -16,12 +17,56 @@ const assistant = new AssistantV2({
 export async function POST(request) {
     let data = await request.json()
 
+    // Check if message is English or not
+    const lang = franc(data.message) ;
+
+    // Add a short judgement if the message is too short
+    let shortJudgement = false;
+    if (data.message.length < 30 && /^[a-zA-Z\s]+$/.test(data.message)) {
+        shortJudgement = true;
+    }
+
+    // make the translation
+    let transText;
+
+    if ((lang !== 'eng'|| lang === 'und') && !shortJudgement) {
+        const response = await fetch("https://api.deepseek.com/v1/chat/completions", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": "Bearer " + process.env.TRANSLATION_API_KEY
+            },
+            body: JSON.stringify({
+                model: "deepseek-chat",
+                messages: [
+                    {
+                        role: "system",
+                        content: "You are a professional translator. Translate all user input to English."
+                    },
+                    {
+                        role: "user",
+                        content: data.message
+                    }
+                ],
+                temperature: 0.3
+            })
+        });
+
+        const result = await response.json();
+        transText = result.choices[0].message.content;
+    } else {
+        transText = data.message;
+    }
+
+    // Clean up the translation invalid characters
+    transText = String(transText).replace(/[\t\r\n]/g, ' ').replace(/\s+/g, ' ').trim();
+
     let params = {
         assistantId: '7b6004ec-9cf4-4631-a286-fac63052422d',
         sessionId: data.session_id,
         input: {
             'message_type': 'text',
-            'text': data.message,
+            'text': transText,
             'options': {
                 return_context : true
             }
