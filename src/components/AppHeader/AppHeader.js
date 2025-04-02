@@ -92,19 +92,21 @@ const AppHeader = () => {
                                     <SideNavMenu title="History" defaultExpanded={true}>
                                         {/* If there are chat histories present, display their ids
                                             Otherwise, say there are none */}
-                                        { chatHistories.length > 0 ? (
-                                            chatHistories.map((history) => (
-                                                <SideNavLink
-                                                    /* This is just place holder, I don't know how to
-                                                       dynamically generate links for this, also might
-                                                       be a security risk using sessionID */
-                                                    href={`/chat/${encodeURIComponent(history.key)}`}>
-                                                        {history.id}
-                                                </SideNavLink>
-                                            ))
-                                        ) : (
-                                            <SideNavLink disabled>No chat history</SideNavLink>
-                                        )}
+                                        <div className="history-scroll">
+                                            { chatHistories.length > 0 ? (
+                                                chatHistories.map((history) => (
+                                                    <SideNavLink
+                                                        /* This is just place holder, I don't know how to
+                                                        dynamically generate links for this, also might
+                                                        be a security risk using sessionID */
+                                                        href={`/chat/${encodeURIComponent(history.key)}`}>
+                                                            {history.id}
+                                                    </SideNavLink>
+                                                ))
+                                            ) : (
+                                                <SideNavLink disabled>No chat history</SideNavLink>
+                                            )}
+                                        </div>
                                     </SideNavMenu>
                                 </div>
                                 <SideNavLink href="/" onClick={logout} className="logout">Logout</SideNavLink>
