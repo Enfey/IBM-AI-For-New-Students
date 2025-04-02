@@ -17,15 +17,17 @@ import { processResponse } from "../utils/messages";
  * @param {Object} options - Configuration options
  * @param {string} options.sessionId - Current chat session ID
  * @param {Function} options.sendMessage - Function to send messages to the API
- * @returns {Object} Message state and operations
+ * @returns {{messages: *[], isSubmitting: boolean, handleSubmit: ((function(*): Promise<void>)|*), clearMessages: ((function(): void)|*), location: string}} Message state and operations
  * @returns {Array} return.messages - Array of chat messages
  * @returns {boolean} return.isSubmitting - Whether a message is currently being submitted
  * @returns {Function} return.handleSubmit - Function to handle new message submission
  * @returns {Function} return.clearMessages - Function to clear all messages
+ * @returns {string} return.location - searching location of user
  */
 export function useMessages({ sessionId, sendMessage }) {
 	const [messages, setMessages] = useState([]);
 	const [isSubmitting, setIsSubmitting] = useState(false);
+	const [location, setLocation] = useState("Nottingham, UK");
 
 	/**
 	 * Clear all messages from state and localStorage,
@@ -77,7 +79,11 @@ export function useMessages({ sessionId, sendMessage }) {
 			try {
 				// send to API and process response
 				const response = await sendMessage(text, sessionId);
-				const processedContent = processResponse(response);
+				const processedContent = processResponse(response).message;
+				const processedLocation = processResponse(response).location;
+
+				// Set location
+				setLocation(processedLocation);
 
 				// Update messages with processed response
 				const finalMessages = [
@@ -102,7 +108,7 @@ export function useMessages({ sessionId, sendMessage }) {
 				setIsSubmitting(false);
 			}
 		},
-		[messages, sendMessage, sessionId, isSubmitting, persistMessages]
+		[messages, sendMessage, sessionId, isSubmitting, persistMessages, location]
 	);
 
 	return {
@@ -110,5 +116,6 @@ export function useMessages({ sessionId, sendMessage }) {
 		isSubmitting,
 		handleSubmit,
 		clearMessages,
+		location
 	};
 }

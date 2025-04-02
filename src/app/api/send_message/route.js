@@ -6,7 +6,7 @@ const { IamAuthenticator } = require('ibm-watson/auth');
 export const dynamic = 'force-dynamic';
 
 const assistant = new AssistantV2({
-    version: '2025-02-18',
+    version: '2025-03-27',
     authenticator: new IamAuthenticator({
         apikey: process.env.APIKEY
     }),
@@ -21,7 +21,10 @@ export async function POST(request) {
         sessionId: data.session_id,
         input: {
             'message_type': 'text',
-            'text': data.message
+            'text': data.message,
+            'options': {
+                return_context : true
+            }
         }
     }
 
@@ -30,7 +33,7 @@ export async function POST(request) {
         const res = await assistant.message(params)
 
         // Log response
-        console.log(JSON.stringify(res.result.output.generic))
+        console.log(JSON.stringify(res.result))
 
         // Extract text responses
         let textResponses = [];
@@ -52,12 +55,15 @@ export async function POST(request) {
             suggestions = suggestionItems.suggestions.map(sug => sug.label);
         }
 
+        let sessionVariables = res.result.context.skills["actions skill"].skill_variables
+
         // Return response
         return NextResponse.json({
             payload: res.result,
             texts: textResponses.length > 0? textResponses : null,
             options: options,
             suggestions: suggestions,
+            location: sessionVariables["target_location"],
             status: "INPUT_SUCCESS"
         })
     } catch (err) {

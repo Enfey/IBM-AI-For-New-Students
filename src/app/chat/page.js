@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useRef, useCallback } from "react";
+import React, {useEffect, useRef, useCallback, useState} from "react";
 import { useRouter } from "next/navigation";
 import { useAuth } from "../../hooks/useAuth";
 import DynamicMap from "../api/google_map/route";
@@ -47,6 +47,7 @@ export default function ChatPage({ historyKey = null }) {
 		isSubmitting,
 		handleSubmit: submitMessage,
 		clearMessages,
+		location
 	} = useMessages({ sessionId, sendMessage });
 	const scrollToBottom = useScrollToBottom(messageContainerRef);
 
@@ -113,7 +114,7 @@ export default function ChatPage({ historyKey = null }) {
 	return (
 		<div className="layout_container">
 			<div className="left_column">
-				<DynamicMap location="Nottingham, UK" />
+				<DynamicMap location={location} />
 			</div>
 			<div className="live2d_container"></div>
 

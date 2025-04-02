@@ -4,7 +4,7 @@
  * * Handles different response formats and extracts the message content
  *
  * @param {Object} response - Raw response from the message API
- * @returns {string} Processed message content ready for display
+ * @returns {{message: string, location: string}} Processed message content ready for display
  */
 export const processResponse = (response) => {
 	let message = "Sorry, something went wrong; please try again.";
@@ -19,5 +19,9 @@ export const processResponse = (response) => {
 		message = "Sorry, I didn't get that. Could you repeat your message again?";
 	}
 
-	return message;
+	// Get location
+	const location = response.location;
+
+	//return message and location
+	return { message, location };
 };
