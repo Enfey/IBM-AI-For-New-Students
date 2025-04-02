@@ -27,14 +27,20 @@ const ThemeContext = createContext({
  * @returns {JSX.Element} Rendered component
  */
 export const ThemeProvider = ({ children }) => {
-  // Get initial theme from localStorage or system preference
   const [isDarkMode, setIsDarkMode] = useState(() => {
-    const saved = localStorage.getItem('darkMode');
-    if (saved !== null) {
-      return JSON.parse(saved);
-    }
-    // Fallback 
-    return window.matchMedia('(prefers-color-scheme: dark)').matches;
+  // Initially runs on the server.
+  if (typeof window === 'undefined') {
+    return false; // Default theme for initial server render
+  }
+  
+  // Client-side, check localStorage
+  const saved = localStorage.getItem('darkMode');
+  if (saved !== null) {
+    return JSON.parse(saved);
+  }
+  
+  // Fallback 
+  return window.matchMedia('(prefers-color-scheme: dark)').matches;
   });
 
   // Apply theme class and save preference when theme changes 
