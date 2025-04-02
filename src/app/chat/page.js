@@ -113,10 +113,8 @@ export default function ChatPage({ historyKey = null }) {
 
 	return (
 		<div className="layout_container">
-			<div className="left_column">
-				<DynamicMap location={location} />
-			</div>
-			<div className="live2d_container"></div>
+			<div className="left_column"></div>
+			<DynamicMap location={location} />
 
 			{isHistory ? (
 				<MessageContainer

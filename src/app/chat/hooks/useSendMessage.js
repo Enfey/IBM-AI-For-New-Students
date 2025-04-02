@@ -28,6 +28,8 @@ export function useSendMessage() {
 	const sendMessage = useCallback(async (message, sessionId) => {
 		if (!message.trim() || !sessionId) return; //probably not necessary given early returns in other parts of codebase
 
+		// TODO: Add language detection and translation here
+
 		setIsSending(true);
 		try {
 			const response = await fetch("/api/send_message", {
