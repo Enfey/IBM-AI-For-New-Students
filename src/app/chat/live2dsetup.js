@@ -7,6 +7,8 @@ export function setupLive2D() {
 	const loadLive2DScript = () => {
 		return new Promise((resolve, reject) => {
 			if (window.OML2D) {
+				document.querySelector('.oml2d-stage').remove();
+				document.querySelector('.oml2d-menus').remove();
 				resolve();
 			} else {
 				const script = document.createElement("script");
@@ -92,7 +94,6 @@ export function setupLive2D() {
 						},
 					],
 				},
-				container: ".live2d_container",
 			});
 		})
 		.catch((error) => console.error(error));
