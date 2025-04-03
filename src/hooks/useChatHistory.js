@@ -23,7 +23,7 @@ export function useChatHistory() {
                 /* The messageId is used to display the chat history in the UI;
                    similar to ChatGPT */
                 // This is Zefei magic btw idk what `history?` and `history?.[0]?` does
-                const firstMessage = history?.[0]?.message || "No messages";
+                const firstMessage = history?.[0]?.content || "No messages";
                 const messageId = firstMessage.length > 30
                     ? firstMessage.substring(0, 30) + "..."
                     : firstMessage;

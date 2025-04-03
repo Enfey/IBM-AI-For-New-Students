@@ -1,7 +1,7 @@
 "use client";
 
 import { useParams } from "next/navigation";
-import ChatPage from "./page";
+import ChatPage from "../page";
 
 /**
  * This is a version of the ChatPage component that is used to display chat
