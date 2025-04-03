@@ -1,6 +1,6 @@
 "use client";
 
-import React, {useEffect, useRef, useCallback, useState} from "react";
+import React, { useEffect, useRef, useCallback } from "react";
 import { useRouter } from "next/navigation";
 import { useAuth } from "../../hooks/useAuth";
 import DynamicMap from "../api/google_map/route";
@@ -8,10 +8,12 @@ import DynamicMap from "../api/google_map/route";
 // Import local
 import MessageContainer from "./components/MessageContainer/MessageContainer";
 import ChatInput from "./components/ChatInput/ChatInput";
+import HistoryInput from "./components/HistoryInput/HistoryInput";
 import { useScrollToBottom } from "./hooks/useScrollToBottom";
 import { useChatSession } from "./hooks/useChatSession";
 import { useSendMessage } from "./hooks/useSendMessage";
 import { useMessages } from "./hooks/useMessages";
+import { deleteMessagesFromLocalStorage } from "./utils/localStorage";
 import { setupLive2D } from "./live2dsetup";
 
 /**
@@ -116,25 +118,38 @@ export default function ChatPage({ historyKey = null }) {
 			<div className="left_column"></div>
 			<DynamicMap location={location} />
 
+			{/* If viewing a chat history (not new messages), then display the
+			    previous messages from `localStorage` and then display a button
+				that gives the user the option to delete the given chat history */}
 			{isHistory ? (
-				<MessageContainer
-					// pretty big todo: investigate way to render messages from localStorage
-					messages={localStorage.getItem(historyKey)}
-					containerRef={messageContainerRef}
-				/>
+				<>
+					<MessageContainer
+						messages={JSON.parse(localStorage.getItem(historyKey))}
+						containerRef={messageContainerRef}
+					/>,
+					<HistoryInput
+						onDelete={() => {
+							deleteMessagesFromLocalStorage(historyKey);
+						}}
+					>
+					</HistoryInput>
+				</>
 			) : (
-
-				<MessageContainer
-					messages={messages}
-					containerRef={messageContainerRef}
-				/>
+			{/* Otherwise, display the usual display for talking with the chatbot
+			    (text area, submit button, new session button, etc.) and any
+				messages sent from the user or chatbot */},
+				<>
+					<MessageContainer
+						messages={messages}
+						containerRef={messageContainerRef}
+					/>,
+					<ChatInput
+					onSubmit={handleSubmit}
+					onNewSession={handleNewSession}
+					isLoading={isLoading}
+					/>
+				</>
 			)}
-
-			<ChatInput
-				onSubmit={handleSubmit}
-				onNewSession={handleNewSession}
-				isLoading={isLoading}
-			/>
 
 			<div className="right_column"></div>
 		</div>

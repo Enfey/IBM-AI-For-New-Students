@@ -9,8 +9,9 @@ export function saveMessagesToLocalStorage(messages, sessionId) {
 
 	//transform!
 	const history = messages.map((msg) => ({
-		message: msg.content,
+		content: msg.content,
 		isUser: msg.isUser,
+		isLoading: msg.isLoading || false
 	}));
 
 	localStorage.setItem(`chatHistory${sessionId}`, JSON.stringify(history));
@@ -31,11 +32,23 @@ export function loadMessagesFromLocalStorage(sessionId) {
 	try {
 		const history = JSON.parse(storedHistory);
 		return history.map((item) => ({
-			content: item.message,
+			content: item.content,
 			isUser: item.isUser,
+			isLoading: item.isLoading
 		}));
 	} catch (error) {
 		console.error("Error parsing chat history from localStorage:", error);
 		return [];
 	}
+}
+
+/**
+ * Does what it says on the tin (deletes chat history from `localStorage`)
+ * 
+ * @param {string} sessionId - The session ID to delete history for
+ */
+export function deleteMessagesFromLocalStorage(sessionId) {
+	localStorage.removeItem(sessionId);
+	
+	window.location.href = "/chat";
 }

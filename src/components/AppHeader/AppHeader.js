@@ -17,15 +17,15 @@ import { useAuth } from '../../hooks/useAuth';
 import { usePathname } from 'next/navigation';
 import { useChatHistory } from '../../hooks/useChatHistory';
 
-//this whole component is such a fat mess
+// this whole component is such a fat mess https://tenor.com/view/ulrik-dum-dum-gif-8139603776302963066
 const AppHeader = () => {
     const { isLoggedIn, logout } = useAuth();
     const [isSideNavExpanded, setIsSideNavExpanded] = useState(false);
-    /* Sets the chat history's initial state to an empty array
-       and a function that updates the state */
-    // const [chatHistories, setChatHistories] = useState([]);
     const pathname = usePathname();
-    const hasSideNav = pathname === '/chat' || pathname === '/settings' || pathname === '/about' || pathname === '/announcement' || pathname === '/contact' || pathname === '/resource';
+    // There has to be a cleaner way to do this
+    const hasSideNav = pathname.includes('/chat') || pathname === '/settings'
+                       || pathname === '/about' || pathname === '/announcement'
+                       || pathname === '/contact' || pathname === '/resource';
     const { chatHistories, getHistories } = useChatHistory();
 
     useEffect(() => {
@@ -90,20 +90,21 @@ const AppHeader = () => {
                                     <SideNavLink href="/contact">Contact Us</SideNavLink>
                                     <SideNavLink href="/resource">Resources</SideNavLink>
                                     <SideNavMenu title="History" defaultExpanded={true}>
-                                        {/* If there are chat histories present, display their ids
-                                            Otherwise, say there are none */}
+                                        {/* If there are chat histories present, display their ids */}
                                         <div className="history-scroll">
                                             { chatHistories.length > 0 ? (
                                                 chatHistories.map((history) => (
                                                     <SideNavLink
-                                                        /* This is just place holder, I don't know how to
-                                                        dynamically generate links for this, also might
-                                                        be a security risk using sessionID */
-                                                        href={`/chat/${encodeURIComponent(history.key)}`}>
-                                                            {history.id}
+                                                        /* Uses the `localStorage` chat history key (UUID i think)
+                                                           to use as part of the dynamic route's link so it can be
+                                                           fetched later */ 
+                                                        href={`/chat/${encodeURIComponent(history.key)}`}
+                                                    >
+                                                        {history.id}
                                                     </SideNavLink>
                                                 ))
                                             ) : (
+                                        {/* Otherwise, say there are none */},
                                                 <SideNavLink disabled>No chat history</SideNavLink>
                                             )}
                                         </div>
@@ -111,7 +112,6 @@ const AppHeader = () => {
                                 </div>
                                 <SideNavLink href="/" onClick={logout} className="logout">Logout</SideNavLink>
                             </SideNavItems>
-
                         </HeaderPanel>
                     )}
                 </Header>
