@@ -119,7 +119,7 @@ export default function ChatPage({ historyKey = null }) {
 			{isHistory ? (
 				<MessageContainer
 					// pretty big todo: investigate way to render messages from localStorage
-					// messages={localStorage.getItem(historyKey).messages}
+					messages={localStorage.getItem(historyKey)}
 					containerRef={messageContainerRef}
 				/>
 			) : (

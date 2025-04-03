@@ -1,3 +1,11 @@
+/*
+ * This api route is used to create a new session for the assistant.
+ * It returns a JSON object with the session ID.
+ *
+ * The session ID is stored in a global variable to be used by the other API routes.
+ * It currently can only exist for 15min without any activity. After that, the session will be automatically deleted.
+ */
+
 import {NextResponse} from "next/server";
 
 const AssistantV2 = require('ibm-watson/assistant/v2');

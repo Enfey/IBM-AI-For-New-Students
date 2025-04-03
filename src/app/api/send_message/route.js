@@ -1,3 +1,8 @@
+/*
+ * This api route is used to handle user input and return the response from Watson Assistant.
+ * The input message and output response are translated into the user language if the input language is not English.
+ */
+
 import {NextResponse} from "next/server";
 import {franc} from "franc";
 
@@ -102,10 +107,47 @@ export async function POST(request) {
 
         let sessionVariables = res.result.context.skills["actions skill"].skill_variables
 
+
+        // Translate the output back to user language
+        let transRes;
+
+        if ((lang !== 'eng') && !shortJudgement && textResponses.length > 0) {
+           const response = await fetch("https://api.deepseek.com/v1/chat/completions", {
+               method: "POST",
+               headers: {
+                   "Content-Type": "application/json",
+                   "Authorization": "Bearer " + process.env.TRANSLATION_API_KEY
+               },
+               body: JSON.stringify({
+                   model: "deepseek-chat",
+                   messages: [
+                       {
+                           role: "system",
+                           content: "You are a professional translator only output the pure translation without any suggestion or options.. Translate all following responses into the same language as this sentence:" + data.message
+                       },
+                       {
+                           role: "user",
+                           content: textResponses.join(" ")
+                       }
+                   ],
+                   temperature: 0.3
+               })
+           });
+
+           const result = await response.json();
+           transRes = result.choices[0].message.content;
+
+            console.log("Translation result raw:", JSON.stringify(result));
+            console.log("Translated response: ", transRes);
+
+        } else {
+           transRes = data.message;
+        }
+
         // Return response
         return NextResponse.json({
             payload: res.result,
-            texts: textResponses.length > 0? textResponses : null,
+            texts: textResponses.length > 0? transRes: null,
             options: options,
             suggestions: suggestions,
             location: sessionVariables["target_location"],
@@ -113,6 +155,7 @@ export async function POST(request) {
         })
     } catch (err) {
         // Handle errors
+        console.log("err happened")
         console.log(JSON.stringify(err))
         return NextResponse.json({
             status: "INPUT_FAIL"
