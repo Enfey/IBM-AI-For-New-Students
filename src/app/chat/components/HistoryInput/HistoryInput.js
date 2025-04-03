@@ -1,5 +1,6 @@
 import { Button } from "@carbon/react";
 import { TrashCan } from "@carbon/icons-react";
+import "./history-input.scss";
 
 /**
  * Shamelessly stolen from ChatInput.js (sorry Felix)
@@ -11,8 +12,9 @@ export default function HistoryInput({ onDelete }) {
     return (
         <div id="chat_container">
             <div id="user_input_area">
-                <div className="button-group">
+                <div className={"delete_container"} align="center">
                     <Button
+                        className={"delete_button"}
                         kind="danger"
                         renderIcon={TrashCan}
                         onClick = {onDelete}
