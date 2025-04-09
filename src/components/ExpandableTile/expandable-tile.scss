@@ -1,10 +1,9 @@
-@use "../../../styles/main.scss" as *;
+@use "../../app/styles/main" as *;
 
-.contact_us_tile {
+.expandable-tile {
     margin: auto auto spacing("md");
     @include border-radius("md");
-    @include transition();
-    
+
     &:hover {
       box-shadow: shadow("md");
     }

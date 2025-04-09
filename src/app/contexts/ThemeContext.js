@@ -1,62 +1,56 @@
-import React, { createContext, useContext, useState, useEffect } from 'react';
+"use client";
 
-/**
- * 'Context' for managing the theme of the application (light/dark mode)
- * 
- * @typedef {Object} ThemeContextType
- * @property {boolean} isDarkMode - Current theme state
- * @property {() => void} toggleTheme - Function to toggle between light/dark modes
- * 
- * @type {React.Context<ThemeContextType>}
- */
+import { createContext, useContext, useState, useEffect } from "react";
 
+// Create theme context with default values
 const ThemeContext = createContext({
   isDarkMode: false,
   toggleTheme: () => {},
 });
 
 /**
- * Handles:
- * - Loading theme from localStorage or system preference
- * - Updating the DOM with 'dark-theme' class
- * - Saving theme changes to localStorage via 'isDarkMode' state
- * Wrap application in this 'ThemeProvider' to provide theme data to child components
- * 
- * @param {Object} props - Component props
- * @param {React.ReactNode} props.children - Child components that will have access to the theme
- * @returns {JSX.Element} Rendered component
+ * Theme provider component
  */
 export const ThemeProvider = ({ children }) => {
+  // Initialize theme state from localStorage or system preference
   const [isDarkMode, setIsDarkMode] = useState(() => {
-  // Initially runs on the server.
-  if (typeof window === 'undefined') {
-    return false; // Default theme for initial server render
-  }
-  
-  // Client-side, check localStorage
-  const saved = localStorage.getItem('darkMode');
-  if (saved !== null) {
-    return JSON.parse(saved);
-  }
-  
-  // Fallback 
-  return window.matchMedia('(prefers-color-scheme: dark)').matches;
+    // Initially runs on the server
+    if (typeof window === 'undefined') {
+      return false; // Default theme for initial server render
+    }
+    
+    // Client-side, check localStorage
+    const saved = localStorage.getItem('darkMode');
+    if (saved !== null) {
+      return JSON.parse(saved);
+    }
+    
+    // Fallback to system preference
+    return window.matchMedia('(prefers-color-scheme: dark)').matches;
   });
 
-  // Apply theme class and save preference when theme changes 
-  useEffect(() => {
-    if (isDarkMode) {
-      document.body.classList.add('dark-theme');
-    } else {
-      document.body.classList.remove('dark-theme');
-    }
-    localStorage.setItem('darkMode', JSON.stringify(isDarkMode));
-  }, [isDarkMode]);
-
+  // Toggle theme function (important to implement this!)
   const toggleTheme = () => {
-    setIsDarkMode(prev => !prev);
+    console.log('Toggle theme called, current state:', isDarkMode);
+    setIsDarkMode(prevState => !prevState);
   };
 
+  // Apply theme class and save preference when theme changes
+  useEffect(() => {
+    console.log('Theme effect running, isDarkMode:', isDarkMode);
+    
+    if (isDarkMode) {
+      document.body.classList.add('dark-theme');
+      localStorage.setItem('darkMode', JSON.stringify(true));
+      console.log('Dark theme applied');
+    } else {
+      document.body.classList.remove('dark-theme');
+      localStorage.setItem('darkMode', JSON.stringify(false));
+      console.log('Light theme applied');
+    }
+  }, [isDarkMode]);
+
+  // Provide theme context to children
   return (
     <ThemeContext.Provider value={{ isDarkMode, toggleTheme }}>
       {children}
@@ -64,12 +58,11 @@ export const ThemeProvider = ({ children }) => {
   );
 };
 
-/**
- * Hook to access the current theme state and toggle function
- * 
- * @example
- * const { isDarkMode, toggleTheme } = useTheme();
- * 
- * @returns {ThemeContextType} Theme context values
- */
-export const useTheme = () => useContext(ThemeContext);
+// Hook for accessing theme context
+export function useTheme() {
+  const context = useContext(ThemeContext);
+  if (context === undefined) {
+    throw new Error('useTheme must be used within a ThemeProvider');
+  }
+  return context;
+}

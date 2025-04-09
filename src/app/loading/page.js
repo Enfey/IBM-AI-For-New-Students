@@ -4,32 +4,17 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { useAuth } from "@/hooks/useAuth";
 import "./loading-page.scss";
+import withAuth from "@/components/AuthBlock/AuthBlock";
 
-export default function LoadingPage() {
-	const { isLoggedIn, isInitialised } = useAuth();
-	const router = useRouter();
+function LoadingPage() {
+    const router = useRouter();
 
-	// Redirect if user is not logged in
-	useEffect(() => {
-		if (isInitialised && !isLoggedIn) {
-			router.replace("/login");
-		}
-	}, [isLoggedIn, isInitialised, router]);
-
-	// Splash screen auto-redirect after 4.5 seconds
+	// Splash screen after 4.5 seconds
 	useEffect(() => {
 		let timer;
-		if (isLoggedIn) {
-			timer = setTimeout(() => {
-				router.push("/chat");
-			}, 4500);
-		}
+        timer = setTimeout(() => {router.push("/chat")}, 4500);
 		return () => clearTimeout(timer);
-	}, [isLoggedIn, router]);
-
-	if (!isInitialised) {
-		return null;
-	}
+	}, []);
 
 	return (
 		<div className="container">
@@ -51,7 +36,6 @@ export default function LoadingPage() {
 					))}
 				</div>
 
-				{/* main elements */}
 				<div className="content">
 					<p className="subtitle animate-subtitle">
 						Nottingham Watsonx Assistant
@@ -65,3 +49,5 @@ export default function LoadingPage() {
 		</div>
 	);
 }
+
+export default withAuth(LoadingPage);

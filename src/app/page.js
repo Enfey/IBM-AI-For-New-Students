@@ -1,12 +1,12 @@
 "use client";
 
-import Root from "./root/page";
 import { ThemeProvider } from "./contexts/ThemeContext";
+import LoginPage from "./login/page";
 
 export default function Page() {
 	return (
 		<ThemeProvider>
-			<Root />
+			<LoginPage />
 		</ThemeProvider>
 	);
 }

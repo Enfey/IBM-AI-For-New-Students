@@ -1,8 +1,9 @@
 "use client";
 
+import withAuth from "@/components/AuthBlock/AuthBlock";
 import { RadioButtonGroup, RadioButton } from "@carbon/react";
 
-export default function SettingsPage() {
+function SettingsPage() {
     return (
         <RadioButtonGroup legendText="Theme" name="theme-group">
             <RadioButton labelText = "White"></RadioButton>
@@ -12,3 +13,5 @@ export default function SettingsPage() {
         </RadioButtonGroup>
     );
 }
+
+export default withAuth(SettingsPage);

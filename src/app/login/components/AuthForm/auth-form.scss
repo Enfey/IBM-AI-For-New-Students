@@ -117,11 +117,12 @@
             background-color: color("white", "off") !important;
             box-shadow: shadow("md") !important;
         }
+    }
 
-        .google-icon {
-            width: 18px;
-            height: 18px;
-        }
+    &.google-icon {
+        width: 18px;
+        height: 18px;
+        
     }
 }
 

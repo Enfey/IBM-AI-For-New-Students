@@ -15,6 +15,7 @@ import { useSendMessage } from "./hooks/useSendMessage";
 import { useMessages } from "./hooks/useMessages";
 import { deleteMessagesFromLocalStorage } from "./utils/localStorage";
 import { setupLive2D } from "./live2dsetup";
+import withAuth from "@/components/AuthBlock/AuthBlock";
 
 /**
  * Main Chat page component
@@ -34,124 +35,119 @@ import { setupLive2D } from "./live2dsetup";
  * @see {@link MessageContainer} Component for displaying messages
  * @see {@link ChatInput} Component for user input
  *
- * @returns {JSX.Element} Rendered chatPage component, null if not logged in.
+ * @returns {JSX.Element} Rendered chatPage component
  */
-export default function ChatPage({ historyKey = null }) {
-	const { isLoggedIn, isInitialised } = useAuth();
-	const router = useRouter();
-	const messageContainerRef = useRef(null);
+function ChatPage({ historyKey = null }) {
+    const messageContainerRef = useRef(null);
 
-	// Init hooks
-	const { sessionId, isSessionLoading, createSession } = useChatSession();
-	const { sendMessage, isSending } = useSendMessage();
-	const {
-		messages,
-		isSubmitting,
-		handleSubmit: submitMessage,
-		clearMessages,
-		location
-	} = useMessages({ sessionId, sendMessage });
-	const scrollToBottom = useScrollToBottom(messageContainerRef);
+    // Init hooks
+    const { sessionId, isSessionLoading, createSession } = useChatSession();
+    const { sendMessage, isSending } = useSendMessage();
+    const {
+        messages,
+        isSubmitting,
+        handleSubmit: submitMessage,
+        clearMessages,
+        location,
+    } = useMessages({ sessionId, sendMessage });
+    const scrollToBottom = useScrollToBottom(messageContainerRef);
 
-	// Wire together
-	const isLoading = isSessionLoading || isSending || isSubmitting;
+    // Wire together
+    const isLoading = isSessionLoading || isSending || isSubmitting;
 
-	// Auth check - redirect to / if not logged in
-	useEffect(() => {
-		if (isInitialised && !isLoggedIn) {
-			router.replace("/");
-		}
-	}, [isInitialised, isLoggedIn, router]);
+    // Init my goat
+    useEffect(() => {
+        setupLive2D();
+    }, []);
 
-	// Init my goat
-	useEffect(() => {
-		setupLive2D();
-	}, []);
+    useEffect(() => {
+        if (messages.length > 0) {
+            scrollToBottom();
+        }
+    }, [messages, scrollToBottom]);
 
-	useEffect(() => {
-		if (messages.length > 0) {
-			scrollToBottom();
-		}
-	}, [messages, scrollToBottom]);
+    // Create a new session if not already present
+    // This is a side effect of making the hooks more independent
+    useEffect(() => {
+        if (!sessionId && !isSessionLoading) {
+            createSession();
+        }
+    }, [sessionId, isSessionLoading, createSession]);
 
-	// Create a new session if not already present
-	// This is a side effect of making the hooks more independent
-	useEffect(() => {
-		if (isLoggedIn && !sessionId && !isSessionLoading) {
-			createSession();
-		}
-	}, [isLoggedIn, sessionId, isSessionLoading, createSession]);
+    /**
+     * Handle new user message submission
+     * * Delegates to the useMessages hook's handler
+     *
+     * @param {string} text - User message text
+     * @returns {Promise<void>}
+     */
+    const handleSubmit = useCallback(
+        (text) => {
+            return submitMessage(text);
+        },
+        [submitMessage]
+    );
 
-	/**
-	 * Handle new user message submission
-	 * * Delegates to the useMessages hook's handler
-	 *
-	 * @param {string} text - User message text
-	 * @returns {Promise<void>}
-	 */
-	const handleSubmit = useCallback(
-		(text) => {
-			return submitMessage(text);
-		},
-		[submitMessage]
-	);
+    /**
+     * Handle new session creation
+     * * Creates a new session and clears messages
+     *
+     * @returns {Promise<void>}
+     */
+    const handleNewSession = useCallback(async () => {
+        await createSession();
+        window.location.reload();
+    }, [createSession, clearMessages]);
 
-	/**
-	 * Handle new session creation
-	 * * Creates a new session and clears messages
-	 *
-	 * @returns {Promise<void>}
-	 */
-	const handleNewSession = useCallback(async () => {
-		await createSession();
-		window.location.reload();
-	}, [createSession, clearMessages]);
+    // Check if a historyKey has been passed (if a previous chat should be displayed)
+    const isHistory = historyKey !== null;
 
-	//Conditional render based on login state
-	if (!isLoggedIn) return null;
+    return (
+        <div className="layout_container">
+            <div className="left_column"></div>
+            <DynamicMap location={location} />
 
-	// Check if a historyKey has been passed (if a previous chat should be displayed)
-	const isHistory = historyKey !== null;
-
-	return (
-		<div className="layout_container">
-			<div className="left_column"></div>
-			<DynamicMap location={location} />
-
-			{/* If viewing a chat history (not new messages), then display the
+            {/* If viewing a chat history (not new messages), then display the
 			    previous messages from `localStorage` and then display a button
 				that gives the user the option to delete the given chat history */}
-			{isHistory ? (
-				<>
-					<MessageContainer
-						messages={JSON.parse(localStorage.getItem(historyKey))}
-						containerRef={messageContainerRef}
-					/>,
-					<HistoryInput
-						onDelete={() => {
-							deleteMessagesFromLocalStorage(historyKey);
-						}}
-					>
-					</HistoryInput>
-				</>
-			) : (
-			{/* Otherwise, display the usual display for talking with the chatbot
+            {isHistory ? (
+                <>
+                    <MessageContainer
+                        messages={JSON.parse(localStorage.getItem(historyKey))}
+                        containerRef={messageContainerRef}
+                    />
+                    ,
+                    <HistoryInput
+                        onDelete={() => {
+                            deleteMessagesFromLocalStorage(historyKey);
+                        }}
+                    ></HistoryInput>
+                </>
+            ) : (
+                ({
+                    /* Otherwise, display the usual display for talking with the chatbot
 			    (text area, submit button, new session button, etc.) and any
-				messages sent from the user or chatbot */},
-				<>
-					<MessageContainer
-						messages={messages}
-						containerRef={messageContainerRef}
-					/>,
-					<ChatInput
-					onSubmit={handleSubmit}
-					onNewSession={handleNewSession}
-					isLoading={isLoading}
-					/>
-				</>
-			)}
+				messages sent from the user or chatbot */
+                },
+                (
+                    <>
+                        <MessageContainer
+                            messages={messages}
+                            containerRef={messageContainerRef}
+                        />
+                        ,
+                        <ChatInput
+                            onSubmit={handleSubmit}
+                            onNewSession={handleNewSession}
+                            isLoading={isLoading}
+                        />
+                    </>
+                ))
+            )}
 
-			<div className="right_column"></div>
-		</div>
-	);
+            <div className="right_column"></div>
+        </div>
+    );
 }
+
+export default withAuth(ChatPage);

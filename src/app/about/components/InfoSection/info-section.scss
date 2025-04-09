@@ -1,0 +1,58 @@
+@use "../../../styles/main" as *;
+
+.info-section {
+    width: 80%;
+    padding: spacing("lg");
+    @include var-theme-color("background", background-color);
+    margin: spacing("lg") auto;
+    position: relative;
+    border-radius: radius("md");
+    line-height: line-height("normal");
+    box-shadow: shadow("md");
+
+    &__title {
+        @include typography("xl", "semibold", "tight");
+        @include var-theme-color("text-primary", color);
+        margin-bottom: spacing("md");
+    }
+
+    &__text {
+        @include typography("base", "regular", "normal");
+        margin-bottom: spacing("md");
+    }
+
+    &__subtitle {
+        @include typography("lg", "medium", "tight");
+        color: var-theme-color("text-secondary", color);
+        margin-top: spacing("sm");
+        margin-bottom: spacing("sm");
+    }
+
+    &__subsection {
+        margin-bottom: spacing("md");
+    }
+
+    &__list {
+        list-style-type: disc;
+        margin-left: spacing("md");
+    }
+
+    &__list-item {
+        @include typography("base", "regular", "normal");
+        margin-bottom: spacing("xs");
+
+        strong {
+            @include text-emphasis("bold");
+        }
+    }
+
+    @include respond-below("md") {
+        width: 90%;
+        padding: spacing("md");
+    }
+
+    @include respond-below("sm") {
+        width: 100%;
+        padding: spacing("sm");
+    }
+}
