@@ -11,12 +11,15 @@ export const processResponse = (response) => {
 
 	if (response.status === "INPUT_SUCCESS") {
 		if (response.suggestions && response.suggestions.length > 0) {
-			message = "Suggestions: \n" + response.suggestions.join(", ");
-		} else {
-			message = response.texts + "\n" + response.options;
+			message = "Suggestions (Please choose one to continue): \n" + response.suggestions.join(", ");
+		} else if(response.options && response.options.length > 0) {
+			message = response.texts + "\n" + "Options (Please choose one to continue): " + response.options;
+		}
+		else {
+			message = response.texts;
 		}
 	} else if (response.status === "INPUT_FAIL") {
-		message = "Sorry, I didn't get that. Could you repeat your message again?";
+		message = "Sorry, the input was invalid. Please try again.";
 	}
 
 	// Get location
