@@ -69,10 +69,11 @@ function ChatPage({ historyKey = null }) {
     // Create a new session if not already present
     // This is a side effect of making the hooks more independent
     useEffect(() => {
+        localStorage.removeItem("chat_session_id");
         if (!localStorage.getItem("chat_session_id") && !isSessionLoading) {
             createSession();
         }
-    }, [localStorage.getItem("chat_session_id"), isSessionLoading, createSession]);
+    }, [isSessionLoading, createSession]);
 
     /**
      * Handle new user message submission

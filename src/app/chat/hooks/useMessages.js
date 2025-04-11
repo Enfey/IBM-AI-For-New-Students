@@ -37,7 +37,7 @@ export function useMessages({ sendMessage }) {
 	const clearMessages = useCallback(() => {
 		setMessages([]);
 		saveMessagesToLocalStorage([], localStorage.getItem("chat_session_id"));
-	}, [localStorage.getItem("chat_session_id")]); // clear messages when session ID changes
+	}, []); // clear messages when session ID changes
 
 	/**
 	 * Persists messages to state and localStorage
@@ -50,7 +50,7 @@ export function useMessages({ sendMessage }) {
 			setMessages(messages);
 			saveMessagesToLocalStorage(messages, localStorage.getItem("chat_session_id"));
 		},
-		[localStorage.getItem("chat_session_id")]
+		[]
 	);
 
 	/**
@@ -107,7 +107,7 @@ export function useMessages({ sendMessage }) {
 				setIsSubmitting(false);
 			}
 		},
-		[messages, sendMessage, localStorage.getItem("chat_session_id"), isSubmitting, persistMessages, location]
+		[messages, sendMessage, isSubmitting, persistMessages, location]
 	);
 
 	return {
