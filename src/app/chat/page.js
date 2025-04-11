@@ -69,8 +69,7 @@ function ChatPage({ historyKey = null }) {
     // Create a new session if not already present
     // This is a side effect of making the hooks more independent
     useEffect(() => {
-        localStorage.removeItem("chat_session_id");
-        if (!localStorage.getItem("chat_session_id") && !isSessionLoading) {
+        if (!isSessionLoading) {
             createSession();
         }
     }, [isSessionLoading, createSession]);
@@ -91,15 +90,13 @@ function ChatPage({ historyKey = null }) {
 
     /**
      * Handle new session creation
-     * * Creates a new session and clears messages
+     * * Refreshes the page to create a new session
      *
      * @returns {Promise<void>}
      */
     const handleNewSession = useCallback(async () => {
-        await localStorage.removeItem("chat_session_id");
-        await createSession();
         window.location.reload();
-    }, [createSession, clearMessages]);
+    }, []);
 
     // Check if a historyKey has been passed (if a previous chat should be displayed)
     const isHistory = historyKey !== null;
