@@ -13,7 +13,6 @@ import { useState, useCallback } from "react";
  * @returns {Function} return.createSession - Function to create a new chat session
  */
 export function useChatSession() {
-	const [sessionId, setSessionId] = useState(null);
 	const [isLoading, setIsLoading] = useState(false);
 
 	/**
@@ -29,7 +28,8 @@ export function useChatSession() {
 		try {
 			const response = await fetch("/api/create_session");
 			const data = await response.json();
-			setSessionId(data.payload);
+			localStorage.setItem("chat_session_id", data.payload);
+
 			return data.payload;
 		} catch (error) {
 			console.error("Error creating session:", error);
@@ -40,7 +40,6 @@ export function useChatSession() {
 	}, []);
 
 	return {
-		sessionId,
 		isLoading,
 		createSession,
 	};
