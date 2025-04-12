@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { marked } from "marked";
 import Loading from "@carbon/react/es/components/Loading/Loading";
 import { useScrollToBottom } from "../../hooks/useScrollToBottom";
+import { useAuth } from "@/hooks/useAuth";
 
 /**
  * Component for message rendering.
@@ -17,6 +18,7 @@ import { useScrollToBottom } from "../../hooks/useScrollToBottom";
  */
 export default function MessageContainer({ messages, containerRef }) {
 	const scrollToBottom = useScrollToBottom(containerRef);
+    const { profilePicture } = useAuth();
 
 	/**
 	 * Effect to autoscroll to the bottom of the message container, ref supplied.
@@ -54,7 +56,7 @@ export default function MessageContainer({ messages, containerRef }) {
 			{messages.map((msg, index) =>
 				msg.isUser ? (
 					<div key={index} className="user_message_wrapper">
-						<img src="/image/OIP.jpg" alt="User" className="user_img" />
+						<img src= {profilePicture || "/image/OIP.jpg"} alt="User" className="user_img"/>
 						<div className="user_message">{msg.content}</div>
 					</div>
 				) : (

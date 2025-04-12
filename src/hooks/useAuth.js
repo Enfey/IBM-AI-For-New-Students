@@ -17,12 +17,15 @@ import { onAuthStateChanged, signOut } from 'firebase/auth';
 export const useAuth = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isInitialised, setIsInitialised] = useState(false);
+  const [profilePicture, setProfilePicture] = useState(null);
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       setIsLoggedIn(!!user);
       setIsInitialised(true);
+      setProfilePicture(user?.photoURL || null);
     });
+
     return () => unsubscribe();
   }, []);
 
@@ -34,5 +37,5 @@ export const useAuth = () => {
     }
   };
 
-  return { isLoggedIn, logout, isInitialised };
+  return { isLoggedIn, logout, isInitialised, profilePicture };
 };
