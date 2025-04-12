@@ -28,7 +28,7 @@ export default function LoginPage() {
 		}
 	}, [isLoggedIn, isInitialised, router]);
 
-	if (!isInitialised) {
+	if (!isInitialised || isLoggedIn) {
 		return null;
 	}
 
