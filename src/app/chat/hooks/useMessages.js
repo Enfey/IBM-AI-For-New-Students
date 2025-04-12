@@ -15,16 +15,15 @@ import { processResponse } from "../utils/messages";
  * @see {@link ../utils/message.js} for handling message processing which don't need React features
  *
  * @param {Object} options - Configuration options
- * @param {string} options.sessionId - Current chat session ID
  * @param {Function} options.sendMessage - Function to send messages to the API
  * @returns {{messages: *[], isSubmitting: boolean, handleSubmit: ((function(*): Promise<void>)|*), clearMessages: ((function(): void)|*), location: string}} Message state and operations
  * @returns {Array} return.messages - Array of chat messages
  * @returns {boolean} return.isSubmitting - Whether a message is currently being submitted
  * @returns {Function} return.handleSubmit - Function to handle new message submission
  * @returns {Function} return.clearMessages - Function to clear all messages
- * @returns {string} return.location - searching location of user
+ * @returns {*} return.location - searching location of user
  */
-export function useMessages({ sessionId, sendMessage }) {
+export function useMessages({ sendMessage }) {
 	const [messages, setMessages] = useState([]);
 	const [isSubmitting, setIsSubmitting] = useState(false);
 	const [location, setLocation] = useState("Nottingham, UK");
@@ -37,8 +36,8 @@ export function useMessages({ sessionId, sendMessage }) {
 	 */
 	const clearMessages = useCallback(() => {
 		setMessages([]);
-		saveMessagesToLocalStorage([], sessionId);
-	}, [sessionId]); // clear messages when session ID changes
+		saveMessagesToLocalStorage([], localStorage.getItem("chat_session_id"));
+	}, []); // clear messages when session ID changes
 
 	/**
 	 * Persists messages to state and localStorage
@@ -49,9 +48,9 @@ export function useMessages({ sessionId, sendMessage }) {
 	const persistMessages = useCallback(
 		(messages) => {
 			setMessages(messages);
-			saveMessagesToLocalStorage(messages, sessionId);
+			saveMessagesToLocalStorage(messages, localStorage.getItem("chat_session_id"));
 		},
-		[sessionId]
+		[]
 	);
 
 	/**
@@ -78,7 +77,7 @@ export function useMessages({ sessionId, sendMessage }) {
 
 			try {
 				// send to API and process response
-				const response = await sendMessage(text, sessionId);
+				const response = await sendMessage(text, localStorage.getItem("chat_session_id"));
 				const processedContent = processResponse(response).message;
 				const processedLocation = processResponse(response).location;
 
@@ -108,7 +107,7 @@ export function useMessages({ sessionId, sendMessage }) {
 				setIsSubmitting(false);
 			}
 		},
-		[messages, sendMessage, sessionId, isSubmitting, persistMessages, location]
+		[messages, sendMessage, isSubmitting, persistMessages, location]
 	);
 
 	return {

@@ -2,7 +2,7 @@
 
 import React, { useEffect, useRef, useCallback } from "react";
 import { useRouter } from "next/navigation";
-import { useAuth } from "../../hooks/useAuth";
+import { useAuth } from "@/hooks/useAuth";
 import DynamicMap from "../api/google_map/route";
 
 // Import local
@@ -41,7 +41,7 @@ function ChatPage({ historyKey = null }) {
     const messageContainerRef = useRef(null);
 
     // Init hooks
-    const { sessionId, isSessionLoading, createSession } = useChatSession();
+    const { isSessionLoading, createSession } = useChatSession();
     const { sendMessage, isSending } = useSendMessage();
     const {
         messages,
@@ -49,7 +49,7 @@ function ChatPage({ historyKey = null }) {
         handleSubmit: submitMessage,
         clearMessages,
         location,
-    } = useMessages({ sessionId, sendMessage });
+    } = useMessages({sendMessage});
     const scrollToBottom = useScrollToBottom(messageContainerRef);
 
     // Wire together
@@ -69,10 +69,10 @@ function ChatPage({ historyKey = null }) {
     // Create a new session if not already present
     // This is a side effect of making the hooks more independent
     useEffect(() => {
-        if (!sessionId && !isSessionLoading) {
+        if (!isSessionLoading) {
             createSession();
         }
-    }, [sessionId, isSessionLoading, createSession]);
+    }, [isSessionLoading, createSession]);
 
     /**
      * Handle new user message submission
@@ -90,14 +90,13 @@ function ChatPage({ historyKey = null }) {
 
     /**
      * Handle new session creation
-     * * Creates a new session and clears messages
+     * * Refreshes the page to create a new session
      *
      * @returns {Promise<void>}
      */
     const handleNewSession = useCallback(async () => {
-        await createSession();
         window.location.reload();
-    }, [createSession, clearMessages]);
+    }, []);
 
     // Check if a historyKey has been passed (if a previous chat should be displayed)
     const isHistory = historyKey !== null;
