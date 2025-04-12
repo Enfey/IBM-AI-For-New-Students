@@ -1,17 +1,26 @@
 "use client";
 
 import withAuth from "@/components/AuthBlock/AuthBlock";
-import { RadioButtonGroup, RadioButton } from "@carbon/react";
+import ThemeToggle from "./components/ThemeToggle/ThemeToggle";
+import "./settings-page.scss";
 
 function SettingsPage() {
-    return (
-        <RadioButtonGroup legendText="Theme" name="theme-group">
-            <RadioButton labelText = "White"></RadioButton>
-            <RadioButton labelText = "Light Grey"></RadioButton>
-            <RadioButton labelText = "Dark Grey"></RadioButton>
-            <RadioButton labelText = "Black"></RadioButton>
-        </RadioButtonGroup>
-    );
+  return (
+    <div className="settings-container">
+      <h1>Settings</h1>
+      
+      <div className="settings-section">
+        <h2>Appearance</h2>
+        <div className="setting-item">
+          <div className="setting-label">
+            <h3>Theme</h3>
+            <p>Switch between light and dark mode</p>
+          </div>
+          <ThemeToggle />
+        </div>
+      </div>
+    </div>
+  );
 }
 
 export default withAuth(SettingsPage);
