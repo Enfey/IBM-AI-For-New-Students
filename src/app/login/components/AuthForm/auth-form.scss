@@ -107,6 +107,11 @@
         letter-spacing: 0.25px;
     }
 
+    .oauth-icon {
+        width: 18px;
+        height: 18px;
+    }
+
     &.google {
         background-color: color("white", "base") !important;
         color: rgba(0, 0, 0, 0.87) !important;
@@ -118,12 +123,7 @@
             box-shadow: shadow("md") !important;
         }
     }
-
-    &.google-icon {
-        width: 18px;
-        height: 18px;
-        
-    }
+    
 }
 
 // ───────────────

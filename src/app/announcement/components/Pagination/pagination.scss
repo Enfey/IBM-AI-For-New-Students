@@ -1,0 +1,6 @@
+@use "../../../styles/main" as *;
+
+.announcement-pagination {
+    @include center();
+    gap: spacing("md");
+}

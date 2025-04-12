@@ -3,7 +3,6 @@
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { useAuth } from "@/hooks/useAuth";
-import AnnouncementTile from "./components/AnnouncementTile/AnnouncementTile";
 import Pagination from "./components/Pagination/Pagination";
 import { usePagination } from "./hooks/usePagination";
 import { announcements } from "./data/data";

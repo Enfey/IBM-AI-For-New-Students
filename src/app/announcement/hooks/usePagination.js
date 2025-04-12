@@ -7,6 +7,9 @@ import { useState } from "react";
  * - Manages pagination state
  * - Calculates current items to display
  * - Provides navigation methods
+ * 
+ * @todo add further comment for dev docs
+ * @todo generalise this hook 
  *
  * @param {Array} items - The complete list of items to paginate
  * @param {number} itemsPerPage - Number of items to show per page
