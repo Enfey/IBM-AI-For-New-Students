@@ -141,7 +141,7 @@ export async function POST(request) {
             console.log("Translated response: ", transRes);
 
         } else {
-           transRes = textResponses;
+           transRes = textResponses.join("\n");
         }
 
         // Return response
