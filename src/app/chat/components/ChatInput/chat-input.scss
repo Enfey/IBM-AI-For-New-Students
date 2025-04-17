@@ -34,6 +34,7 @@
         line-height: line-height("smallest") !important;
         border: none !important;
         outline: none !important;
+        @include var-theme-color("text-secondary", color);
 
         &:focus {
             border: none !important;

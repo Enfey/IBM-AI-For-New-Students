@@ -18,6 +18,7 @@
 
     &__text {
         @include typography("base", "regular", "normal");
+        @include var-theme-color("text-secondary", color);
         margin-bottom: spacing("md");
     }
 
@@ -34,12 +35,14 @@
 
     &__list {
         list-style-type: disc;
+        @include var-theme-color("text-secondary", color);
         margin-left: spacing("md");
     }
 
     &__list-item {
         @include typography("base", "regular", "normal");
         margin-bottom: spacing("xs");
+        @include var-theme-color("text-secondary", color);
 
         strong {
             @include text-emphasis("bold");

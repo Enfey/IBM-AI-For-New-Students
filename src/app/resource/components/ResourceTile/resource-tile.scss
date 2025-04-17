@@ -14,5 +14,4 @@
 
 .resource_title {
   @include typography("md", "bold");
-  @include var-theme-color("text-primary", color);
 }
