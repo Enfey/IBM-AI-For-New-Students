@@ -100,6 +100,7 @@
 .user_message {
     @extend %message-shared;
     @include var-theme-color("user-message", background-color);
+    @include var-theme-color("text-secondary", color);
     margin-right: spacing("xs");
     align-self: flex-end;
 }

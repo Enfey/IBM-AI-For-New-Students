@@ -10,6 +10,7 @@
     @include flex(row, flex-start, center);
     gap: spacing("sm") + 2px;
     box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.05); //probably create better shadows variables
+    border: border-width("xs") solid color("gray", "20");
     border-radius: radius("md");
 
     @include respond-below("md") {
