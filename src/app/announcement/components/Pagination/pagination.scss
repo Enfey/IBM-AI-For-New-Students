@@ -4,3 +4,7 @@
     @include center();
     gap: spacing("md");
 }
+
+.announcement-pagination__indicator{
+    @include var-theme-color("text-secondary", color);
+}

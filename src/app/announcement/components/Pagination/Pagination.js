@@ -24,6 +24,7 @@ export default function Pagination({
         <div className="announcement-pagination">
             <Button
                 renderIcon={ArrowLeft}
+                hasIconOnly
                 onClick={onPrevPage}
                 disabled={currentPage === 1}
                 className="announcement-pagination__button"
@@ -33,6 +34,7 @@ export default function Pagination({
             </span>
             <Button
                 renderIcon={ArrowRight}
+                hasIconOnly
                 onClick={onNextPage}
                 disabled={currentPage === totalPages}
                 className="announcement-pagination__button"
