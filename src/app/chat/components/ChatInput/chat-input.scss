@@ -1,0 +1,64 @@
+@use "../../../styles/main" as *;
+
+#user_input_area {
+    position: fixed;
+    width: 49.6%;
+    bottom: 0;
+    left: 25.2%;
+    padding: spacing("md") + 4px;
+    @include var-theme-color("surface", background-color);
+    @include flex(row, flex-start, center);
+    gap: spacing("sm") + 2px;
+    box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.05); //probably create better shadows variables
+    border: border-width("xs") solid color("gray", "20");
+    border-radius: radius("md");
+
+    @include respond-below("md") {
+        width: width("full");
+        left: 0;
+        padding: spacing("md");
+    }
+}
+
+.chat_textarea {
+    @include var-theme-color("surface", background-color);
+    resize: vertical;
+    padding: spacing("sm") - 2px; // 8px
+    border: border-width("xs") solid #e5e5e5; //use theme color mixin
+    @include border-radius("md");
+    font-size: font-size("lg");
+    @include transition(all, "normal");
+
+    //carbon overrides
+    textarea {
+        background-color: inherit !important;
+        line-height: line-height("smallest") !important;
+        border: none !important;
+        outline: none !important;
+        @include var-theme-color("text-secondary", color);
+
+        &:focus {
+            border: none !important;
+        }
+    }
+}
+
+.send_button {
+    @include var-theme-color("surface", color);
+    border: none;
+    @include border-radius("md");
+    @include padding(spacing("sm") + 6px, spacing("md") + 4px); // 16px 24px
+    @include transition(background, "normal");
+    @include flex(row, flex-start, center);
+    margin-bottom: -2%;
+    gap: spacing("sm") - 2px; // 8px
+
+    @include respond-below("md") {
+        margin: 0 spacing("sm");
+    }
+}
+
+.button-group {
+    @include flex(column);
+    gap: 0.5rem;
+}

@@ -1,0 +1,86 @@
+@use "sass:map";
+@use "variables" as *;
+
+/// ───────────────
+/// TYPOGRAPHY
+/// ───────────────
+
+$font-family-base: "IBM Plex Sans", sans-serif;
+$font-family-headings: $font-family-base;
+
+$font-sizes: (
+    "xs": 12px,
+    "sm": 14px,
+    "base": 16px,
+    "md": 18px,
+    "lg": 20px,
+    "xl": 24px,
+    "2xl": 30px
+);
+
+$font-weights: (
+    "light": 300,
+    "regular": 400,
+    "medium": 500,
+    "semibold": 600,
+    "bold": 700
+);
+
+$line-heights: (
+    "smallest": 0.9,
+    "tight": 1.2,
+    "normal": 1.5,
+    "wide": 2
+);
+
+/// Set typography styles with size, weight, and line height
+///
+/// @param {String} $size - Font size key from $font-sizes, defaults to "base"
+/// @param {String} $weight - Font weight key from $font-weights, defaults to "regular"
+/// @param {String} $height - Line height key from $line-heights, defaults to "normal"
+@mixin typography($size: "base", $weight: "regular", $height: "normal") {
+    font-size: font-size($size);
+    font-weight: font-weight($weight);
+    line-height: line-height($height);
+}
+
+/// Text emphasis and styling
+///
+/// @param {String} $style - Text style to apply, defaults to "normal"
+@mixin text-emphasis($style: "normal") {
+    @if $style == "small" {
+        @include typography("sm", "regular", "normal");
+        opacity: 0.8;
+    } @else if $style == "light" {
+        font-weight: font-weight("light");
+    } @else if $style == "bold" {
+        font-weight: font-weight("bold");
+    } @else if $style == "italic" {
+        font-style: italic;
+    }
+}
+
+/// Links styling
+///
+/// @param {Boolean} $underline - Whether to underline the link, defaults to false
+@mixin link-styles($underline: false) {
+    text-decoration: if($underline, underline, none); // Ternary operator
+    color: color("blue", "base"); //change to theme
+    transition: color duration("fast") ease;
+
+    &:hover {
+        text-decoration: underline;
+    }
+}
+
+@function font-size($key) {
+    @return map.get($font-sizes, $key);
+}
+
+@function font-weight($key) {
+    @return map.get($font-weights, $key);
+}
+
+@function line-height($key) {
+    @return map.get($line-heights, $key);
+}

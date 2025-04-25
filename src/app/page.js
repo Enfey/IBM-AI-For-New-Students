@@ -1,61 +1,10 @@
 "use client";
 
-import { useState, useEffect } from 'react';
-import ChatPage from './chat/page';
+import { ThemeProvider } from "./contexts/ThemeContext";
+import LoginPage from "./login/page";
 
-export default function Home() {
-  // state variables
-  const [showChat, setShowChat] = useState(false);
-
-  // effect to show chat after 4.5 seconds
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setShowChat(true);
-    }, 4500);
-    return () => clearTimeout(timer);
-  }, []);
-
-  // return either the chat page or the splash screen
-  return (
-      <div className="container">
-        {!showChat ? (
-            <div className="splash-screen">
-              {/* background */}
-              <div className="particles">
-                {[...Array(20)].map((_, i) => (
-                    <div
-                        key={i}
-                        className="particle"
-                        style={{
-                          '--size': `${Math.random() * 10 + 5}px`,
-                          '--delay': `${Math.random() * 2}s`,
-                          '--duration': `${2 + Math.random() * 3}s`,
-                          '--posX': `${Math.random() * 100}%`,
-                          '--posY': `${Math.random() * 100}%`,
-                        }}
-                    />
-                ))}
-              </div>
-
-              {/* main elements */}
-              <div className="content">
-
-                <p className="subtitle animate-subtitle">
-                  Nottingham Watsonx Assistant
-                </p>
-
-                <div className="progress-bar animate-progress">
-                  <div className="progress-fill" />
-                </div>
-
-                <div className="team animate-team">Powered by Team 32</div>
-              </div>
-            </div>
-        ) : (
-            <div className="chat-container animate-chat">
-              <ChatPage />
-            </div>
-        )}
-      </div>
-  );
+export default function Page() {
+	return (
+			<LoginPage />
+	);
 }

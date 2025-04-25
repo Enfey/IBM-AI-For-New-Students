@@ -1,0 +1,10 @@
+@use "../../app/styles/main" as *;
+
+.expandable-tile {
+    margin: auto auto spacing("md");
+    @include border-radius("md");
+
+    &:hover {
+      box-shadow: shadow("md");
+    }
+  }

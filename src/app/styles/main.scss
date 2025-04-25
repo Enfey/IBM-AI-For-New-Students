@@ -1,0 +1,12 @@
+@use 'variables' as vars;
+@use 'typography' as type;
+@use 'theming' as theme;
+@use 'mixins' as mix;
+
+// Forward everything for cleaner imports in component files, if need specificity
+@forward 'variables';
+@forward 'typography';
+@forward 'theming';
+@forward 'mixins';
+
+@include theme.setup-theme-vars;
