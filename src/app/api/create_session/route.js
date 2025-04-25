@@ -18,6 +18,7 @@ let session_id = null;
 const assistant = new AssistantV2({
     version: '2025-04-02',
     authenticator: new IamAuthenticator({
+        // !!!!  Replace with your API key !!!!
         apikey: process.env.APIKEY
     }),
     serviceUrl: process.env.APIURL
