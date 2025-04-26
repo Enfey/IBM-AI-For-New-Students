@@ -1,0 +1,4364 @@
+{
+  "name": "Testing Bot-action",
+  "type": "action",
+  "valid": true,
+  "status": "Available",
+  "created": "2024-11-15T11:23:32.817Z",
+  "updated": "2025-04-02T11:01:51.466Z",
+  "language": "en",
+  "skill_id": "181c3d27-ef96-4ae9-8379-992a9d275771",
+  "workspace": {
+    "actions": [
+      {
+        "type": "standard",
+        "steps": [
+          {
+            "step": "step_246",
+            "output": {
+              "generic": [
+                {
+                  "values": [
+                    {
+                      "text_expression": {
+                        "concat": [
+                          {
+                            "scalar": "Which of the following is relevant to you?"
+                          }
+                        ]
+                      }
+                    }
+                  ],
+                  "response_type": "text",
+                  "selection_policy": "sequential",
+                  "repeat_on_reprompt": false
+                },
+                {
+                  "options": [
+                    {
+                      "label": "Registration",
+                      "value": {
+                        "input": {
+                          "text": "Registration"
+                        }
+                      }
+                    },
+                    {
+                      "label": "Module Enrolment",
+                      "value": {
+                        "input": {
+                          "text": "Module Enrolment"
+                        }
+                      }
+                    },
+                    {
+                      "label": "Graduation",
+                      "value": {
+                        "input": {
+                          "text": "Graduation"
+                        }
+                      }
+                    }
+                  ],
+                  "response_type": "option",
+                  "repeat_on_reprompt": true
+                }
+              ]
+            },
+            "handlers": [
+              {
+                "type": "not_found",
+                "title": "validation_not_found_handler",
+                "output": {
+                  "generic": [
+                    {
+                      "values": [
+                        {
+                          "text_expression": {
+                            "concat": [
+                              {
+                                "scalar": "I didn't catch that. Select a valid option:"
+                              }
+                            ]
+                          }
+                        }
+                      ],
+                      "response_type": "text",
+                      "selection_policy": "incremental"
+                    }
+                  ]
+                },
+                "handler": "validation_not_found_handler",
+                "resolver": {
+                  "type": "prompt_again"
+                },
+                "next_handler": "validation_not_found_max_tries_handler"
+              },
+              {
+                "type": "not_found_max_tries",
+                "title": "validation_not_found_max_tries_handler",
+                "handler": "validation_not_found_max_tries_handler",
+                "resolver": {
+                  "type": "fallback"
+                }
+              }
+            ],
+            "question": {
+              "entity": "entity_43048",
+              "max_tries": 3
+            },
+            "resolver": {
+              "type": "continue"
+            },
+            "variable": "step_246",
+            "next_step": "step_125"
+          },
+          {
+            "step": "step_125",
+            "output": {
+              "generic": [
+                {
+                  "values": [
+                    {
+                      "text_expression": {
+                        "concat": [
+                          {
+                            "scalar": "Here are the registration dates for the different types of students:\n\n\n  - For **new** undergraduate or post-graduate taught (PGT) students:\n    - Registration dates: 28/08/2024 – 14/10/2024\n\n\n  - For **new** post-graduate research (PGR) students:\n    - Registration dates: 03/09/2024 - 21/10/2024\n\n\n  - For **returning** students:\n    - Registration dates: 08/08/2024 -"
+                          },
+                          {
+                            "scalar": " 07/10/2024\n\n\n\nYou can participate in online registration through [CampusSolutions](https://campus.nottingham.ac.uk/). In-person registration will conducted in-person through an appointment. More information can be found [here](https://www.nottingham.ac.uk/studentservices/servicedetails/registration/in-person-registration.aspx)."
+                          }
+                        ]
+                      }
+                    }
+                  ],
+                  "response_type": "text",
+                  "selection_policy": "sequential"
+                }
+              ]
+            },
+            "handlers": [],
+            "resolver": {
+              "type": "end_action"
+            },
+            "variable": "step_125",
+            "condition": {
+              "eq": [
+                {
+                  "variable": "step_246"
+                },
+                {
+                  "value": "Registration",
+                  "from_entity": "entity_43048"
+                }
+              ]
+            },
+            "next_step": "step_766"
+          },
+          {
+            "step": "step_766",
+            "output": {
+              "generic": [
+                {
+                  "values": [
+                    {
+                      "text_expression": {
+                        "concat": [
+                          {
+                            "scalar": "Here are module enrolment dates:\n\n\n  - For **returning students**:\n    - Change of mind period dates: 23/09/2024 - 04/10/2024\n\n\n  - For **new students:**\n    - Module enrolment period: 25/09/2024 - 09/10/2024\n\n\n\nHere's a link where you browse all current modules in any course: [uoncourses.org](https://uoncourses.org/)"
+                          }
+                        ]
+                      }
+                    }
+                  ],
+                  "response_type": "text",
+                  "selection_policy": "sequential"
+                }
+              ]
+            },
+            "handlers": [],
+            "resolver": {
+              "type": "end_action"
+            },
+            "variable": "step_766",
+            "condition": {
+              "eq": [
+                {
+                  "variable": "step_246"
+                },
+                {
+                  "value": "Module Enrolment",
+                  "from_entity": "entity_43048"
+                }
+              ]
+            },
+            "next_step": "step_616"
+          },
+          {
+            "step": "step_616",
+            "output": {
+              "generic": [
+                {
+                  "values": [
+                    {
+                      "text_expression": {
+                        "concat": [
+                          {
+                            "scalar": "Here are the graduation dates:\n\n\n  - For students who are graduating in **winter**:\n    - Graduation dates: 10/12/2024 - 13/12/2024\n\n\n  - For students who are graduating in **summer**:\n    - Graduation dates: 21/07/2025 - 01/08/2025\n\n\n\nHere's some more information about graduation [here.](https://www.nottingham.ac.uk/studentservices/servicedetails/graduation/index.aspx)"
+                          }
+                        ]
+                      }
+                    }
+                  ],
+                  "response_type": "text",
+                  "selection_policy": "sequential"
+                }
+              ]
+            },
+            "handlers": [],
+            "resolver": {
+              "type": "end_action"
+            },
+            "variable": "step_616",
+            "condition": {
+              "eq": [
+                {
+                  "variable": "step_246"
+                },
+                {
+                  "value": "Graduation",
+                  "from_entity": "entity_43048"
+                }
+              ]
+            }
+          }
+        ],
+        "title": "Registration/Module Enrolment/Graduation",
+        "action": "action_11655",
+        "boosts": [],
+        "handlers": [],
+        "condition": {
+          "intent": "action_11655_intent_15988"
+        },
+        "variables": [
+          {
+            "title": "Here are the registration dates for the different types of stude",
+            "privacy": {
+              "enabled": false
+            },
+            "variable": "step_125",
+            "data_type": "any"
+          },
+          {
+            "title": "Which of the following is relevant to you?",
+            "privacy": {
+              "enabled": false
+            },
+            "variable": "step_246",
+            "data_type": "any"
+          },
+          {
+            "title": "Here are the graduation dates: - For students who are graduating",
+            "privacy": {
+              "enabled": false
+            },
+            "variable": "step_616",
+            "data_type": "any"
+          },
+          {
+            "title": "Here are module enrolment dates: - For **returning students**: -",
+            "privacy": {
+              "enabled": false
+            },
+            "variable": "step_766",
+            "data_type": "any"
+          }
+        ],
+        "launch_mode": "learning",
+        "next_action": "action_47139",
+        "topic_switch": {
+          "allowed_from": true,
+          "allowed_into": true,
+          "never_return": false
+        },
+        "disambiguation_opt_out": false
+      },
+      {
+        "type": "standard",
+        "steps": [
+          {
+            "step": "step_267",
+            "output": {
+              "generic": [
+                {
+                  "values": [
+                    {
+                      "text_expression": {
+                        "concat": [
+                          {
+                            "scalar": "Here is the link for the online self-service:\n\n<br />\n\n\n\n[https://www.nottingham.ac.uk/dts/help/self-service-portal/self-service-portal.aspx](https://www.nottingham.ac.uk/dts/help/self-service-portal/self-service-portal.aspx)\n\n<br />\n\n\n\nHope this can help you!"
+                          }
+                        ]
+                      }
+                    }
+                  ],
+                  "response_type": "text",
+                  "selection_policy": "sequential"
+                }
+              ]
+            },
+            "handlers": [],
+            "resolver": {
+              "type": "continue"
+            },
+            "variable": "step_267",
+            "next_step": "step_895"
+          },
+          {
+            "step": "step_895",
+            "output": {
+              "generic": [
+                {
+                  "values": [
+                    {
+                      "text_expression": {
+                        "concat": [
+                          {
+                            "scalar": "Do you think my advice is helpful or not?"
+                          }
+                        ]
+                      }
+                    }
+                  ],
+                  "response_type": "text",
+                  "selection_policy": "sequential"
+                },
+                {
+                  "options": [
+                    {
+                      "label": "Yes",
+                      "value": {
+                        "input": {
+                          "text": "Yes"
+                        }
+                      }
+                    },
+                    {
+                      "label": "No",
+                      "value": {
+                        "input": {
+                          "text": "No"
+                        }
+                      }
+                    }
+                  ],
+                  "response_type": "option",
+                  "repeat_on_reprompt": true
+                }
+              ]
+            },
+            "handlers": [
+              {
+                "type": "not_found",
+                "title": "validation_not_found_handler",
+                "output": {
+                  "generic": [
+                    {
+                      "values": [
+                        {
+                          "text_expression": {
+                            "concat": [
+                              {
+                                "scalar": "I'm sorry, I did not catch that, please restate your response."
+                              }
+                            ]
+                          }
+                        }
+                      ],
+                      "response_type": "text",
+                      "selection_policy": "incremental"
+                    }
+                  ]
+                },
+                "handler": "validation_not_found_handler",
+                "resolver": {
+                  "type": "prompt_again"
+                },
+                "next_handler": "validation_not_found_max_tries_handler"
+              },
+              {
+                "type": "not_found_max_tries",
+                "title": "validation_not_found_max_tries_handler",
+                "handler": "validation_not_found_max_tries_handler",
+                "resolver": {
+                  "type": "fallback"
+                }
+              }
+            ],
+            "question": {
+              "entity": "sys-yes-no",
+              "max_tries": 3,
+              "response_collection_behavior": "always_ask"
+            },
+            "resolver": {
+              "type": "continue"
+            },
+            "variable": "step_895",
+            "next_step": "step_761"
+          },
+          {
+            "step": "step_761",
+            "output": {
+              "generic": [
+                {
+                  "values": [
+                    {
+                      "text_expression": {
+                        "concat": [
+                          {
+                            "scalar": "I am sorry for this situation, perhaps call this number: **0115 95 16677** to record a support call. (excluding UK public holidays and [[university closure days]](https://www.nottingham.ac.uk/about/keydates/closure-dates.aspx))"
+                          }
+                        ]
+                      }
+                    }
+                  ],
+                  "response_type": "text",
+                  "selection_policy": "sequential",
+                  "repeat_on_reprompt": false
+                }
+              ]
+            },
+            "handlers": [],
+            "resolver": {
+              "type": "end_action"
+            },
+            "variable": "step_761",
+            "condition": {
+              "eq": [
+                {
+                  "variable": "step_895"
+                },
+                {
+                  "scalar": "no"
+                }
+              ]
+            },
+            "next_step": "step_179"
+          },
+          {
+            "step": "step_179",
+            "output": {
+              "generic": [
+                {
+                  "values": [
+                    {
+                      "text_expression": {
+                        "concat": [
+                          {
+                            "scalar": "Glad to help you!"
+                          }
+                        ]
+                      }
+                    }
+                  ],
+                  "response_type": "text",
+                  "selection_policy": "sequential"
+                }
+              ]
+            },
+            "handlers": [],
+            "resolver": {
+              "type": "end_action"
+            },
+            "variable": "step_179",
+            "condition": {
+              "eq": [
+                {
+                  "variable": "step_895"
+                },
+                {
+                  "scalar": "yes"
+                }
+              ]
+            }
+          }
+        ],
+        "title": "IT issue",
+        "action": "action_17157",
+        "boosts": [],
+        "handlers": [],
+        "condition": {
+          "intent": "action_17157_intent_23586"
+        },
+        "variables": [
+          {
+            "title": "Glad to help you!",
+            "privacy": {
+              "enabled": false
+            },
+            "variable": "step_179",
+            "data_type": "any"
+          },
+          {
+            "title": "Here is the link for the online self-service: <br /> [https://ww",
+            "privacy": {
+              "enabled": false
+            },
+            "variable": "step_267",
+            "data_type": "any"
+          },
+          {
+            "title": "I am sorry for this situation, perhaps call this number: **0115 ",
+            "privacy": {
+              "enabled": false
+            },
+            "variable": "step_761",
+            "data_type": "any"
+          },
+          {
+            "title": "Do you think my advice is helpful or not?",
+            "privacy": {
+              "enabled": false
+            },
+            "variable": "step_895",
+            "data_type": "yes_no"
+          }
+        ],
+        "launch_mode": "learning",
+        "next_action": "action_44432",
+        "topic_switch": {
+          "allowed_from": true,
+          "allowed_into": true,
+          "never_return": false
+        },
+        "disambiguation_opt_out": false
+      },
+      {
+        "type": "standard",
+        "steps": [
+          {
+            "step": "step_271",
+            "output": {
+              "generic": [
+                {
+                  "values": [
+                    {
+                      "text_expression": {
+                        "concat": [
+                          {
+                            "scalar": "Which campus are you searching for?"
+                          }
+                        ]
+                      }
+                    }
+                  ],
+                  "response_type": "text",
+                  "selection_policy": "sequential",
+                  "repeat_on_reprompt": false
+                },
+                {
+                  "options": [
+                    {
+                      "label": "Jubilee",
+                      "value": {
+                        "input": {
+                          "text": "Jubilee"
+                        }
+                      }
+                    },
+                    {
+                      "label": "Park",
+                      "value": {
+                        "input": {
+                          "text": "Park"
+                        }
+                      }
+                    }
+                  ],
+                  "response_type": "option",
+                  "repeat_on_reprompt": true
+                }
+              ]
+            },
+            "handlers": [
+              {
+                "type": "not_found",
+                "title": "validation_not_found_handler",
+                "output": {
+                  "generic": [
+                    {
+                      "values": [
+                        {
+                          "text_expression": {
+                            "concat": [
+                              {
+                                "scalar": "I didn't catch that. Select a valid option:"
+                              }
+                            ]
+                          }
+                        }
+                      ],
+                      "response_type": "text",
+                      "selection_policy": "incremental"
+                    }
+                  ]
+                },
+                "handler": "validation_not_found_handler",
+                "resolver": {
+                  "type": "prompt_again"
+                },
+                "next_handler": "validation_not_found_max_tries_handler"
+              },
+              {
+                "type": "not_found_max_tries",
+                "title": "validation_not_found_max_tries_handler",
+                "handler": "validation_not_found_max_tries_handler",
+                "resolver": {
+                  "type": "fallback"
+                }
+              }
+            ],
+            "question": {
+              "entity": "entity_49648",
+              "max_tries": 3
+            },
+            "resolver": {
+              "type": "continue"
+            },
+            "variable": "step_271",
+            "next_step": "step_430"
+          },
+          {
+            "step": "step_430",
+            "output": {
+              "generic": [
+                {
+                  "values": [
+                    {
+                      "text_expression": {
+                        "concat": [
+                          {
+                            "scalar": "I have placed the location of the Jubilee Campus onto the map on the top left, please have a look at plan your route effectively."
+                          }
+                        ]
+                      }
+                    }
+                  ],
+                  "response_type": "text",
+                  "selection_policy": "sequential"
+                }
+              ]
+            },
+            "context": {
+              "variables": [
+                {
+                  "value": {
+                    "scalar": "Jubilee Campus, Nottingham"
+                  },
+                  "skill_variable": "target_location"
+                }
+              ]
+            },
+            "handlers": [],
+            "resolver": {
+              "type": "end_action"
+            },
+            "variable": "step_430",
+            "condition": {
+              "eq": [
+                {
+                  "variable": "step_271"
+                },
+                {
+                  "value": "Jubilee",
+                  "from_entity": "entity_49648"
+                }
+              ]
+            },
+            "next_step": "step_172"
+          },
+          {
+            "step": "step_172",
+            "output": {
+              "generic": [
+                {
+                  "values": [
+                    {
+                      "text_expression": {
+                        "concat": [
+                          {
+                            "scalar": "I have placed the location of the University Park onto the map on the top left, please have a look at plan your route effectively."
+                          }
+                        ]
+                      }
+                    }
+                  ],
+                  "response_type": "text",
+                  "selection_policy": "sequential"
+                }
+              ]
+            },
+            "context": {
+              "variables": [
+                {
+                  "value": {
+                    "scalar": "University Park, Nottingham"
+                  },
+                  "skill_variable": "target_location"
+                }
+              ]
+            },
+            "handlers": [],
+            "resolver": {
+              "type": "end_action"
+            },
+            "variable": "step_172",
+            "condition": {
+              "eq": [
+                {
+                  "variable": "step_271"
+                },
+                {
+                  "value": "Park",
+                  "from_entity": "entity_49648"
+                }
+              ]
+            }
+          }
+        ],
+        "title": "Campus Searching",
+        "action": "action_18093",
+        "boosts": [],
+        "handlers": [],
+        "condition": {
+          "intent": "action_18093_intent_39870"
+        },
+        "variables": [
+          {
+            "title": "I have placed the location of the University Park onto the map o",
+            "privacy": {
+              "enabled": false
+            },
+            "variable": "step_172",
+            "data_type": "any"
+          },
+          {
+            "title": "Which campus are you searching for?",
+            "privacy": {
+              "enabled": false
+            },
+            "variable": "step_271",
+            "data_type": "any"
+          },
+          {
+            "title": "I have placed the location of the Jubilee Campus onto the map on",
+            "privacy": {
+              "enabled": false
+            },
+            "variable": "step_430",
+            "data_type": "any"
+          }
+        ],
+        "launch_mode": "learning",
+        "next_action": "action_17157",
+        "topic_switch": {
+          "allowed_from": true,
+          "allowed_into": true,
+          "never_return": false
+        },
+        "disambiguation_opt_out": false
+      },
+      {
+        "type": "standard",
+        "steps": [
+          {
+            "step": "step_170",
+            "output": {
+              "generic": [
+                {
+                  "values": [
+                    {
+                      "text_expression": {
+                        "concat": [
+                          {
+                            "scalar": "The hopper bus for the university operates on different schedules based on if it is term-time or non term-time dates. Please refer to link below for more information about when and where hopper buses operate normally.\n[Link to hopper bus schedules](https://www.nottingham.ac.uk/sustainability/transport/travellingbetweencampuses/hopper-buses.aspx)"
+                          }
+                        ]
+                      }
+                    }
+                  ],
+                  "response_type": "text",
+                  "selection_policy": "sequential"
+                }
+              ]
+            },
+            "handlers": [],
+            "resolver": {
+              "type": "continue"
+            },
+            "variable": "step_170",
+            "next_step": "step_616"
+          },
+          {
+            "step": "step_616",
+            "output": {
+              "generic": [
+                {
+                  "values": [
+                    {
+                      "text_expression": {
+                        "concat": [
+                          {
+                            "scalar": "Do you need any extra help in navigating through the buildings on campus?"
+                          }
+                        ]
+                      }
+                    }
+                  ],
+                  "response_type": "text",
+                  "selection_policy": "sequential",
+                  "repeat_on_reprompt": false
+                },
+                {
+                  "options": [
+                    {
+                      "label": "Yes",
+                      "value": {
+                        "input": {
+                          "text": "Yes"
+                        }
+                      }
+                    },
+                    {
+                      "label": "No",
+                      "value": {
+                        "input": {
+                          "text": "No"
+                        }
+                      }
+                    }
+                  ],
+                  "response_type": "option",
+                  "repeat_on_reprompt": true
+                }
+              ]
+            },
+            "handlers": [
+              {
+                "type": "not_found",
+                "title": "validation_not_found_handler",
+                "output": {
+                  "generic": [
+                    {
+                      "values": [
+                        {
+                          "text_expression": {
+                            "concat": [
+                              {
+                                "scalar": "I didn't catch that. Select a valid option:"
+                              }
+                            ]
+                          }
+                        }
+                      ],
+                      "response_type": "text",
+                      "selection_policy": "incremental"
+                    }
+                  ]
+                },
+                "handler": "validation_not_found_handler",
+                "resolver": {
+                  "type": "prompt_again"
+                },
+                "next_handler": "validation_not_found_max_tries_handler"
+              },
+              {
+                "type": "not_found_max_tries",
+                "title": "validation_not_found_max_tries_handler",
+                "handler": "validation_not_found_max_tries_handler",
+                "resolver": {
+                  "type": "fallback"
+                }
+              }
+            ],
+            "question": {
+              "entity": "entity_25214",
+              "max_tries": 3
+            },
+            "resolver": {
+              "type": "continue"
+            },
+            "variable": "step_616",
+            "next_step": "step_227"
+          },
+          {
+            "step": "step_227",
+            "handlers": [],
+            "resolver": {
+              "type": "invoke_another_action_and_end",
+              "invoke_action": {
+                "action": "action_45849",
+                "policy": "default",
+                "parameters": null,
+                "result_variable": "step_227_result_1"
+              }
+            },
+            "variable": "step_227",
+            "condition": {
+              "eq": [
+                {
+                  "variable": "step_616"
+                },
+                {
+                  "value": "Yes",
+                  "from_entity": "entity_25214"
+                }
+              ]
+            },
+            "next_step": "step_522"
+          },
+          {
+            "step": "step_522",
+            "output": {
+              "generic": [
+                {
+                  "values": [
+                    {
+                      "text_expression": {
+                        "concat": [
+                          {
+                            "scalar": "No worries, have a nice day!"
+                          }
+                        ]
+                      }
+                    }
+                  ],
+                  "response_type": "text",
+                  "selection_policy": "sequential"
+                }
+              ]
+            },
+            "handlers": [],
+            "resolver": {
+              "type": "end_action"
+            },
+            "variable": "step_522",
+            "condition": {
+              "eq": [
+                {
+                  "variable": "step_616"
+                },
+                {
+                  "value": "No",
+                  "from_entity": "entity_25214"
+                }
+              ]
+            }
+          }
+        ],
+        "title": "Hopper Bus Searching",
+        "action": "action_24853",
+        "boosts": [],
+        "handlers": [],
+        "condition": {
+          "intent": "action_24853_intent_47155"
+        },
+        "variables": [
+          {
+            "title": "The hopper bus for the university operates on different schedule",
+            "privacy": {
+              "enabled": false
+            },
+            "variable": "step_170",
+            "data_type": "any"
+          },
+          {
+            "title": "No response",
+            "privacy": {
+              "enabled": false
+            },
+            "variable": "step_227",
+            "data_type": "any"
+          },
+          {
+            "privacy": {
+              "enabled": false
+            },
+            "variable": "step_227_result_1",
+            "data_type": "any"
+          },
+          {
+            "title": "No worries, have a nice day!",
+            "privacy": {
+              "enabled": false
+            },
+            "variable": "step_522",
+            "data_type": "any"
+          },
+          {
+            "title": "Do you need any extra help in navigating through the buildings o",
+            "privacy": {
+              "enabled": false
+            },
+            "variable": "step_616",
+            "data_type": "any"
+          }
+        ],
+        "launch_mode": "learning",
+        "next_action": "action_11655",
+        "topic_switch": {
+          "allowed_from": true,
+          "allowed_into": true,
+          "never_return": false
+        },
+        "disambiguation_opt_out": false
+      },
+      {
+        "type": "standard",
+        "steps": [
+          {
+            "step": "step_470",
+            "output": {
+              "generic": [
+                {
+                  "values": [
+                    {
+                      "text_expression": {
+                        "concat": [
+                          {
+                            "scalar": "You can find your lectures in the MyNottingham App or your personal timetable on UoN timetabling. Here are the links:\n\n\n  - [MyNottingham](https://www.nottingham.ac.uk/studentservices/welcome/mynottingham-app.aspx)\n  - [Login to UoN timetabling](https://timetabling.nottingham.ac.uk/2425/login.aspx)\n\nLet me know if you want specific directions to your lectures!"
+                          }
+                        ]
+                      }
+                    }
+                  ],
+                  "response_type": "text",
+                  "selection_policy": "sequential",
+                  "repeat_on_reprompt": false
+                },
+                {
+                  "options": [
+                    {
+                      "label": "Directions",
+                      "value": {
+                        "input": {
+                          "text": "Directions"
+                        }
+                      }
+                    },
+                    {
+                      "label": "No thanks",
+                      "value": {
+                        "input": {
+                          "text": "No thanks"
+                        }
+                      }
+                    }
+                  ],
+                  "response_type": "option",
+                  "repeat_on_reprompt": true
+                }
+              ]
+            },
+            "context": {
+              "variables": []
+            },
+            "handlers": [
+              {
+                "type": "not_found",
+                "title": "validation_not_found_handler",
+                "output": {
+                  "generic": [
+                    {
+                      "values": [
+                        {
+                          "text_expression": {
+                            "concat": [
+                              {
+                                "scalar": "I didn't catch that. Select a valid option:"
+                              }
+                            ]
+                          }
+                        }
+                      ],
+                      "response_type": "text",
+                      "selection_policy": "incremental"
+                    }
+                  ]
+                },
+                "handler": "validation_not_found_handler",
+                "resolver": {
+                  "type": "prompt_again"
+                },
+                "next_handler": "validation_not_found_max_tries_handler"
+              },
+              {
+                "type": "not_found_max_tries",
+                "title": "validation_not_found_max_tries_handler",
+                "handler": "validation_not_found_max_tries_handler",
+                "resolver": {
+                  "type": "fallback"
+                }
+              }
+            ],
+            "question": {
+              "entity": "entity_2614",
+              "max_tries": 3
+            },
+            "resolver": {
+              "type": "continue"
+            },
+            "variable": "step_470",
+            "next_step": "step_637"
+          },
+          {
+            "step": "step_637",
+            "output": {
+              "generic": [
+                {
+                  "values": [
+                    {
+                      "text_expression": {
+                        "concat": [
+                          {
+                            "scalar": "No problem! Have a nice day."
+                          }
+                        ]
+                      }
+                    }
+                  ],
+                  "response_type": "text",
+                  "selection_policy": "sequential"
+                }
+              ]
+            },
+            "handlers": [],
+            "resolver": {
+              "type": "end_action"
+            },
+            "variable": "step_637",
+            "condition": {
+              "eq": [
+                {
+                  "variable": "step_470"
+                },
+                {
+                  "value": "No thanks",
+                  "from_entity": "entity_2614"
+                }
+              ]
+            },
+            "next_step": "step_245"
+          },
+          {
+            "step": "step_245",
+            "output": {
+              "generic": [
+                {
+                  "values": [
+                    {
+                      "text_expression": {
+                        "concat": [
+                          {
+                            "scalar": "Could you tell me which lecture hall you are looking for?"
+                          }
+                        ]
+                      }
+                    }
+                  ],
+                  "response_type": "text",
+                  "selection_policy": "sequential",
+                  "repeat_on_reprompt": false
+                }
+              ]
+            },
+            "context": {
+              "variables": []
+            },
+            "handlers": [
+              {
+                "type": "not_found",
+                "title": "validation_not_found_handler",
+                "output": {
+                  "generic": [
+                    {
+                      "values": [
+                        {
+                          "text_expression": {
+                            "concat": [
+                              {
+                                "scalar": "I'm sorry, I did not catch that, please restate your response."
+                              }
+                            ]
+                          }
+                        }
+                      ],
+                      "response_type": "text",
+                      "selection_policy": "incremental"
+                    }
+                  ]
+                },
+                "handler": "validation_not_found_handler",
+                "resolver": {
+                  "type": "prompt_again"
+                },
+                "next_handler": "validation_not_found_max_tries_handler"
+              },
+              {
+                "type": "not_found_max_tries",
+                "title": "validation_not_found_max_tries_handler",
+                "handler": "validation_not_found_max_tries_handler",
+                "resolver": {
+                  "type": "fallback"
+                }
+              }
+            ],
+            "question": {
+              "free_text": true
+            },
+            "resolver": {
+              "type": "continue"
+            },
+            "variable": "step_245",
+            "condition": {
+              "eq": [
+                {
+                  "variable": "step_470"
+                },
+                {
+                  "value": "Directions",
+                  "from_entity": "entity_2614"
+                }
+              ]
+            },
+            "next_step": "step_889"
+          },
+          {
+            "step": "step_889",
+            "output": {
+              "generic": [
+                {
+                  "values": [
+                    {
+                      "text_expression": {
+                        "concat": [
+                          {
+                            "scalar": "I have placed the location you have entered onto the map on the top left. If you do not see your desired location, that means you have entered your destination incorrectly."
+                          }
+                        ]
+                      }
+                    }
+                  ],
+                  "response_type": "text",
+                  "selection_policy": "sequential"
+                }
+              ]
+            },
+            "context": {
+              "variables": [
+                {
+                  "value": {
+                    "variable": "step_245"
+                  },
+                  "skill_variable": "target_location"
+                }
+              ]
+            },
+            "handlers": [],
+            "resolver": {
+              "type": "end_action"
+            },
+            "variable": "step_889",
+            "condition": {
+              "exists": {
+                "variable": "step_245"
+              }
+            }
+          }
+        ],
+        "title": "Where can I find my lectures?",
+        "action": "action_27078",
+        "boosts": [],
+        "handlers": [],
+        "condition": {
+          "intent": "action_27078_intent_21174"
+        },
+        "variables": [
+          {
+            "title": "Could you tell me which lecture hall you are looking for?",
+            "privacy": {
+              "enabled": false
+            },
+            "variable": "step_245",
+            "data_type": "any"
+          },
+          {
+            "title": "You can find your lectures in the MyNottingham App or your perso",
+            "privacy": {
+              "enabled": false
+            },
+            "variable": "step_470",
+            "data_type": "any"
+          },
+          {
+            "title": "No problem! Have a nice day.",
+            "privacy": {
+              "enabled": false
+            },
+            "variable": "step_637",
+            "data_type": "any"
+          },
+          {
+            "title": "I have placed the location you have entered onto the map on the ",
+            "privacy": {
+              "enabled": false
+            },
+            "variable": "step_889",
+            "data_type": "any"
+          }
+        ],
+        "launch_mode": "learning",
+        "next_action": "action_18093",
+        "topic_switch": {
+          "allowed_from": true,
+          "allowed_into": true,
+          "never_return": false
+        },
+        "disambiguation_opt_out": false
+      },
+      {
+        "type": "standard",
+        "steps": [
+          {
+            "step": "step_794",
+            "output": {
+              "generic": [
+                {
+                  "values": [
+                    {
+                      "text_expression": {
+                        "concat": [
+                          {
+                            "scalar": "I can help you with terms, semesters, examinations, registration, module enrolment, graduation, and open days. What would you like to learn about?\n\n<br />\n\n\n\nMore information can be found [here](https://www.nottingham.ac.uk/about/keydates/)"
+                          }
+                        ]
+                      }
+                    }
+                  ],
+                  "response_type": "text",
+                  "selection_policy": "sequential",
+                  "repeat_on_reprompt": false
+                },
+                {
+                  "options": [
+                    {
+                      "label": "Terms",
+                      "value": {
+                        "input": {
+                          "text": "Terms"
+                        }
+                      }
+                    },
+                    {
+                      "label": "Registration",
+                      "value": {
+                        "input": {
+                          "text": "Registration"
+                        }
+                      }
+                    },
+                    {
+                      "label": "Open Days",
+                      "value": {
+                        "input": {
+                          "text": "Open Days"
+                        }
+                      }
+                    },
+                    {
+                      "label": "Semesters",
+                      "value": {
+                        "input": {
+                          "text": "Semesters"
+                        }
+                      }
+                    },
+                    {
+                      "label": "Holidays",
+                      "value": {
+                        "input": {
+                          "text": "Holidays"
+                        }
+                      }
+                    },
+                    {
+                      "label": "Module Enrolment",
+                      "value": {
+                        "input": {
+                          "text": "Module Enrolment"
+                        }
+                      }
+                    },
+                    {
+                      "label": "Graduation",
+                      "value": {
+                        "input": {
+                          "text": "Graduation"
+                        }
+                      }
+                    }
+                  ],
+                  "response_type": "option",
+                  "repeat_on_reprompt": true
+                }
+              ]
+            },
+            "context": {
+              "variables": []
+            },
+            "handlers": [
+              {
+                "type": "not_found",
+                "title": "validation_not_found_handler",
+                "output": {
+                  "generic": [
+                    {
+                      "values": [
+                        {
+                          "text_expression": {
+                            "concat": [
+                              {
+                                "scalar": "I didn't catch that. Select a valid option:"
+                              }
+                            ]
+                          }
+                        }
+                      ],
+                      "response_type": "text",
+                      "selection_policy": "incremental"
+                    }
+                  ]
+                },
+                "handler": "validation_not_found_handler",
+                "resolver": {
+                  "type": "prompt_again"
+                },
+                "next_handler": "validation_not_found_max_tries_handler"
+              },
+              {
+                "type": "not_found_max_tries",
+                "title": "validation_not_found_max_tries_handler",
+                "handler": "validation_not_found_max_tries_handler",
+                "resolver": {
+                  "type": "fallback"
+                }
+              }
+            ],
+            "question": {
+              "entity": "entity_37252",
+              "max_tries": 3
+            },
+            "resolver": {
+              "type": "continue"
+            },
+            "variable": "step_794",
+            "next_step": "step_470"
+          },
+          {
+            "step": "step_470",
+            "output": {
+              "generic": []
+            },
+            "handlers": [],
+            "resolver": {
+              "type": "invoke_another_action_and_end",
+              "invoke_action": {
+                "action": "action_47139",
+                "policy": "default",
+                "parameters": null,
+                "result_variable": "step_470_result_1"
+              }
+            },
+            "variable": "step_470",
+            "condition": {
+              "or": [
+                {
+                  "and": [
+                    {
+                      "eq": [
+                        {
+                          "variable": "step_794"
+                        },
+                        {
+                          "value": "Terms",
+                          "from_entity": "entity_37252"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "and": [
+                    {
+                      "eq": [
+                        {
+                          "variable": "step_794"
+                        },
+                        {
+                          "value": "Semesters",
+                          "from_entity": "entity_37252"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "and": [
+                    {
+                      "eq": [
+                        {
+                          "variable": "step_794"
+                        },
+                        {
+                          "value": "Holidays",
+                          "from_entity": "entity_37252"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            "next_step": "step_247"
+          },
+          {
+            "step": "step_247",
+            "handlers": [],
+            "resolver": {
+              "type": "invoke_another_action_and_end",
+              "invoke_action": {
+                "action": "action_11655",
+                "policy": "default",
+                "parameters": null,
+                "result_variable": "step_247_result_1"
+              }
+            },
+            "variable": "step_247",
+            "condition": {
+              "or": [
+                {
+                  "and": [
+                    {
+                      "eq": [
+                        {
+                          "variable": "step_794"
+                        },
+                        {
+                          "value": "Registration",
+                          "from_entity": "entity_37252"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "and": [
+                    {
+                      "eq": [
+                        {
+                          "variable": "step_794"
+                        },
+                        {
+                          "value": "Module Enrolment",
+                          "from_entity": "entity_37252"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "and": [
+                    {
+                      "eq": [
+                        {
+                          "variable": "step_794"
+                        },
+                        {
+                          "value": "Graduation",
+                          "from_entity": "entity_37252"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            "next_step": "step_355"
+          },
+          {
+            "step": "step_355",
+            "output": {
+              "generic": [
+                {
+                  "values": [
+                    {
+                      "text_expression": {
+                        "concat": [
+                          {
+                            "scalar": "- Friday 27 June 2025\n    - Saturday 28 June 2025\n    - Saturday 13 September 2025\n    - Saturday 11 October 2025"
+                          }
+                        ]
+                      }
+                    }
+                  ],
+                  "response_type": "text",
+                  "selection_policy": "sequential"
+                }
+              ]
+            },
+            "handlers": [],
+            "resolver": {
+              "type": "end_action"
+            },
+            "variable": "step_355",
+            "condition": {
+              "eq": [
+                {
+                  "variable": "step_794"
+                },
+                {
+                  "value": "Open Days",
+                  "from_entity": "entity_37252"
+                }
+              ]
+            }
+          }
+        ],
+        "title": "University Calendar Key Dates",
+        "action": "action_30643",
+        "boosts": [],
+        "handlers": [],
+        "condition": {
+          "intent": "action_30643_intent_7002"
+        },
+        "variables": [
+          {
+            "title": "No response",
+            "privacy": {
+              "enabled": true
+            },
+            "variable": "step_247",
+            "data_type": "any"
+          },
+          {
+            "privacy": {
+              "enabled": false
+            },
+            "variable": "step_247_result_1",
+            "data_type": "any"
+          },
+          {
+            "title": "- Friday 27 June 2025 - Saturday 28 June 2025 - Saturday 13 Sept",
+            "privacy": {
+              "enabled": true
+            },
+            "variable": "step_355",
+            "data_type": "any"
+          },
+          {
+            "title": "No response",
+            "privacy": {
+              "enabled": false
+            },
+            "variable": "step_470",
+            "data_type": "any"
+          },
+          {
+            "privacy": {
+              "enabled": false
+            },
+            "variable": "step_470_result_1",
+            "data_type": "any"
+          },
+          {
+            "title": "I can help you with terms, semesters, examinations, registration",
+            "privacy": {
+              "enabled": false
+            },
+            "variable": "step_794",
+            "data_type": "any"
+          }
+        ],
+        "launch_mode": "learning",
+        "next_action": "action_45816",
+        "topic_switch": {
+          "allowed_from": true,
+          "allowed_into": true,
+          "never_return": false
+        },
+        "disambiguation_opt_out": false
+      },
+      {
+        "type": "standard",
+        "steps": [
+          {
+            "step": "step_481",
+            "output": {
+              "generic": [
+                {
+                  "values": [
+                    {
+                      "text_expression": {
+                        "concat": [
+                          {
+                            "scalar": "I can do a whole lot of things, from helping you briefly introduce the university to finding a specific location in the campus."
+                          }
+                        ]
+                      }
+                    }
+                  ],
+                  "response_type": "text",
+                  "selection_policy": "sequential"
+                }
+              ]
+            },
+            "handlers": [],
+            "resolver": {
+              "type": "end_action"
+            },
+            "variable": "step_481"
+          }
+        ],
+        "title": "What can you do?",
+        "action": "action_3898",
+        "boosts": [],
+        "handlers": [],
+        "condition": {
+          "intent": "action_3898_intent_14987"
+        },
+        "variables": [
+          {
+            "title": "I can do a whole lot of things, from helping you briefly introdu",
+            "privacy": {
+              "enabled": false
+            },
+            "variable": "step_481",
+            "data_type": "any"
+          }
+        ],
+        "next_action": "fallback",
+        "topic_switch": {
+          "allowed_from": true,
+          "allowed_into": true
+        },
+        "disambiguation_opt_out": false
+      },
+      {
+        "type": "standard",
+        "steps": [
+          {
+            "step": "step_173",
+            "output": {
+              "generic": [
+                {
+                  "values": [
+                    {
+                      "text_expression": {
+                        "concat": [
+                          {
+                            "scalar": "Welcome to the University of Nottingham! This is more than just a place to study – it's a community where you'll grow, learn, and make lifelong memories.\n\nLocated in the vibrant city of Nottingham, our beautiful campuses offer a perfect balance of history and modernity. Whether you're strolling through the greenery of University Park, exploring innovative facilities,"
+                          },
+                          {
+                            "scalar": " or enjoying the cozy cafes on campus, you'll quickly feel at home.\n\nWe’re proud of our diverse and supportive environment, with students from all over the world. You'll find endless opportunities to meet new people, join clubs and societies, and try something new – from sports to cultural events and everything in between.\n\nOur world-class teaching and cutting-"
+                          },
+                          {
+                            "scalar": "edge research mean you'll be learning from some of the best in the field, but you'll also be supported every step of the way. Whether you need academic advice, mental health support, or just someone to chat with, we’ve got your back.\n\nAt Nottingham, your journey is about more than earning a degree – it’s about discovering your potential and building a future you’re excited about."
+                          },
+                          {
+                            "scalar": " We're thrilled to have you join our community and can’t wait to see what you'll achieve!"
+                          }
+                        ]
+                      }
+                    }
+                  ],
+                  "response_type": "text",
+                  "selection_policy": "sequential"
+                },
+                {
+                  "title": "",
+                  "source": "https://www.youtube.com/watch?v=xQhq6bV56Co",
+                  "alt_text": "",
+                  "description": "",
+                  "response_type": "video",
+                  "channel_options": {
+                    "chat": {
+                      "dimensions": {
+                        "base_height": 180
+                      }
+                    }
+                  }
+                }
+              ]
+            },
+            "handlers": [],
+            "resolver": {
+              "type": "end_action"
+            },
+            "variable": "step_173"
+          }
+        ],
+        "title": "University Introduction",
+        "action": "action_44432",
+        "boosts": [],
+        "handlers": [],
+        "condition": {
+          "intent": "action_44432_intent_36945"
+        },
+        "variables": [
+          {
+            "title": "Welcome to the University of Nottingham! This is more than just ",
+            "privacy": {
+              "enabled": false
+            },
+            "variable": "step_173",
+            "data_type": "any"
+          }
+        ],
+        "launch_mode": "learning",
+        "next_action": "action_47712",
+        "topic_switch": {
+          "allowed_from": true,
+          "allowed_into": true,
+          "never_return": false
+        },
+        "disambiguation_opt_out": false
+      },
+      {
+        "type": "standard",
+        "steps": [
+          {
+            "step": "step_344",
+            "output": {
+              "generic": [
+                {
+                  "values": [
+                    {
+                      "text_expression": {
+                        "concat": [
+                          {
+                            "scalar": "Hi! I’m your friendly chatbot powered by IBM Watsonx, here to help you settle in and make the most of your time at Nottingham. Whether you have questions about your course, campus facilities, student life, or even the best spots to grab a coffee, I’ve got you covered!\n\nFeel free to ask me anything, and if I can’t help, I’ll guide you to someone who can."
+                          },
+                          {
+                            "scalar": " Let’s make your journey at the University of Nottingham an amazing one – just say the word, and we’ll get started! 😊"
+                          }
+                        ]
+                      }
+                    }
+                  ],
+                  "response_type": "text",
+                  "selection_policy": "sequential"
+                }
+              ]
+            },
+            "handlers": [],
+            "resolver": {
+              "type": "continue"
+            },
+            "variable": "step_344"
+          }
+        ],
+        "title": "Hello",
+        "action": "action_45816",
+        "boosts": [],
+        "handlers": [],
+        "condition": {
+          "intent": "action_45816_intent_11930"
+        },
+        "variables": [
+          {
+            "title": "Hi! I’m your friendly chatbot powered by IBM Watsonx, here to he",
+            "privacy": {
+              "enabled": false
+            },
+            "variable": "step_344",
+            "data_type": "any"
+          }
+        ],
+        "launch_mode": "learning",
+        "next_action": "action_45849",
+        "topic_switch": {
+          "allowed_from": true,
+          "allowed_into": true,
+          "never_return": false
+        },
+        "disambiguation_opt_out": false
+      },
+      {
+        "type": "standard",
+        "steps": [
+          {
+            "step": "step_126",
+            "output": {
+              "generic": [
+                {
+                  "values": [
+                    {
+                      "text_expression": {
+                        "concat": [
+                          {
+                            "scalar": "What building are you looking for?"
+                          }
+                        ]
+                      }
+                    }
+                  ],
+                  "response_type": "text",
+                  "selection_policy": "sequential",
+                  "repeat_on_reprompt": false
+                }
+              ]
+            },
+            "context": {
+              "variables": []
+            },
+            "handlers": [
+              {
+                "type": "not_found",
+                "title": "validation_not_found_handler",
+                "output": {
+                  "generic": [
+                    {
+                      "values": [
+                        {
+                          "text_expression": {
+                            "concat": [
+                              {
+                                "scalar": "I'm sorry, I did not catch that, please restate your response."
+                              }
+                            ]
+                          }
+                        }
+                      ],
+                      "response_type": "text",
+                      "selection_policy": "incremental"
+                    }
+                  ]
+                },
+                "handler": "validation_not_found_handler",
+                "resolver": {
+                  "type": "prompt_again"
+                },
+                "next_handler": "validation_not_found_max_tries_handler"
+              },
+              {
+                "type": "not_found_max_tries",
+                "title": "validation_not_found_max_tries_handler",
+                "handler": "validation_not_found_max_tries_handler",
+                "resolver": {
+                  "type": "fallback"
+                }
+              }
+            ],
+            "question": {
+              "free_text": true,
+              "allow_topic_switch": false,
+              "collect_verbatim_response": true,
+              "response_collection_behavior": "always_ask"
+            },
+            "resolver": {
+              "type": "continue"
+            },
+            "variable": "step_126",
+            "next_step": "step_393"
+          },
+          {
+            "step": "step_393",
+            "output": {
+              "generic": [
+                {
+                  "values": [
+                    {
+                      "text_expression": {
+                        "concat": [
+                          {
+                            "scalar": "Please tell me what building you are looking for."
+                          }
+                        ]
+                      }
+                    }
+                  ],
+                  "response_type": "text",
+                  "selection_policy": "sequential"
+                }
+              ]
+            },
+            "handlers": [],
+            "resolver": {
+              "type": "replay",
+              "clear": [
+                {
+                  "variable": "step_126"
+                }
+              ]
+            },
+            "variable": "step_393",
+            "condition": {
+              "not": {
+                "exists": {
+                  "variable": "step_126"
+                }
+              }
+            },
+            "next_step": "step_523"
+          },
+          {
+            "step": "step_523",
+            "output": {
+              "generic": [
+                {
+                  "values": [
+                    {
+                      "text_expression": {
+                        "concat": [
+                          {
+                            "scalar": "I have placed the destination you are looking for on the map to the top left. Please have a look at it and plan your desired route."
+                          }
+                        ]
+                      }
+                    }
+                  ],
+                  "response_type": "text",
+                  "selection_policy": "sequential"
+                }
+              ]
+            },
+            "context": {
+              "variables": [
+                {
+                  "value": {
+                    "variable": "step_126"
+                  },
+                  "skill_variable": "target_location"
+                }
+              ]
+            },
+            "handlers": [],
+            "resolver": {
+              "type": "end_action"
+            },
+            "variable": "step_523",
+            "condition": {
+              "exists": {
+                "variable": "step_126"
+              }
+            }
+          }
+        ],
+        "title": "Where can I find a building?",
+        "action": "action_45849",
+        "boosts": [],
+        "handlers": [],
+        "condition": {
+          "intent": "action_45849_intent_11813"
+        },
+        "variables": [
+          {
+            "title": "What building are you looking for?",
+            "privacy": {
+              "enabled": true
+            },
+            "variable": "step_126",
+            "data_type": "any"
+          },
+          {
+            "title": "Please tell me what building you are looking for.",
+            "privacy": {
+              "enabled": false
+            },
+            "variable": "step_393",
+            "data_type": "any"
+          },
+          {
+            "title": "I have placed the destination you are looking for on the map to ",
+            "privacy": {
+              "enabled": false
+            },
+            "variable": "step_523",
+            "data_type": "any"
+          }
+        ],
+        "launch_mode": "learning",
+        "next_action": "action_27078",
+        "topic_switch": {
+          "allowed_from": true,
+          "allowed_into": true,
+          "never_return": false
+        },
+        "disambiguation_opt_out": false
+      },
+      {
+        "type": "standard",
+        "steps": [
+          {
+            "step": "step_893",
+            "output": {
+              "generic": [
+                {
+                  "values": [
+                    {
+                      "text_expression": {
+                        "concat": [
+                          {
+                            "scalar": "Which of the following is relevant to you?"
+                          }
+                        ]
+                      }
+                    }
+                  ],
+                  "response_type": "text",
+                  "selection_policy": "sequential"
+                },
+                {
+                  "options": [
+                    {
+                      "label": "Terms",
+                      "value": {
+                        "input": {
+                          "text": "Terms"
+                        }
+                      }
+                    },
+                    {
+                      "label": "Semesters",
+                      "value": {
+                        "input": {
+                          "text": "Semesters"
+                        }
+                      }
+                    },
+                    {
+                      "label": "Holidays",
+                      "value": {
+                        "input": {
+                          "text": "Holidays"
+                        }
+                      }
+                    }
+                  ],
+                  "response_type": "option",
+                  "repeat_on_reprompt": true
+                }
+              ]
+            },
+            "handlers": [
+              {
+                "type": "not_found",
+                "title": "validation_not_found_handler",
+                "output": {
+                  "generic": [
+                    {
+                      "values": [
+                        {
+                          "text_expression": {
+                            "concat": [
+                              {
+                                "scalar": "I didn't catch that. Select a valid option:"
+                              }
+                            ]
+                          }
+                        }
+                      ],
+                      "response_type": "text",
+                      "selection_policy": "incremental"
+                    }
+                  ]
+                },
+                "handler": "validation_not_found_handler",
+                "resolver": {
+                  "type": "prompt_again"
+                },
+                "next_handler": "validation_not_found_max_tries_handler"
+              },
+              {
+                "type": "not_found_max_tries",
+                "title": "validation_not_found_max_tries_handler",
+                "handler": "validation_not_found_max_tries_handler",
+                "resolver": {
+                  "type": "fallback"
+                }
+              }
+            ],
+            "question": {
+              "entity": "entity_9232",
+              "max_tries": 3
+            },
+            "resolver": {
+              "type": "continue"
+            },
+            "variable": "step_893",
+            "next_step": "step_976"
+          },
+          {
+            "step": "step_976",
+            "output": {
+              "generic": [
+                {
+                  "values": [
+                    {
+                      "text_expression": {
+                        "concat": [
+                          {
+                            "scalar": "What term dates would you like to know?"
+                          }
+                        ]
+                      }
+                    }
+                  ],
+                  "response_type": "text",
+                  "selection_policy": "sequential"
+                },
+                {
+                  "options": [
+                    {
+                      "label": "All Term Dates",
+                      "value": {
+                        "input": {
+                          "text": "All Term Dates"
+                        }
+                      }
+                    },
+                    {
+                      "label": "Current Term Dates",
+                      "value": {
+                        "input": {
+                          "text": "Current Term Dates"
+                        }
+                      }
+                    }
+                  ],
+                  "response_type": "option",
+                  "repeat_on_reprompt": true
+                }
+              ]
+            },
+            "context": {
+              "variables": []
+            },
+            "handlers": [
+              {
+                "type": "not_found",
+                "title": "validation_not_found_handler",
+                "output": {
+                  "generic": [
+                    {
+                      "values": [
+                        {
+                          "text_expression": {
+                            "concat": [
+                              {
+                                "scalar": "I didn't catch that. Select a valid option:"
+                              }
+                            ]
+                          }
+                        }
+                      ],
+                      "response_type": "text",
+                      "selection_policy": "incremental"
+                    }
+                  ]
+                },
+                "handler": "validation_not_found_handler",
+                "resolver": {
+                  "type": "prompt_again"
+                },
+                "next_handler": "validation_not_found_max_tries_handler"
+              },
+              {
+                "type": "not_found_max_tries",
+                "title": "validation_not_found_max_tries_handler",
+                "handler": "validation_not_found_max_tries_handler",
+                "resolver": {
+                  "type": "fallback"
+                }
+              }
+            ],
+            "question": {
+              "entity": "entity_9541",
+              "max_tries": 3
+            },
+            "resolver": {
+              "type": "continue"
+            },
+            "variable": "step_976",
+            "condition": {
+              "eq": [
+                {
+                  "variable": "step_893"
+                },
+                {
+                  "value": "Terms",
+                  "from_entity": "entity_9232"
+                }
+              ]
+            },
+            "next_step": "step_787"
+          },
+          {
+            "step": "step_787",
+            "output": {
+              "generic": [
+                {
+                  "values": [
+                    {
+                      "text_expression": {
+                        "concat": [
+                          {
+                            "scalar": "- **Autumn Term:** Monday 23 September 2024 – Friday 13 December 2024\n    - **Spring Term:** Monday 13 January 2025 – Friday 28 March 2025\n    - **Summer Term:** Monday 28 April 2025 - Friday 20 June 2025*\n\n\n\n*This denotes the end of teaching. This will not be the case for all students, and many postgraduate students will remain in term-"
+                          },
+                          {
+                            "scalar": "time and be required to conduct research over the summer period. Students are advised to check their course structure and end date with their school or department."
+                          }
+                        ]
+                      }
+                    }
+                  ],
+                  "response_type": "text",
+                  "selection_policy": "sequential"
+                }
+              ]
+            },
+            "context": {
+              "variables": []
+            },
+            "handlers": [],
+            "resolver": {
+              "type": "end_action"
+            },
+            "variable": "step_787",
+            "condition": {
+              "eq": [
+                {
+                  "variable": "step_976"
+                },
+                {
+                  "value": "All Term Dates",
+                  "from_entity": "entity_9541"
+                }
+              ]
+            },
+            "next_step": "step_221"
+          },
+          {
+            "step": "step_221",
+            "output": {
+              "generic": [
+                {
+                  "values": [
+                    {
+                      "text_expression": {
+                        "concat": [
+                          {
+                            "scalar": "The current term is the **Autumn** term:\n\n\n  - Current term end date:  13/12/2024\n  - Next term start date: 13/01/2025"
+                          }
+                        ]
+                      }
+                    }
+                  ],
+                  "response_type": "text",
+                  "selection_policy": "sequential"
+                }
+              ]
+            },
+            "context": {
+              "variables": []
+            },
+            "handlers": [],
+            "resolver": {
+              "type": "end_action"
+            },
+            "variable": "step_221",
+            "condition": {
+              "and": [
+                {
+                  "and": [
+                    {
+                      "eq": [
+                        {
+                          "variable": "step_976"
+                        },
+                        {
+                          "value": "Current Term Dates",
+                          "from_entity": "entity_9541"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "and": [
+                    {
+                      "gte": [
+                        {
+                          "system_variable": "current_date"
+                        },
+                        {
+                          "time": {
+                            "value": "2024-09-23"
+                          }
+                        }
+                      ]
+                    },
+                    {
+                      "lte": [
+                        {
+                          "system_variable": "current_date"
+                        },
+                        {
+                          "time": {
+                            "value": "2024-12-13"
+                          }
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            "next_step": "step_447"
+          },
+          {
+            "step": "step_447",
+            "output": {
+              "generic": [
+                {
+                  "values": [
+                    {
+                      "text_expression": {
+                        "concat": [
+                          {
+                            "scalar": "The current term is the **Spring** term:\n\n\n  - Current term end date:  28/03/2025\n  - Next term start date: 28/04/2025"
+                          }
+                        ]
+                      }
+                    }
+                  ],
+                  "response_type": "text",
+                  "selection_policy": "sequential"
+                }
+              ]
+            },
+            "context": {
+              "variables": []
+            },
+            "handlers": [],
+            "resolver": {
+              "type": "end_action"
+            },
+            "variable": "step_447",
+            "condition": {
+              "and": [
+                {
+                  "and": [
+                    {
+                      "eq": [
+                        {
+                          "variable": "step_976"
+                        },
+                        {
+                          "value": "Current Term Dates",
+                          "from_entity": "entity_9541"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "and": [
+                    {
+                      "gte": [
+                        {
+                          "system_variable": "current_date"
+                        },
+                        {
+                          "time": {
+                            "value": "2025-01-13"
+                          }
+                        }
+                      ]
+                    },
+                    {
+                      "lte": [
+                        {
+                          "system_variable": "current_date"
+                        },
+                        {
+                          "time": {
+                            "value": "2025-03-28"
+                          }
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            "next_step": "step_749"
+          },
+          {
+            "step": "step_749",
+            "output": {
+              "generic": [
+                {
+                  "values": [
+                    {
+                      "text_expression": {
+                        "concat": [
+                          {
+                            "scalar": "The current term is the **Summer** term:\n\n\n  - Current term end date:  20/06/2025\n  - Next term start date: 22/09/2025"
+                          }
+                        ]
+                      }
+                    }
+                  ],
+                  "response_type": "text",
+                  "selection_policy": "sequential"
+                }
+              ]
+            },
+            "handlers": [],
+            "resolver": {
+              "type": "end_action"
+            },
+            "variable": "step_749",
+            "condition": {
+              "and": [
+                {
+                  "and": [
+                    {
+                      "eq": [
+                        {
+                          "variable": "step_976"
+                        },
+                        {
+                          "value": "Current Term Dates",
+                          "from_entity": "entity_9541"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "and": [
+                    {
+                      "gte": [
+                        {
+                          "system_variable": "current_date"
+                        },
+                        {
+                          "time": {
+                            "value": "2025-04-28"
+                          }
+                        }
+                      ]
+                    },
+                    {
+                      "lte": [
+                        {
+                          "system_variable": "current_date"
+                        },
+                        {
+                          "time": {
+                            "value": "2025-06-20"
+                          }
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            "next_step": "step_748"
+          },
+          {
+            "step": "step_748",
+            "output": {
+              "generic": [
+                {
+                  "values": [
+                    {
+                      "text_expression": {
+                        "concat": [
+                          {
+                            "scalar": "What semester dates would you like to know?"
+                          }
+                        ]
+                      }
+                    }
+                  ],
+                  "response_type": "text",
+                  "selection_policy": "sequential",
+                  "repeat_on_reprompt": false
+                },
+                {
+                  "options": [
+                    {
+                      "label": "All Semester Dates",
+                      "value": {
+                        "input": {
+                          "text": "All Semester Dates"
+                        }
+                      }
+                    },
+                    {
+                      "label": "Current Semester Dates",
+                      "value": {
+                        "input": {
+                          "text": "Current Semester Dates"
+                        }
+                      }
+                    }
+                  ],
+                  "response_type": "option",
+                  "repeat_on_reprompt": true
+                }
+              ]
+            },
+            "handlers": [
+              {
+                "type": "not_found",
+                "title": "validation_not_found_handler",
+                "output": {
+                  "generic": [
+                    {
+                      "values": [
+                        {
+                          "text_expression": {
+                            "concat": [
+                              {
+                                "scalar": "I didn't catch that. Select a valid option:"
+                              }
+                            ]
+                          }
+                        }
+                      ],
+                      "response_type": "text",
+                      "selection_policy": "incremental"
+                    }
+                  ]
+                },
+                "handler": "validation_not_found_handler",
+                "resolver": {
+                  "type": "prompt_again"
+                },
+                "next_handler": "validation_not_found_max_tries_handler"
+              },
+              {
+                "type": "not_found_max_tries",
+                "title": "validation_not_found_max_tries_handler",
+                "handler": "validation_not_found_max_tries_handler",
+                "resolver": {
+                  "type": "fallback"
+                }
+              }
+            ],
+            "question": {
+              "entity": "entity_6053",
+              "max_tries": 3
+            },
+            "resolver": {
+              "type": "continue"
+            },
+            "variable": "step_748",
+            "condition": {
+              "eq": [
+                {
+                  "variable": "step_893"
+                },
+                {
+                  "value": "Semesters",
+                  "from_entity": "entity_9232"
+                }
+              ]
+            },
+            "next_step": "step_397"
+          },
+          {
+            "step": "step_397",
+            "output": {
+              "generic": [
+                {
+                  "values": [
+                    {
+                      "text_expression": {
+                        "concat": [
+                          {
+                            "scalar": "- **Autumn Semester:** Monday 23 September 2024 – Friday 24 January 2025\n    - **Spring Semester:** Monday 27 January 2025 – Friday 20 June 2025"
+                          }
+                        ]
+                      }
+                    }
+                  ],
+                  "response_type": "text",
+                  "selection_policy": "sequential"
+                }
+              ]
+            },
+            "handlers": [],
+            "resolver": {
+              "type": "end_action"
+            },
+            "variable": "step_397",
+            "condition": {
+              "eq": [
+                {
+                  "variable": "step_748"
+                },
+                {
+                  "value": "All Semester Dates",
+                  "from_entity": "entity_6053"
+                }
+              ]
+            },
+            "next_step": "step_134"
+          },
+          {
+            "step": "step_134",
+            "output": {
+              "generic": [
+                {
+                  "values": [
+                    {
+                      "text_expression": {
+                        "concat": [
+                          {
+                            "scalar": "The current semester is the **Autumn** semester:\n\n\n  - Current semester end date: 24/01/2025\n  - Next semester start date: 27/01/2025"
+                          }
+                        ]
+                      }
+                    }
+                  ],
+                  "response_type": "text",
+                  "selection_policy": "sequential"
+                }
+              ]
+            },
+            "handlers": [],
+            "resolver": {
+              "type": "end_action"
+            },
+            "variable": "step_134",
+            "condition": {
+              "and": [
+                {
+                  "and": [
+                    {
+                      "eq": [
+                        {
+                          "variable": "step_748"
+                        },
+                        {
+                          "value": "Current Semester Dates",
+                          "from_entity": "entity_6053"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "and": [
+                    {
+                      "gte": [
+                        {
+                          "system_variable": "current_date"
+                        },
+                        {
+                          "time": {
+                            "value": "2024-09-23"
+                          }
+                        }
+                      ]
+                    },
+                    {
+                      "lte": [
+                        {
+                          "system_variable": "current_date"
+                        },
+                        {
+                          "time": {
+                            "value": "2025-01-24"
+                          }
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            "next_step": "step_866"
+          },
+          {
+            "step": "step_866",
+            "output": {
+              "generic": [
+                {
+                  "values": [
+                    {
+                      "text_expression": {
+                        "concat": [
+                          {
+                            "scalar": "The current semester is the **Spring** semester:\n\n\n  - Current semester end date: 20/06/2025\n  - Next semester start date: 22/09/2025"
+                          }
+                        ]
+                      }
+                    }
+                  ],
+                  "response_type": "text",
+                  "selection_policy": "sequential"
+                }
+              ]
+            },
+            "handlers": [],
+            "resolver": {
+              "type": "end_action"
+            },
+            "variable": "step_866",
+            "condition": {
+              "and": [
+                {
+                  "and": [
+                    {
+                      "eq": [
+                        {
+                          "variable": "step_748"
+                        },
+                        {
+                          "value": "Current Semester Dates",
+                          "from_entity": "entity_6053"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "and": [
+                    {
+                      "gte": [
+                        {
+                          "system_variable": "current_date"
+                        },
+                        {
+                          "time": {
+                            "value": "2025-01-27"
+                          }
+                        }
+                      ]
+                    },
+                    {
+                      "lte": [
+                        {
+                          "system_variable": "current_date"
+                        },
+                        {
+                          "time": {
+                            "value": "2025-06-20"
+                          }
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            "next_step": "step_603"
+          },
+          {
+            "step": "step_603",
+            "output": {
+              "generic": [
+                {
+                  "values": [
+                    {
+                      "text_expression": {
+                        "concat": [
+                          {
+                            "scalar": "Here's the current university holidays for this year, they normally last one month:\n\n\n  - Christmas holidays: 14/12/2024 - 12/01/2025\n  - Easter holidays: 29/03/2025 - 27/04/2025\n\nHere is a link to all the UK bank holidays: https://www.gov.uk/bank-holidays"
+                          }
+                        ]
+                      }
+                    }
+                  ],
+                  "response_type": "text",
+                  "selection_policy": "sequential"
+                }
+              ]
+            },
+            "handlers": [],
+            "resolver": {
+              "type": "end_action"
+            },
+            "variable": "step_603",
+            "condition": {
+              "eq": [
+                {
+                  "variable": "step_893"
+                },
+                {
+                  "value": "Holidays",
+                  "from_entity": "entity_9232"
+                }
+              ]
+            }
+          }
+        ],
+        "title": "Term/Semester/Holiday Dates",
+        "action": "action_47139",
+        "boosts": [],
+        "handlers": [],
+        "condition": {
+          "intent": "action_47139_intent_48117"
+        },
+        "variables": [
+          {
+            "title": "The current semester is the **Autumn** semester: - Current semes",
+            "privacy": {
+              "enabled": true
+            },
+            "variable": "step_134",
+            "data_type": "any"
+          },
+          {
+            "title": "The current term is the **Autumn** term: - Current term end date",
+            "privacy": {
+              "enabled": true
+            },
+            "variable": "step_221",
+            "data_type": "any"
+          },
+          {
+            "title": "- **Autumn Semester:** Monday 23 September 2024 – Friday 24 Janu",
+            "privacy": {
+              "enabled": false
+            },
+            "variable": "step_397",
+            "data_type": "any"
+          },
+          {
+            "title": "The current term is the **Spring** term: - Current term end date",
+            "privacy": {
+              "enabled": true
+            },
+            "variable": "step_447",
+            "data_type": "any"
+          },
+          {
+            "title": "Here's the current university holidays for this year, they norma",
+            "privacy": {
+              "enabled": false
+            },
+            "variable": "step_603",
+            "data_type": "any"
+          },
+          {
+            "title": "What semester dates would you like to know?",
+            "privacy": {
+              "enabled": false
+            },
+            "variable": "step_748",
+            "data_type": "any"
+          },
+          {
+            "title": "The current term is the **Summer** term: - Current term end date",
+            "privacy": {
+              "enabled": false
+            },
+            "variable": "step_749",
+            "data_type": "any"
+          },
+          {
+            "title": "- **Autumn Term:** Monday 23 September 2024 – Friday 13 December",
+            "privacy": {
+              "enabled": false
+            },
+            "variable": "step_787",
+            "data_type": "any"
+          },
+          {
+            "title": "The current semester is the **Spring** semester: - Current semes",
+            "privacy": {
+              "enabled": false
+            },
+            "variable": "step_866",
+            "data_type": "any"
+          },
+          {
+            "title": "Which of the following is relevant to you?",
+            "privacy": {
+              "enabled": false
+            },
+            "variable": "step_893",
+            "data_type": "any"
+          },
+          {
+            "title": "What term dates would you like to know?",
+            "privacy": {
+              "enabled": false
+            },
+            "variable": "step_976",
+            "data_type": "any"
+          }
+        ],
+        "launch_mode": "learning",
+        "next_action": "action_30643",
+        "topic_switch": {
+          "allowed_from": true,
+          "allowed_into": true,
+          "never_return": false
+        },
+        "disambiguation_opt_out": true
+      },
+      {
+        "type": "standard",
+        "steps": [
+          {
+            "step": "step_465",
+            "output": {
+              "generic": [
+                {
+                  "values": [
+                    {
+                      "text_expression": {
+                        "concat": [
+                          {
+                            "scalar": "No problem! Enjoy exploring our product, and feel free to come back with any questions you might have."
+                          }
+                        ]
+                      }
+                    }
+                  ],
+                  "response_type": "text",
+                  "selection_policy": "sequential"
+                }
+              ]
+            },
+            "context": {
+              "variables": []
+            },
+            "handlers": [],
+            "resolver": {
+              "type": "end_action"
+            },
+            "variable": "step_465"
+          }
+        ],
+        "title": "Just looking!",
+        "action": "action_47712",
+        "boosts": [],
+        "handlers": [],
+        "condition": {
+          "intent": "action_47712_intent_34594"
+        },
+        "variables": [
+          {
+            "title": "No problem! Enjoy exploring our product, and feel free to come b",
+            "privacy": {
+              "enabled": false
+            },
+            "variable": "step_465",
+            "data_type": "any"
+          }
+        ],
+        "next_action": "action_3898",
+        "topic_switch": {
+          "allowed_from": true,
+          "allowed_into": true
+        },
+        "disambiguation_opt_out": false
+      },
+      {
+        "type": "standard",
+        "steps": [
+          {
+            "step": "step_867",
+            "context": {
+              "variables": [
+                {
+                  "value": {
+                    "expression": "input.text"
+                  },
+                  "skill_variable": "input_text"
+                }
+              ]
+            },
+            "handlers": [
+              {
+                "type": "not_found",
+                "title": "validation_not_found_handler",
+                "output": {
+                  "generic": [
+                    {
+                      "values": [
+                        {
+                          "text_expression": {
+                            "concat": [
+                              {
+                                "scalar": "I'm sorry, I did not catch that, please restate your response."
+                              }
+                            ]
+                          }
+                        }
+                      ],
+                      "response_type": "text",
+                      "selection_policy": "incremental"
+                    }
+                  ]
+                },
+                "handler": "validation_not_found_handler",
+                "resolver": {
+                  "type": "prompt_again"
+                },
+                "next_handler": "validation_not_found_max_tries_handler"
+              },
+              {
+                "type": "not_found_max_tries",
+                "title": "validation_not_found_max_tries_handler",
+                "handler": "validation_not_found_max_tries_handler",
+                "resolver": {
+                  "type": "fallback"
+                }
+              }
+            ],
+            "resolver": {
+              "type": "callout",
+              "callout": {
+                "path": "/webhook",
+                "type": "integration_interaction",
+                "method": "POST",
+                "internal": {
+                  "spec_hash_id": "dcd4139851fc3e1f57c43db9b8758f65ab951c6c52ce574bd235ffb2ba4b03d7",
+                  "match_scenario": 10,
+                  "catalog_item_id": "da94ddc3-044f-4ef7-ad2f-d72ddb6226f5"
+                },
+                "request_mapping": {
+                  "body": [
+                    {
+                      "value": {
+                        "expression": "input.text"
+                      },
+                      "parameter": "query"
+                    }
+                  ]
+                },
+                "result_variable": "step_867_result_1"
+              }
+            },
+            "variable": "step_867",
+            "next_step": "step_169"
+          },
+          {
+            "step": "step_169",
+            "output": {
+              "generic": [
+                {
+                  "values": [
+                    {
+                      "text_expression": {
+                        "concat": [
+                          {
+                            "scalar": ""
+                          },
+                          {
+                            "variable": "step_867_result_1",
+                            "variable_path": "body.result"
+                          }
+                        ]
+                      }
+                    }
+                  ],
+                  "response_type": "text",
+                  "selection_policy": "sequential"
+                }
+              ]
+            },
+            "handlers": [],
+            "resolver": {
+              "type": "end_action"
+            },
+            "variable": "step_169"
+          }
+        ],
+        "title": "No matches",
+        "action": "anything_else",
+        "boosts": [],
+        "handlers": [],
+        "condition": {
+          "expression": "anything_else"
+        },
+        "variables": [
+          {
+            "title": "{variable}",
+            "privacy": {
+              "enabled": false
+            },
+            "variable": "step_169",
+            "data_type": "any"
+          },
+          {
+            "title": "No response",
+            "privacy": {
+              "enabled": false
+            },
+            "variable": "step_867",
+            "data_type": "any"
+          },
+          {
+            "privacy": {
+              "enabled": false
+            },
+            "variable": "step_867_result_1",
+            "data_type": "any"
+          }
+        ],
+        "disambiguation_opt_out": true
+      },
+      {
+        "type": "standard",
+        "steps": [
+          {
+            "step": "step_877",
+            "output": {
+              "generic": []
+            },
+            "context": {
+              "variables": [
+                {
+                  "value": {
+                    "expression": "input.text"
+                  },
+                  "skill_variable": "input_text"
+                }
+              ]
+            },
+            "handlers": [],
+            "resolver": {
+              "type": "callout",
+              "callout": {
+                "path": "/webhook",
+                "type": "integration_interaction",
+                "method": "POST",
+                "internal": {
+                  "spec_hash_id": "dcd4139851fc3e1f57c43db9b8758f65ab951c6c52ce574bd235ffb2ba4b03d7",
+                  "match_scenario": 10,
+                  "catalog_item_id": "da94ddc3-044f-4ef7-ad2f-d72ddb6226f5"
+                },
+                "request_mapping": {
+                  "body": [
+                    {
+                      "value": {
+                        "expression": "input.text"
+                      },
+                      "parameter": "query"
+                    }
+                  ]
+                },
+                "result_variable": "step_877_result_1"
+              }
+            },
+            "variable": "step_877",
+            "next_step": "step_669"
+          },
+          {
+            "step": "step_669",
+            "output": {
+              "generic": [
+                {
+                  "values": [
+                    {
+                      "text_expression": {
+                        "concat": [
+                          {
+                            "scalar": ""
+                          },
+                          {
+                            "variable": "step_877_result_1",
+                            "variable_path": "body.result"
+                          }
+                        ]
+                      }
+                    }
+                  ],
+                  "response_type": "text",
+                  "selection_policy": "sequential"
+                }
+              ]
+            },
+            "handlers": [],
+            "resolver": {
+              "type": "end_action"
+            },
+            "variable": "step_669"
+          }
+        ],
+        "title": "Fallback",
+        "action": "fallback",
+        "boosts": [],
+        "handlers": [],
+        "condition": {
+          "intent": null
+        },
+        "variables": [
+          {
+            "title": "{variable}",
+            "privacy": {
+              "enabled": false
+            },
+            "variable": "step_669",
+            "data_type": "any"
+          },
+          {
+            "title": "No response",
+            "privacy": {
+              "enabled": false
+            },
+            "variable": "step_877",
+            "data_type": "any"
+          },
+          {
+            "privacy": {
+              "enabled": false
+            },
+            "variable": "step_877_result_1",
+            "data_type": "any"
+          }
+        ],
+        "next_action": "run_always",
+        "disambiguation_opt_out": true
+      },
+      {
+        "type": "standard",
+        "steps": [
+          {
+            "step": "danger_word_detected",
+            "title": "Connect to agent",
+            "handlers": [],
+            "resolver": {
+              "type": "fallback"
+            },
+            "variable": "danger_word_detected_variable",
+            "condition": {
+              "entity": "danger_words"
+            },
+            "next_step": "profanity_detected"
+          },
+          {
+            "step": "profanity_detected",
+            "title": "Show warning",
+            "output": {
+              "generic": [
+                {
+                  "values": [
+                    {
+                      "text_expression": {
+                        "concat": [
+                          {
+                            "scalar": "Please use appropriate language when interacting with the assistant."
+                          }
+                        ]
+                      }
+                    }
+                  ],
+                  "response_type": "text",
+                  "selection_policy": "sequential"
+                }
+              ]
+            },
+            "handlers": [
+              {
+                "type": "max_hits",
+                "handler": "max_hits_handler",
+                "resolver": {
+                  "type": "fallback"
+                }
+              }
+            ],
+            "max_hits": 2,
+            "resolver": {
+              "type": "end_action"
+            },
+            "variable": "profanity_detected_variable",
+            "condition": {
+              "entity": "profane_words"
+            }
+          }
+        ],
+        "title": "Trigger word detected",
+        "action": "run_always",
+        "boosts": [],
+        "handlers": [],
+        "variables": [
+          {
+            "title": "Profanity detected",
+            "variable": "danger_word_detected_variable",
+            "data_type": "any"
+          },
+          {
+            "title": "Profane word detected",
+            "variable": "profanity_detected_variable",
+            "data_type": "any"
+          }
+        ],
+        "next_action": "anything_else"
+      },
+      {
+        "type": "standard",
+        "steps": [
+          {
+            "step": "step_957",
+            "output": {
+              "generic": [
+                {
+                  "values": [
+                    {
+                      "text_expression": {
+                        "concat": [
+                          {
+                            "scalar": "I’m your friendly chatbot powered by Watsonx, here to help you settle in and make the most of your time at Nottingham. Whether you have questions about your course, campus facilities, student life, or even the best spots to grab a coffee, I’ve got you covered!\n\nFeel free to ask me anything, and if I can’t help, I’ll guide you to someone who can."
+                          },
+                          {
+                            "scalar": " Let’s make your journey at the University of Nottingham an amazing one – just say the word, and we’ll get started! 😊"
+                          }
+                        ]
+                      }
+                    }
+                  ],
+                  "response_type": "text",
+                  "selection_policy": "sequential"
+                }
+              ]
+            },
+            "handlers": [],
+            "resolver": {
+              "type": "continue"
+            },
+            "variable": "step_957"
+          }
+        ],
+        "title": "Greet customer",
+        "action": "welcome",
+        "boosts": [],
+        "handlers": [],
+        "condition": {
+          "expression": "welcome"
+        },
+        "variables": [
+          {
+            "variable": "step_001",
+            "data_type": "any"
+          },
+          {
+            "title": "I’m your friendly chatbot powered by Watsonx, here to help you s",
+            "privacy": {
+              "enabled": false
+            },
+            "variable": "step_957",
+            "data_type": "any"
+          }
+        ],
+        "next_action": "action_24853",
+        "disambiguation_opt_out": true
+      }
+    ],
+    "intents": [
+      {
+        "intent": "action_11655_intent_15988",
+        "examples": [
+          {
+            "text": "How do I register?"
+          },
+          {
+            "text": "What date is graduation on?"
+          },
+          {
+            "text": "What date is module enrolment on?"
+          },
+          {
+            "text": "What date is registration on?"
+          },
+          {
+            "text": "When can I enroll in my modules?"
+          },
+          {
+            "text": "When can I register?"
+          },
+          {
+            "text": "When can I register for modules?"
+          },
+          {
+            "text": "When do I graduate?"
+          },
+          {
+            "text": "When is graduation?"
+          },
+          {
+            "text": "When is online registration?"
+          },
+          {
+            "text": "Where do I register?"
+          }
+        ]
+      },
+      {
+        "intent": "action_17157_intent_23586",
+        "examples": [
+          {
+            "text": "I met some problems about the IT issue."
+          },
+          {
+            "text": "I need some help for my website"
+          },
+          {
+            "text": "I need some help with my moodle page"
+          },
+          {
+            "text": "I need some help with my university account"
+          },
+          {
+            "text": "I need some help with my university computer"
+          },
+          {
+            "text": "IT issue"
+          }
+        ]
+      },
+      {
+        "intent": "action_18093_intent_39870",
+        "examples": [
+          {
+            "text": "How do I get to the University of Nottingham?"
+          },
+          {
+            "text": "Where can I find the nearest campus?"
+          },
+          {
+            "text": "Where is Jubilee Campus?"
+          },
+          {
+            "text": "Where is University Park Campus?"
+          },
+          {
+            "text": "Where is UoN?"
+          }
+        ]
+      },
+      {
+        "intent": "action_24853_intent_47155",
+        "examples": [
+          {
+            "text": "Is there a hopper bus?"
+          },
+          {
+            "text": "Where can I find easy transport between universities?"
+          },
+          {
+            "text": "Where can I find the hopper bus?"
+          },
+          {
+            "text": "Where can I get the hopper bus schedule?"
+          }
+        ]
+      },
+      {
+        "intent": "action_27078_intent_21174",
+        "examples": [
+          {
+            "text": "Can you help me find my lectures?"
+          },
+          {
+            "text": "I don't know where to go for my lectures."
+          },
+          {
+            "text": "Where are my lectures?"
+          },
+          {
+            "text": "Where can I find my lectures?"
+          }
+        ]
+      },
+      {
+        "intent": "action_30643_intent_7002",
+        "examples": [
+          {
+            "text": "How does the academic year go?"
+          },
+          {
+            "text": "Tell me how the year is structured"
+          },
+          {
+            "text": "What are relevant days?"
+          },
+          {
+            "text": "What are the key dates?"
+          },
+          {
+            "text": "What are the key days?"
+          },
+          {
+            "text": "What are the relevant dates?"
+          },
+          {
+            "text": "What does the university calendar look like?"
+          }
+        ]
+      },
+      {
+        "intent": "action_3898_intent_14987",
+        "examples": [
+          {
+            "text": "Can you please give me a list of the types of things you can help me with?"
+          },
+          {
+            "text": "Can you tell me what services you are able to help me with?"
+          },
+          {
+            "text": "Do you have a list of things I can talk to you about?"
+          },
+          {
+            "text": "Hi, what do you do?"
+          },
+          {
+            "text": "How can I use you?"
+          },
+          {
+            "text": "How can you help me"
+          },
+          {
+            "text": "How can you help me?"
+          },
+          {
+            "text": "How can you solve my problems?"
+          },
+          {
+            "text": "How do I use you?"
+          },
+          {
+            "text": "I'd like to know what type of questions you can answer for me."
+          },
+          {
+            "text": "I do not know what to ask"
+          },
+          {
+            "text": "Is there anything you can help me with?"
+          },
+          {
+            "text": "See what questions I can answer"
+          },
+          {
+            "text": "Tell me about what kind of things you do?"
+          },
+          {
+            "text": "Tell me something"
+          },
+          {
+            "text": "What are my options that you can help with?"
+          },
+          {
+            "text": "What are you able to deal with?"
+          },
+          {
+            "text": "What are you able to understand?"
+          },
+          {
+            "text": "What are you capable of?"
+          },
+          {
+            "text": "What are you good at?"
+          },
+          {
+            "text": "What are your skills?"
+          },
+          {
+            "text": "What are you used for?"
+          },
+          {
+            "text": "What can I ask you to do?"
+          },
+          {
+            "text": "what can you do"
+          },
+          {
+            "text": "What can you do?"
+          },
+          {
+            "text": "What do you do?"
+          },
+          {
+            "text": "What do you handle?"
+          },
+          {
+            "text": "What else can you help me with?"
+          },
+          {
+            "text": "What features are in here?"
+          },
+          {
+            "text": "What is this 4?"
+          },
+          {
+            "text": "What kinds of things can you do?"
+          },
+          {
+            "text": "what questions can you answer"
+          }
+        ]
+      },
+      {
+        "intent": "action_44432_intent_36945",
+        "examples": [
+          {
+            "text": "Could you introduce me to the University of Nottingham?"
+          },
+          {
+            "text": "Give me an overview of the University of Nottingham"
+          },
+          {
+            "text": "Tell me about the University of Nottingham"
+          },
+          {
+            "text": "What is the University of Nottingham?"
+          },
+          {
+            "text": "What is the University of Nottingham like?"
+          }
+        ]
+      },
+      {
+        "intent": "action_45816_intent_11930",
+        "examples": [
+          {
+            "text": "could you introduce yourself"
+          },
+          {
+            "text": "happy to meet you"
+          },
+          {
+            "text": "hello"
+          },
+          {
+            "text": "nice to meet you"
+          }
+        ]
+      },
+      {
+        "intent": "action_45849_intent_11813",
+        "examples": [
+          {
+            "text": "Could you guide me to a building for computer science student?"
+          },
+          {
+            "text": "I cannot find the way to the building for the lectures."
+          },
+          {
+            "text": "I need some specific guidance to the lecture building?"
+          },
+          {
+            "text": "I need some specific guidance to the seminar building?"
+          },
+          {
+            "text": "Where can I find this building?"
+          }
+        ]
+      },
+      {
+        "intent": "action_47139_intent_48117",
+        "examples": [
+          {
+            "text": "Is today a holiday?"
+          },
+          {
+            "text": "Is tomorrow a holiday?"
+          },
+          {
+            "text": "What are the current holiday dates?"
+          },
+          {
+            "text": "What are the current semester dates?"
+          },
+          {
+            "text": "What are the current term dates?"
+          },
+          {
+            "text": "What days am I on holiday?"
+          },
+          {
+            "text": "When does the autumn semester begin?"
+          },
+          {
+            "text": "When does the autumn semester end?"
+          },
+          {
+            "text": "When does the autumn term begin?"
+          },
+          {
+            "text": "When does the autumn term end?"
+          },
+          {
+            "text": "When does the next semester start?"
+          },
+          {
+            "text": "When does the next term start?"
+          },
+          {
+            "text": "When does the spring semester begin?"
+          },
+          {
+            "text": "When does the spring semester end?"
+          },
+          {
+            "text": "When does the spring term begin?"
+          },
+          {
+            "text": "When does the spring term end?"
+          },
+          {
+            "text": "When does the winter term begin?"
+          },
+          {
+            "text": "When does the winter term end?"
+          },
+          {
+            "text": "When does this semester end?"
+          },
+          {
+            "text": "When does this term end?"
+          },
+          {
+            "text": "When do the easter holidays begin?"
+          },
+          {
+            "text": "When do the easter holidays end?"
+          },
+          {
+            "text": "When do the summer holidays begin?"
+          },
+          {
+            "text": "When do the summer holidays end?"
+          },
+          {
+            "text": "When do the winter holidays begin?"
+          },
+          {
+            "text": "When do the winter holidays end?"
+          },
+          {
+            "text": "When is christmas break?"
+          },
+          {
+            "text": "When is summer break?"
+          }
+        ]
+      },
+      {
+        "intent": "action_47712_intent_34594",
+        "examples": [
+          {
+            "text": "Browsing first"
+          },
+          {
+            "text": "I'm just looking for now"
+          },
+          {
+            "text": "I'm just poking around"
+          },
+          {
+            "text": "Just having a look around"
+          },
+          {
+            "text": "Just Looking"
+          },
+          {
+            "text": "Looking through my options for now"
+          }
+        ]
+      },
+      {
+        "intent": "fallback_connect_to_agent",
+        "examples": [],
+        "description": "Please transfer me to an agent"
+      },
+      {
+        "intent": "fallback_intent_34766",
+        "examples": [
+          {
+            "text": "Use real AI"
+          }
+        ]
+      }
+    ],
+    "entities": [
+      {
+        "entity": "danger_words",
+        "values": [],
+        "fuzzy_match": false
+      },
+      {
+        "entity": "entity_17250",
+        "values": [
+          {
+            "type": "patterns",
+            "value": "Regular_expression",
+            "patterns": [
+              "\"^(?:.*[a-z])(?:.*[A-Z])(?:.*\\d)(?:.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$\""
+            ]
+          }
+        ],
+        "fuzzy_match": true
+      },
+      {
+        "entity": "entity_25214",
+        "values": [
+          {
+            "type": "synonyms",
+            "value": "No",
+            "synonyms": []
+          },
+          {
+            "type": "synonyms",
+            "value": "Yes",
+            "synonyms": []
+          }
+        ],
+        "fuzzy_match": true
+      },
+      {
+        "entity": "entity_25899",
+        "values": [
+          {
+            "type": "patterns",
+            "value": "Email",
+            "patterns": [
+              "\\b(?:[A-Za-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[A-Za-z0-9!#$%&'*+/=?^_`{|}~-]+)*|\"(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21\\x23-\\x5b\\x5d-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])*\")@(?:(?:[A-Za-z0-9](?:[A-Za-z0-9-]*[A-Za-z0-9])?\\.)+[A-Za-z0-9](?:[A-Za-z0-9-]*[A-Za-z0-9])?|\\[(?:(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9]))\\.){3}(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9])|[A-Za-z0-9-]*[A-Za-z0-9]:(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21-\\x5a\\x53-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])+)\\])\\b"
+            ]
+          }
+        ],
+        "fuzzy_match": true
+      },
+      {
+        "entity": "entity_2614",
+        "values": [
+          {
+            "type": "synonyms",
+            "value": "Directions",
+            "synonyms": [
+              "Path"
+            ]
+          },
+          {
+            "type": "synonyms",
+            "value": "No thanks",
+            "synonyms": [
+              "No"
+            ]
+          }
+        ],
+        "fuzzy_match": true
+      },
+      {
+        "entity": "entity_37252",
+        "values": [
+          {
+            "type": "synonyms",
+            "value": "Graduation",
+            "synonyms": []
+          },
+          {
+            "type": "synonyms",
+            "value": "Holidays",
+            "synonyms": []
+          },
+          {
+            "type": "synonyms",
+            "value": "Module Enrolment",
+            "synonyms": []
+          },
+          {
+            "type": "synonyms",
+            "value": "Open Days",
+            "synonyms": []
+          },
+          {
+            "type": "synonyms",
+            "value": "Registration",
+            "synonyms": []
+          },
+          {
+            "type": "synonyms",
+            "value": "Semesters",
+            "synonyms": []
+          },
+          {
+            "type": "synonyms",
+            "value": "Terms",
+            "synonyms": []
+          }
+        ],
+        "fuzzy_match": true
+      },
+      {
+        "entity": "entity_42064",
+        "values": [
+          {
+            "type": "patterns",
+            "value": "Regular_expression",
+            "patterns": [
+              "\"^(?:.*[a-z])(?:.*[A-Z])(?:.*\\d)(?:.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$\""
+            ]
+          }
+        ],
+        "fuzzy_match": true
+      },
+      {
+        "entity": "entity_42655",
+        "values": [
+          {
+            "type": "patterns",
+            "value": "Email",
+            "patterns": [
+              "\\b(?:[A-Za-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[A-Za-z0-9!#$%&'*+/=?^_`{|}~-]+)*|\"(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21\\x23-\\x5b\\x5d-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])*\")@(?:(?:[A-Za-z0-9](?:[A-Za-z0-9-]*[A-Za-z0-9])?\\.)+[A-Za-z0-9](?:[A-Za-z0-9-]*[A-Za-z0-9])?|\\[(?:(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9]))\\.){3}(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9])|[A-Za-z0-9-]*[A-Za-z0-9]:(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21-\\x5a\\x53-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])+)\\])\\b"
+            ]
+          }
+        ],
+        "fuzzy_match": true
+      },
+      {
+        "entity": "entity_43048",
+        "values": [
+          {
+            "type": "synonyms",
+            "value": "Graduation",
+            "synonyms": []
+          },
+          {
+            "type": "synonyms",
+            "value": "Module Enrolment",
+            "synonyms": []
+          },
+          {
+            "type": "synonyms",
+            "value": "Registration",
+            "synonyms": []
+          }
+        ],
+        "fuzzy_match": true
+      },
+      {
+        "entity": "entity_49648",
+        "values": [
+          {
+            "type": "synonyms",
+            "value": "Jubilee",
+            "synonyms": []
+          },
+          {
+            "type": "synonyms",
+            "value": "Park",
+            "synonyms": []
+          }
+        ],
+        "fuzzy_match": true
+      },
+      {
+        "entity": "entity_6053",
+        "values": [
+          {
+            "type": "synonyms",
+            "value": "All Semester Dates",
+            "synonyms": []
+          },
+          {
+            "type": "synonyms",
+            "value": "Current Semester Dates",
+            "synonyms": []
+          }
+        ],
+        "fuzzy_match": true
+      },
+      {
+        "entity": "entity_9232",
+        "values": [
+          {
+            "type": "synonyms",
+            "value": "Holidays",
+            "synonyms": []
+          },
+          {
+            "type": "synonyms",
+            "value": "Semesters",
+            "synonyms": []
+          },
+          {
+            "type": "synonyms",
+            "value": "Terms",
+            "synonyms": []
+          }
+        ],
+        "fuzzy_match": true
+      },
+      {
+        "entity": "entity_9541",
+        "values": [
+          {
+            "type": "synonyms",
+            "value": "All Term Dates",
+            "synonyms": []
+          },
+          {
+            "type": "synonyms",
+            "value": "Current Term Dates",
+            "synonyms": []
+          }
+        ],
+        "fuzzy_match": true
+      },
+      {
+        "entity": "profane_words",
+        "values": [],
+        "fuzzy_match": false
+      },
+      {
+        "entity": "sys-currency",
+        "values": []
+      },
+      {
+        "entity": "sys-date",
+        "values": []
+      },
+      {
+        "entity": "sys-number",
+        "values": []
+      },
+      {
+        "entity": "sys-percentage",
+        "values": []
+      },
+      {
+        "entity": "sys-time",
+        "values": []
+      },
+      {
+        "entity": "sys-yes-no",
+        "values": []
+      }
+    ],
+    "metadata": {
+      "skill": {
+        "counts": {
+          "actions": 13,
+          "intents": 10,
+          "entities": 16,
+          "data_types": 0,
+          "collections": 0,
+          "global_variables": 10
+        }
+      },
+      "api_version": {
+        "major_version": "v2",
+        "minor_version": "2018-11-08"
+      }
+    },
+    "variables": [
+      {
+        "title": "input-text",
+        "privacy": {
+          "enabled": false
+        },
+        "variable": "input_text",
+        "data_type": "string",
+        "description": "",
+        "initial_value": {
+          "scalar": "input.text"
+        }
+      },
+      {
+        "title": "output-text",
+        "privacy": {
+          "enabled": false
+        },
+        "variable": "output_text",
+        "data_type": "string",
+        "description": ""
+      },
+      {
+        "title": "target_location",
+        "privacy": {
+          "enabled": false
+        },
+        "variable": "target_location",
+        "data_type": "string",
+        "description": "target_location"
+      },
+      {
+        "title": "watsonx_api_version",
+        "variable": "watsonx_api_version",
+        "data_type": "any",
+        "description": "",
+        "initial_value": {
+          "scalar": "2023-05-29"
+        }
+      },
+      {
+        "title": "watsonx_project_id",
+        "privacy": {
+          "enabled": false
+        },
+        "variable": "watsonx_project_id",
+        "data_type": "any",
+        "description": "",
+        "initial_value": {
+          "scalar": "3acbcc23-d3f0-46d8-8362-265721e9a4f2"
+        }
+      }
+    ],
+    "data_types": [],
+    "collections": [],
+    "counterexamples": [
+      {
+        "text": "Use real AI"
+      }
+    ],
+    "system_settings": {
+      "nlp": {
+        "model": "latest"
+      },
+      "variable": {
+        "format": {}
+      },
+      "off_topic": {
+        "enabled": true
+      },
+      "auto_learn": {
+        "apply": true
+      },
+      "launch_mode": {
+        "default": "learning",
+        "enabled": false,
+        "learning": {
+          "step_retry_threshold": 2,
+          "use_connect_to_support": "more_often",
+          "single_answer_clarification": "more_often",
+          "disambiguation_clarification": "more_often"
+        },
+        "confident": {
+          "step_retry_threshold": 4,
+          "use_connect_to_support": "sometimes",
+          "single_answer_clarification": "sometimes",
+          "disambiguation_clarification": "sometimes"
+        },
+        "no_action_matches": "sometimes"
+      },
+      "topic_switch": {
+        "enabled": true,
+        "messages": {
+          "enable_confirmation": true,
+          "confirmation_failure": {
+            "generic": [
+              {
+                "values": [
+                  {
+                    "text_expression": {
+                      "concat": [
+                        {
+                          "scalar": "Do you want to continue with the previous topic?"
+                        }
+                      ]
+                    }
+                  }
+                ],
+                "response_type": "text",
+                "selection_policy": "sequential"
+              }
+            ]
+          },
+          "confirmation_request": {
+            "generic": [
+              {
+                "values": [
+                  {
+                    "text_expression": {
+                      "concat": [
+                        {
+                          "scalar": "Do you want to continue with the previous topic: "
+                        },
+                        {
+                          "system_variable": "digressed_from"
+                        },
+                        {
+                          "scalar": "?"
+                        }
+                      ]
+                    }
+                  }
+                ],
+                "response_type": "text",
+                "selection_policy": "sequential"
+              },
+              {
+                "options": [
+                  {
+                    "label": "Yes",
+                    "value": {
+                      "input": {
+                        "text": "Yes"
+                      }
+                    }
+                  },
+                  {
+                    "label": "No",
+                    "value": {
+                      "input": {
+                        "text": "No"
+                      }
+                    }
+                  }
+                ],
+                "response_type": "option",
+                "repeat_on_reprompt": true
+              }
+            ]
+          }
+        },
+        "max_tries": 3
+      },
+      "generative_ai": {
+        "model_id": "ibm/granite-3-8b-instruct",
+        "hap_filter": {
+          "output": {
+            "enabled": true
+          }
+        },
+        "slot_filling": {
+          "enabled": true
+        },
+        "prompt_instruction": "You are the watsonx assitant for UNUK freshmen, an AI language model developed by IBM in 2024. You are a cautious assistant. You carefully follow instructions. You are helpful and harmless and you follow ethical guidelines and promote positive behavior. You need to give a specific and detailed answer to the user's question.",
+        "general_purpose_answering": {
+          "enabled": false
+        }
+      },
+      "disambiguation": {
+        "prompt": "Did you mean:",
+        "enabled": true,
+        "randomize": true,
+        "max_suggestions": 5,
+        "suggestion_text_policy": "title",
+        "none_of_the_above_prompt": "None of the above",
+        "use_connect_to_support_prompt": "connect to support",
+        "single_answer_clarification_prompt": "Something else"
+      },
+      "spelling_auto_correct": true
+    },
+    "learning_opt_out": true
+  },
+  "description": "created for assistant 05c10d7d-336f-4d33-8cb3-5c53520d61ce",
+  "assistant_id": "33f0eead-27a8-4b5b-95f9-95e3693a2141",
+  "workspace_id": "181c3d27-ef96-4ae9-8379-992a9d275771",
+  "dialog_settings": {},
+  "next_snapshot_version": "29",
+  "environment_id": "46557baf-cfee-44cb-937e-0ac629a100dc"
+}
