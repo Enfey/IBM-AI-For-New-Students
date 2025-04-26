@@ -5,37 +5,53 @@
 **AI for New Students** is an intelligent chatbot project designed for freshmen to help them quickly adjust to campus life. Developed by Team 32, the project used Watsonx Assistant API to build a dialogue-based AI assistant that answers common questions and provides personalized recommendations.
 Project Goals and Vision
 
+
+
+## Website
+
+The website was deployed using [Vercel](https://vercel.com/), here is the link: [https://team32-project-sandy.vercel.app/](https://team32-project-sandy.vercel.app/) 
+
+
+
 ## Mascot and Main Page
 
 ### Mascot
 
-<div align = "center">
+<div>
     <img src="./docs/mascot/duck.png" alt="Design Prototype" height="400">
 </div>
+
 
 ### Some front-end design (mobile)
 
 > [!Note]
 >
-> Unfinished: You can might see more information at this [folder](docs/design-final/mobile).
+> You can see more information at this [folder](docs/design-final/mobile).
 
 
 
 <div>
-    <img src="./docs/design-prototypes/iPhone 13 & 14 - Speech Bubbles.png" alt="Design Prototype" height="400">
-</div>
+    <img src="docs/design-final/mobile/Screenshot 2025-04-26 124400.png" alt="Design Prototype" height="400">
+    <img src="docs/design-final/mobile/Screenshot 2025-04-26 124441.png" alt="Design Prototype" height="400">
+    <img src="docs/design-final/mobile/Screenshot 2025-04-26 124617.png" alt="Design Prototype" height="400">
+    <img src="docs/design-final/mobile/Screenshot 2025-04-26 124630.png" alt="Design Prototype" height="400">
+</div>    
+
+
+
 
 ### Some front-end design (PC)
 
 > [!Note]
 >
-> Unfinished: You can might see more information at this [folder](docs/design-final/pc).
+> You can see more information at this [folder](docs/design-final/pc).
 
 
 
 <div>
-    <img src="./docs/design-prototypes/iPhone 13 & 14 - Speech Bubbles.png" alt="Design Prototype" height="400">
+    <img src="docs/design-final/pc/Screenshot 2025-04-26 123737.png" alt="Design Prototype" height="400">
 </div>
+
 
 
 
@@ -71,14 +87,14 @@ AI-for-New-Students/
 
 ## **Tech Stack**
 
-- **Frontend**: Carbon React, Next.js
-- **Backend**: IBM Watsonx Assistant API, IBM Watson.ai, OpenAI API, Google Map API, Milvus, Langchain, Firebase 
-- **Testing**: Lighthouse, Jest unit testing 
+- **Frontend**: Carbon React, Next.js, Live2d
+- **Backend**: IBM Watsonx Assistant API, IBM Watson.ai, OpenAI API, Google Map API, Milvus, Langchain, Firebase, FastAPI 
+- **Testing**: Lighthouse, Jest unit testing, User Testing 
 - **Project Management**: Agile / Scrum, Kanban Board (via [Trello](https://trello.com/b/udjBpvNW/ibm-ai-for-new-students))  
 
 
 
-## **Installation and Setup**
+## **Installation and Setup** locally
 To run this project locally, follow these steps:
 
 1. **Clone the repository:**
@@ -86,11 +102,12 @@ To run this project locally, follow these steps:
    git clone https://projects.cs.nott.ac.uk/comp2002/2024-2025/team32_project.git
    ```
 
-2. **Install dependencies:**
+2. **Install dependencies:** (either yarn or npm)
+   
    ```bash
    yarn install
    ```
-
+   
 3. **Build the project:**
    ```bash
    next build
@@ -104,9 +121,18 @@ To run this project locally, follow these steps:
    
 5. **Access the application:**
    Open your browser and navigate to:
+   
    ```
    http://localhost:3000
    ```
+
+
+
+Additionally, you need to config your API variable follow the format of the env.example file. You have to include all your information for the Watsonx Assistant, Firebase instance, Google map API and the Deepseek API for translation.
+
+> [!IMPORTANT]
+>
+> Please note that you have to deploy the FastAPI (the package inside of the script) to enable the RAG, and change the Link inside of the Watsonx Assistant.
 
 
 
@@ -115,7 +141,7 @@ To run this project locally, follow these steps:
 1. **Ask Questions**: Users can ask questions like "Where is the library?" or "How can I pay the tuition fee?".
 2. **Get Personalized Recommendations**: The chatbot provides customized suggestions based on the student’s interests and behavior.
 3. **Create new Session:** Users can create a new session which is a similar idea to the chat history to restart their conversation.
-4. **Feedback/Introduction Page:** Users can see the latest annoucement on the website with all possible ways to contact us. Additionally, a designed product page is accessible in the side menu bar.
+4. **Feedback/Introduction Page:** Users can see the latest announcement on the website with all possible ways to contact us. Additionally, a designed product page is accessible in the side menu bar.
 
 
 
@@ -125,9 +151,9 @@ To run this project locally, follow these steps:
 
 2. ***Log in/out***: Utilizing firebase, we built a safe login/logout authentication.
 
-3. *RAG*: Using milvus and langchain, we built a RAG extension, and it is deployed on Azure with the help of Docker container technique.
+3. ***RAG***: Using milvus and langchain, we built a RAG extension, and it is deployed on Azure with the help of Docker container technique.
 
-4. ***Google Map embedded***: With the help of Google Map API, we sucessfully embed a dynamic map in our website for location searching use case.
+4. ***Google Map embedded***: With the help of Google Map API, we successfully embed a dynamic map in our website for location searching use case.
 
 5. ***Setting***: We allow users to change the theme of the app, more features might be developed in the future.
 
@@ -164,10 +190,10 @@ To run this project locally, follow these steps:
 | **Conversation Training** | Train the model on the IBM website           | 2025-1-13 | ✅ Complete |
 | **Live2d model creating** | Create a live2d mascot to attract students   | 2025-2-13  | ✅ Complete |
 | **RAG building** | Using RAG as a complement for the main conversation flow | 2025-2-23  | ✅ Complete |
-| **Front-end enhancement** | Enhance the front-end side using carbon react components | -------- | 🚀 Continued |
+| **Front-end enhancement** | Enhance the front-end side using carbon react components | 2025-3-20 | ✅ Complete |
 | **Deployment** | Deploy the RAG on Azure and deploy the website on Vercel | 2025-3-20 | ✅ Complete |
-| **New possible features** | Gather idea of new possible features | -------- | 🔄 Upcoming |
-| **Testing & QA** | Conduct testing and bug fixes | -------- | 🔄 Upcoming |
+| **New possible features** | Gather idea of new possible features | 2025-4-07 | ✅ Complete |
+| **Testing & QA** | Conduct testing and bug fixes | 2025-4-30 | ✅ Complete |
 
 
 
@@ -175,24 +201,24 @@ To run this project locally, follow these steps:
 
 > [!TIP]
 >
-> We currently only focused on a few use case and let the openAI model with RAG to deal the other users' question.
+> We currently only focused on a few use case and let the OpenAI model with RAG to deal the other users' question.
 
 - **Freshman Onboarding**: New students can ask questions about facilities, schedules, and orientation activities.
 - **Campus Navigation**: Students can request navigation assistance for campus buildings.
 - **Event Recommendations**: Students can receive personalized event and activity suggestions.
-- **Campus related problem**: Students can ask some additional quesitons like EC problem and tuition probelm...
+- **Campus related problem**: Students can ask some additional questions like EC problem and tuition problem...
 
 
 
 ## **Testing**
 
-We employ **Lighthouse** and **Jest unit testing** to ensure high code quality. Tests are located in the `tests/` directory.
+We employ **User Testing**, **Lighthouse** and **Jest unit testing** to ensure high code quality. Tests are located in the `tests/` directory.
 
 
 
 ## **Project Management**
 
-We follow the **Agile/Scrum** methodology and manage our tasks using a **Kanban board** on Trello. Key development phases include:
+We follow the **Agile/Scrum** methodology and manage our tasks using our [Trello Board](https://trello.com/b/udjBpvNW/ibm-ai-for-new-students). Key development phases include:
 1. **Sprint Planning**
 2. **Daily Standups**
 3. **Backlog Grooming**
@@ -210,5 +236,5 @@ If you have questions or need support, please contact:
 
 ## **Acknowledgements**
 
-We would like to thank IBM for providing support and access to the Watsonx  Assistant API, as well as all team members for their hard work and dedication.
+We would like to thank IBM for providing support and access to the Watsonx  Assistant API, as well as all team members for their hard work and dedication. In addition, thank you to all the users who participated in our user test!
 
