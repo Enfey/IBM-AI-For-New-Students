@@ -1,65 +1,37 @@
-/*
- * This api route is used to handle user input and return the response from Watson Assistant.
- * The input message and output response are translated into the user language if the input language is not English.
- */
-
-import {NextResponse} from "next/server";
-import {franc} from "franc";
-
+import { NextResponse } from "next/server";
 const AssistantV2 = require('ibm-watson/assistant/v2');
 const { IamAuthenticator } = require('ibm-watson/auth');
+const OpenAI = require("openai");
+const client = new OpenAI();
 
 export const dynamic = 'force-dynamic';
 
 const assistant = new AssistantV2({
     version: '2025-04-02',
     authenticator: new IamAuthenticator({
-        // !!!!  Replace with your API key !!!!
         apikey: process.env.APIKEY
     }),
     serviceUrl: process.env.APIURL
-})
+});
 
 export async function POST(request) {
-    let data = await request.json()
+    let data = await request.json();
 
-    // Check if message is English or not
-    const lang = franc(data.message) ;
+    // Get language from the request body
+    const language = data.language;
 
-    // Add a short judgement if the message is too short
-    let shortJudgement = false;
-    if (data.message.length < 30 && /^[a-zA-Z\s]+$/.test(data.message)) {
-        shortJudgement = true;
-    }
+    // Initialize transText
+    let transText = "";
 
-    // make the translation
-    let transText;
-
-    if ((lang !== 'eng'|| lang === 'und') && !shortJudgement) {
-        const response = await fetch("https://api.deepseek.com/v1/chat/completions", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-                "Authorization": "Bearer " + process.env.TRANSLATION_API_KEY
-            },
-            body: JSON.stringify({
-                model: "deepseek-chat",
-                messages: [
-                    {
-                        role: "system",
-                        content: "You are a professional translator. Translate all user input to English."
-                    },
-                    {
-                        role: "user",
-                        content: data.message
-                    }
-                ],
-                temperature: 0.3
-            })
+    if (language !== 'English') {
+        const response = await client.responses.create({
+            model: "gpt-4o-mini",
+            input: "Translate the following text into English:" + data.message + "If the text is already in English, it will be returned as is. Return a pure translation.",  // 翻译文本
         });
 
-        const result = await response.json();
-        transText = result.choices[0].message.content;
+        transText = response.output_text.trim();
+
+        console.log("Translated text:", transText);
     } else {
         transText = data.message;
     }
@@ -74,17 +46,16 @@ export async function POST(request) {
             'message_type': 'text',
             'text': transText,
             'options': {
-                return_context : true
+                return_context: true
             }
         }
     }
 
-
     try {
-        const res = await assistant.message(params)
+        const res = await assistant.message(params);
 
         // Log response
-        console.log(JSON.stringify(res.result))
+        console.log(JSON.stringify(res.result));
 
         // Extract text responses
         let textResponses = [];
@@ -106,60 +77,40 @@ export async function POST(request) {
             suggestions = suggestionItems.suggestions.map(sug => sug.label);
         }
 
-        let sessionVariables = res.result.context.skills["actions skill"].skill_variables
-
+        let sessionVariables = res.result.context.skills["actions skill"].skill_variables;
 
         // Translate the output back to user language
-        let transRes;
+        let transRes = "";
+        if (language !== "English" && textResponses.length > 0) {
+            const response = await client.responses.create({
+                model: "gpt-4o-mini",
+                input: "Translate the following text into" + language + ":" + textResponses.join("\n"),  // 翻译文本
+            });
 
-        if ((lang !== 'eng') && !shortJudgement && textResponses.length > 0) {
-           const response = await fetch("https://api.deepseek.com/v1/chat/completions", {
-               method: "POST",
-               headers: {
-                   "Content-Type": "application/json",
-                   "Authorization": "Bearer " + process.env.TRANSLATION_API_KEY
-               },
-               body: JSON.stringify({
-                   model: "deepseek-chat",
-                   messages: [
-                       {
-                           role: "system",
-                           content: "You are a professional translator only output the pure translation without any suggestion or options.. Translate all following responses into the same language as this sentence:" + data.message
-                       },
-                       {
-                           role: "user",
-                           content: textResponses.join(" ")
-                       }
-                   ],
-                   temperature: 0.3
-               })
-           });
-
-           const result = await response.json();
-           transRes = result.choices[0].message.content;
-
-            console.log("Translation result raw:", JSON.stringify(result));
-            console.log("Translated response: ", transRes);
-
+            transRes = response.output_text.trim();  // get translated response
+            console.log("Translated response:", transRes);
         } else {
-           transRes = textResponses.join("\n");
+            transRes = textResponses.join("\n");  // If no translation needed, just join responses
+            console.log("Original text:", transText);
         }
 
         // Return response
         return NextResponse.json({
             payload: res.result,
-            texts: textResponses.length > 0? transRes: null,
+            texts: transRes,
             options: options,
             suggestions: suggestions,
             location: sessionVariables["target_location"],
             status: "INPUT_SUCCESS"
-        })
+        });
+
     } catch (err) {
         // Handle errors
-        console.log("err happened")
-        console.log(JSON.stringify(err))
+        console.log("err happened");
+        console.log(JSON.stringify(err));
         return NextResponse.json({
             status: "INPUT_FAIL"
-        })
+        });
     }
 }
+

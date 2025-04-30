@@ -30,11 +30,15 @@ export function useSendMessage() {
 
 		setIsSending(true);
 		try {
+			// Get language from localStorage (assuming it is stored on the client side)
+			const language = localStorage.getItem('language') || 'English';
+
 			const response = await fetch("/api/send_message", {
 				method: "POST",
 				body: JSON.stringify({
 					message,
 					session_id: sessionId,
+					language: language,
 				}),
 				headers: { "Content-Type": "application/json" },
 			});
