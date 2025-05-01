@@ -5,8 +5,6 @@
  * @returns {Promise<void>}
  */
 export function setupLive2D() {
-    const live2dBg =
-        getComputedStyle(document.body).getPropertyValue('--colors-surface').trim();
 
 	const loadLive2DScript = () => {
 		return new Promise((resolve, reject) => {
@@ -28,8 +26,6 @@ export function setupLive2D() {
 	return loadLive2DScript()
 		.then(() => {
 
-
-
 			window.OML2D.loadOml2d({
 				primaryColor: "#4589FFFF",
 				mobileDisplay: true,
@@ -41,7 +37,7 @@ export function setupLive2D() {
 							border: "1px solid #E0E0E0FF",
 							shadow: "0 0 10px rgba(0, 0, 0, 0.05)",
 							borderRadius: "20px",
-							backgroundColor: live2dBg,
+							backgroundColor: "#FFFFFF",
 						},
 						path: "/duck_model/duck.model3.json",
 						position: [0, 0],
@@ -54,7 +50,7 @@ export function setupLive2D() {
 							border: "1px solid #E0E0E0FF",
 							shadow: "0 0 10px rgba(0, 0, 0, 0.05)",
 							borderRadius: "20px",
-							backgroundColor: live2dBg,
+							backgroundColor: "#FFFFFF",
 						},
 					},
 				],
