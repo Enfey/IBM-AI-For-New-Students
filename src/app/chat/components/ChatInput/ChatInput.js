@@ -35,7 +35,7 @@ export default function ChatInput({ onSubmit, onNewSession, isLoading }) {
 			<div id="user_input_area">
 				<TextArea
 					className="chat_textarea"
-					placeholder="Enter your query here." /**broken on dark mode @todo fix! */
+					placeholder="Enter your query here."
 					value={inputText}
 					onChange={(e) => setInputText(e.target.value)}
 					onKeyDown={(e) => {

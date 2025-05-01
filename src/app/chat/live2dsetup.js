@@ -1,9 +1,13 @@
+import "./live2d.scss";
+
 /**
  * Sets up the Live2D model using some form of black magic :D
  * @todo pls can someone else do the scss for this using @app/styles cheers
  * @returns {Promise<void>}
  */
 export function setupLive2D() {
+    const live2dBg = window.getComputedStyle(document.documentElement).getPropertyValue('--live2d-bg').trim();
+
 	const loadLive2DScript = () => {
 		return new Promise((resolve, reject) => {
 			if (window.OML2D) {
@@ -23,6 +27,7 @@ export function setupLive2D() {
 
 	return loadLive2DScript()
 		.then(() => {
+
 			window.OML2D.loadOml2d({
 				primaryColor: "#4589FFFF",
 				mobileDisplay: true,
@@ -34,7 +39,7 @@ export function setupLive2D() {
 							border: "1px solid #E0E0E0FF",
 							shadow: "0 0 10px rgba(0, 0, 0, 0.05)",
 							borderRadius: "20px",
-							backgroundColor: "#FFFFFF",
+							backgroundColor: live2dBg,
 						},
 						path: "/duck_model/duck.model3.json",
 						position: [0, 0],
@@ -47,7 +52,7 @@ export function setupLive2D() {
 							border: "1px solid #E0E0E0FF",
 							shadow: "0 0 10px rgba(0, 0, 0, 0.05)",
 							borderRadius: "20px",
-							backgroundColor: "#FFFFFF",
+							backgroundColor: live2dBg,
 						},
 					},
 				],

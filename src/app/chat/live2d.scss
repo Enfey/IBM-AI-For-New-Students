@@ -1,0 +1,6 @@
+@use "../styles/main" as *;
+
+/// DO NOT QUESTION THIS
+:root, .dark-theme {
+    --live2d-bg: @include var-theme-color("surface", background-color);
+  }
