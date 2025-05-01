@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { Add } from "@carbon/icons-react";
 import { Button, ComposedModal, ModalFooter, ModalBody } from "@carbon/react";
 

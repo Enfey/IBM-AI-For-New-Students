@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { marked } from "marked";
 import Loading from "@carbon/react/es/components/Loading/Loading";
 import { useScrollToBottom } from "../../hooks/useScrollToBottom";
@@ -35,7 +35,7 @@ export default function MessageContainer({ messages, containerRef }) {
 		<div className="message_container" ref={containerRef}>
 			{/* Initial Welcome message */}
 			<div className="ai_message_wrapper">
-				<img src="/image/duck.png" alt="AI" className="ai_img" />
+				<img src="/image/duck.webp" alt="AI" className="ai_img" />
 				<div className="ai_message">
 					Hi! I'm your friendly chatbot Nock powered by IBM Watsonx, here to
 					help you settle in and make the most of your time at Nottingham.
@@ -56,12 +56,12 @@ export default function MessageContainer({ messages, containerRef }) {
 			{messages.map((msg, index) =>
 				msg.isUser ? (
 					<div key={index} className="user_message_wrapper">
-						<img src= {profilePicture || "/image/OIP.jpg"} alt="User" className="user_img"/>
+						<img src= {profilePicture || "/image/OIP.webp"} alt="User" className="user_img"/>
 						<div className="user_message">{msg.content}</div>
 					</div>
 				) : (
 					<div key={index} className="ai_message_wrapper">
-						<img src="/image/duck.png" alt="AI" className="ai_img" />
+						<img src="/image/duck.webp" alt="AI" className="ai_img" />
 						{msg.isLoading ? (
 							<div className="ai_message">
 								<Loading active={true} description="Loading" />

@@ -1,4 +1,3 @@
-import "./live2d.scss";
 
 /**
  * Sets up the Live2D model using some form of black magic :D
@@ -6,7 +5,8 @@ import "./live2d.scss";
  * @returns {Promise<void>}
  */
 export function setupLive2D() {
-    const live2dBg = window.getComputedStyle(document.documentElement).getPropertyValue('--live2d-bg').trim();
+    const live2dBg =
+        getComputedStyle(document.body).getPropertyValue('--colors-surface').trim();
 
 	const loadLive2DScript = () => {
 		return new Promise((resolve, reject) => {
@@ -27,6 +27,8 @@ export function setupLive2D() {
 
 	return loadLive2DScript()
 		.then(() => {
+
+
 
 			window.OML2D.loadOml2d({
 				primaryColor: "#4589FFFF",

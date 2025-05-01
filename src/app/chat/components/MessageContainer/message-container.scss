@@ -107,7 +107,7 @@
 
 .ai_message {
     @extend %message-shared;
-    background-image: url("../../ai_background.png");
+    background-image: url("../../resources/ai_background.webp");
     background-size: cover;
     margin-left: spacing("xs");
     align-self: flex-start;

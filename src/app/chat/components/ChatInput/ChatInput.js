@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { ArrowRight } from "@carbon/icons-react";
 import { TextArea, Button } from "@carbon/react";
 import NewSessionModal from "../NewSessionModal/NewSessionModal";
@@ -52,8 +52,9 @@ export default function ChatInput({ onSubmit, onNewSession, isLoading }) {
 						renderIcon={ArrowRight}
 						onClick={handleSubmit}
 						disabled={isLoading || !inputText.trim()}
+                        aria-label="Send message"
 					/>
-					<NewSessionModal onNewSession={onNewSession} />
+					<NewSessionModal aria-label="Start new session" onNewSession={onNewSession} />
 				</div>
 			</div>
 		</div>
