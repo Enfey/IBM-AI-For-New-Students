@@ -16,7 +16,7 @@ export const dynamic = 'force-dynamic';
 let session_id = null;
 
 const assistant = new AssistantV2({
-    version: '2025-04-02',
+    version: '2025-05-01',
     authenticator: new IamAuthenticator({
         // !!!!  Replace with your API key !!!!
         apikey: process.env.APIKEY

@@ -7,7 +7,7 @@ const client = new OpenAI();
 export const dynamic = 'force-dynamic';
 
 const assistant = new AssistantV2({
-    version: '2025-04-02',
+    version: '2025-05-01',
     authenticator: new IamAuthenticator({
         apikey: process.env.APIKEY
     }),
