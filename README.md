@@ -167,6 +167,7 @@ Additionally, you need to config your API variable follow the format of the env.
 
 8. ***Other Pages***: Other pages like Contact Us, Announcement, About, Resources were added to provide a better user experience, also benefitting our future updating.
 
+9. ***Translation***: We provide different language translation for the chatbot using the OpenAI API.
 
 
 ## **Key Topics**
@@ -185,15 +186,15 @@ Additionally, you need to config your API variable follow the format of the env.
 | **Project Initiation**    | Define goals, roles, and scope               | 2024-09-28          | ✅ Complete  |
 | **Requirement Analysis**  | Document requirements and use cases          | 2024-11-04          | ✅ Complete  |
 | **System Design**         | Create prototype with IBM styles             | 2024-11-11          | ✅ Complete  |
-| **Watsonx Assistant API** | Link the assistant instance to our page (v1) | 2024-12-06        | ✅ Complete |
+| **Watsonx Assistant API** | Link the assistant instance to our page (v1) | 2024-12-06          | ✅ Complete |
 | **Initial Page Setup**    | Create the intial page with Carbon React     | 2024-12-13          | ✅ Complete |
-| **Conversation Training** | Train the model on the IBM website           | 2025-1-13 | ✅ Complete |
-| **Live2d model creating** | Create a live2d mascot to attract students   | 2025-2-13  | ✅ Complete |
-| **RAG building** | Using RAG as a complement for the main conversation flow | 2025-2-23  | ✅ Complete |
-| **Front-end enhancement** | Enhance the front-end side using carbon react components | 2025-3-20 | ✅ Complete |
-| **Deployment** | Deploy the RAG on Azure and deploy the website on Vercel | 2025-3-20 | ✅ Complete |
-| **New possible features** | Gather idea of new possible features | 2025-4-07 | ✅ Complete |
-| **Testing & QA** | Conduct testing and bug fixes | 2025-4-30 | ✅ Complete |
+| **Conversation Training** | Train the model on the IBM website           | 2025-1-13           | ✅ Complete |
+| **Live2d model creating** | Create a live2d mascot to attract students   | 2025-2-13           | ✅ Complete |
+| **RAG building** | Using RAG as a complement for the main conversation flow | 2025-2-23           | ✅ Complete |
+| **Front-end enhancement** | Enhance the front-end side using carbon react components | 2025-3-20           | ✅ Complete |
+| **Deployment** | Deploy the RAG on Azure and deploy the website on Vercel | 2025-3-20           | ✅ Complete |
+| **New possible features** | Gather idea of new possible features | 2025-4-07           | ✅ Complete |
+| **Testing & QA** | Conduct testing and bug fixes | 2025-5-01           | ✅ Complete |
 
 
 
