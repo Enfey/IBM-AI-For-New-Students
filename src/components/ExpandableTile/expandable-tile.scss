@@ -5,6 +5,6 @@
     @include border-radius("md");
 
     &:hover {
-      box-shadow: shadow("md");
+        box-shadow: shadow("md");
     }
-  }
+}

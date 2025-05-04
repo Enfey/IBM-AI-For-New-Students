@@ -3,6 +3,8 @@
  *
  * @param {Array} messages - Array of message objects to save to localStorage -
  * @param {string} sessionId - The current session ID
+ * 
+ * @returns {void}
  */
 export function saveMessagesToLocalStorage(messages, sessionId) {
 	if (!sessionId) return;
@@ -14,14 +16,16 @@ export function saveMessagesToLocalStorage(messages, sessionId) {
 		isLoading: msg.isLoading || false
 	}));
 
-	localStorage.setItem(`chatHistory${sessionId}`, JSON.stringify(history));
+	localStorage.setItem(`chatHistory${sessionId}`, JSON.stringify(history)); // Store the history in localStorage with the session ID as the key
 }
 
 /**
  * Retrieves chat history from localStorage
  *
  * @param {string} sessionId - The session ID to retrieve history for
+ * 
  * @returns {Array} Array of message objects
+ * @throws {Error} If parsing and returning the stored history fails
  */
 export function loadMessagesFromLocalStorage(sessionId) {
 	if (!sessionId) return [];
@@ -43,12 +47,14 @@ export function loadMessagesFromLocalStorage(sessionId) {
 }
 
 /**
- * Does what it says on the tin (deletes chat history from `localStorage`)
+ * Deletes chat history from `localStorage` based on passed session ID
  * 
  * @param {string} sessionId - The session ID to delete history for
+ * 
+ * @returns {void}
  */
 export function deleteMessagesFromLocalStorage(sessionId) {
 	localStorage.removeItem(sessionId);
 	
-	window.location.href = "/chat";
+	window.location.href = "/chat"; 
 }

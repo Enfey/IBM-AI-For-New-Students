@@ -14,7 +14,7 @@ import "./auth-block.scss";
  * @param {string} [options.redirectUrl="/login"] - URL to redirect unauthenticated users
  * @returns {React.FC} Protected component that redirects unauthenticated users
  */
-export default function withAuth(Component, options = { redirectUrl: "/login" }) {
+export default function withAuth(Component, options = { redirectUrl: "/login", authorisedUrl: "/loading" }) {
   return function ProtectedRoute(props) {
     const router = useRouter();
     const { isLoggedIn, isInitialised } = useAuth();
@@ -34,9 +34,9 @@ export default function withAuth(Component, options = { redirectUrl: "/login" })
         // User is authenticated and authorised
         setIsAuthorised(true);
       }
-    }, [isLoggedIn, isInitialised, router, options.redirectUrl]);
+    }, [isLoggedIn, isInitialised, router, options.redirectUrl, ]);
 
-    //Loading spinner nukes load time, so removed.
+    // NOTE: This is a temporary loading screen while we wait for auth to be determined, null is best and doesn't nuke load time
     if (!isInitialised && !isAuthorised) { 
         return null;
     }

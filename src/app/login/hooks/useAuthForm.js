@@ -16,6 +16,14 @@ import {
  * - Validates input fields
  * - Manages error messages
  * - Handles Google sign-in
+ * 
+ * Uses:
+ * - {@link auth} Firebase authe instance
+ * - {@link googleProvider} Firebase Google authentication provider
+ * - {@link signInWithEmailAndPassword} Firebase function for email/password sign-in
+ * - {@link createUserWithEmailAndPassword} Firebase function for email/password signup
+ * - {@link updateProfile} Firebase function for updating user profile
+ * - {@link signInWithPopup} Firebase function to support Google OAuth sign-in
  *
  * @param {string} initialMode - Initial mode of the form ('login' or 'signup')
  *
@@ -24,11 +32,11 @@ import {
  * @returns {boolean} return.isSignupMode - Whether the form is in signup mode
  * @return {Object} return.formData - Current form field values
  * @return {string} return.error - Current error message or empty string
- * @return {boolean} return.loading - Whether authentication is in progress
+ * @return {boolean} return.loading - Whether auth is in progress
  * @return {Function} return.toggleMode - Function to toggle between login and signup modes
  * @return {Function} return.updateField - Function to update a specific form field
  * @return {Function} return.handleSubmit - Function to handle form submission for email/password login or signup
- * @return {Function} return.handleSignInGoogle - Function to handle Google oauth sign-in
+ * @return {Function} return.handleSignInGoogle - Function to handle Google OAuth sign-in
  */
 
 export const useAuthForm = (initialMode = "login") => {
@@ -165,12 +173,6 @@ export const useAuthForm = (initialMode = "login") => {
 	 */
 	const handleError = (error) => {
 		switch (error.code) {
-			case "auth/invalid-email":
-				setError("Invalid email format");
-				break;
-			case "auth/user-disabled":
-				setError("This account has been disabled");
-				break;
 			case "auth/user-not-found":
 				setError("No account found with this email");
 				break;
@@ -181,15 +183,10 @@ export const useAuthForm = (initialMode = "login") => {
 				setError("Email is already in use");
 				break;
 			case "auth/weak-password":
-				setError("Password should be at least 6 characters");
+				setError("Password should be at least 6 characters"); // Firebase default
 				break;
 			case "auth/passwords-dont-match":
 				setError("Passwords do not match");
-				break;
-			case "auth/account-exists-with-different-credential":
-				setError(
-					"An account already exists with the same email address but different sign-in credentials."
-				);
 				break;
 			case "auth/popup-closed-by-user":
 				setError("Sign-in popup was closed before completing the sign-in.");

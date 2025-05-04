@@ -3,9 +3,17 @@ import { ArrowLeft, ArrowRight } from "@carbon/icons-react";
 import "./pagination.scss";
 
 /**
- * Pagination component
- * @todo add further comment 
- * Renders pagination controls for navigation between pages
+ * Pagination component.
+ *
+ * Renders pagination controls for navigation between pages.
+ * This component provides a simple pagination interface with previous and next buttons,
+ * as well as an indicator for the current page and total pages.
+ * Designed to be used in scenarios where a large set of data is divided into multiple pages,
+ * allowing users to navigate through them easily.
+ *
+ * Uses:
+ * - {@link Button} from Carbon Design System for button rendering
+ * - {@link ArrowLeft} and {@link ArrowRight} icons from Carbon Design System for navigation arrows
  *
  * @param {Object} props - Component props
  * @param {number} props.currentPage - Current page number
@@ -14,6 +22,7 @@ import "./pagination.scss";
  * @param {Function} props.onNextPage - Handler for next page button
  * @returns {JSX.Element} Rendered pagination controls
  */
+
 export default function Pagination({
     currentPage,
     totalPages,

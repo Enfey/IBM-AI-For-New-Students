@@ -1,28 +1,30 @@
 "use client";
 
-import React, { useEffect } from "react";
 import ResourceTile from "./components/ResourceTile/ResourceTile";
-import { useAuth } from "@/hooks/useAuth";
-import { useRouter } from "next/navigation";
 import { resources } from "./data/data";
 import withAuth from "@/components/AuthBlock/AuthBlock";
 import "./resource-page.scss";
 
+/**
+ * Resource page component
+ * * Handles the rendering of the resource page, which includes a set of {@link ResourceTile} components.
+ * * Protected by auth - redirects to login by default if not authenticated.
+ * 
+ * Uses:
+ * @see {@link ResourceTile} Component for rendering individual resources
+ * @see {@link withAuth} Custom auth HOC for delegating authentication checks for pages
+ * @see {@link resources} for data used in the resource tiles
+ * 
+ * @returns {JSX.Element|null} The resource page UI, null if not authenticated.
+ * 
+ */
 function ResourcePage() {
-    const { isLoggedIn, isInitialised } = useAuth();
-    const router = useRouter();
-
-    useEffect(() => {
-        if (isInitialised && !isLoggedIn) {
-            router.replace("/"); // could redirect to /login in future and separate / from its component parts
-        }
-    }, [isInitialised, isLoggedIn, router]);
-
     return (
+        // Map through the resources array and render a ResourceTile for each resource
         <div className="resource-container">
             {resources.map((resource, index) => (
                 <ResourceTile
-                    title={resource.title}
+                    title={resource.title} 
                     link={resource.link}
                     icon={resource.icon}
                     index={index}
