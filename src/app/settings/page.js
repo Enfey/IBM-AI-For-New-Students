@@ -3,21 +3,21 @@
 import withAuth from "@/components/AuthBlock/AuthBlock";
 import ThemeToggle from "./components/ThemeToggle/ThemeToggle";
 import "./settings-page.scss";
-import LanguageBox from "@/app/settings/components/LanguageBox/LanguageBox"; // 引入 LanguageBox 组件
+import LanguageBox from "@/app/settings/components/LanguageBox/LanguageBox"; // Import LanguageBox component
 import { useEffect, useState } from "react";
 
 function SettingsPage() {
     const [currentLanguage, setCurrentLanguage] = useState("English");
 
-    // 从 localStorage 获取当前语言并更新状态
+    // Get language from local storage and update the state
     useEffect(() => {
-        const language = localStorage.getItem("language") || "English"; // 默认为英语
+        const language = localStorage.getItem("language") || "English"; // Default is English
         setCurrentLanguage(language);
     }, []);
 
-    // 语言变化时更新 currentLanguage 状态
+    // Update current language when language state changes
     const handleLanguageChange = (newLanguage) => {
-        setCurrentLanguage(newLanguage); // 更新 currentLanguage 状态，触发页面重渲染
+        setCurrentLanguage(newLanguage); // Update current language state, triggering re-rendering
     };
 
     return (
@@ -40,9 +40,9 @@ function SettingsPage() {
                 <div className="setting-item">
                     <div className="setting-label">
                         <h3>Current Language</h3>
-                        <p>{`Current language is: ${currentLanguage}`}</p> {/* 当前语言实时更新 */}
+                        <p>{`Current language is: ${currentLanguage}`}</p> {/* Language is updated in real-time */}
                     </div>
-                    {/* 传递 currentLanguage 和 onLanguageChange */}
+                    {/* Passing currentLanguage & onLanguageChange */}
                     <LanguageBox onLanguageChange={handleLanguageChange} />
                 </div>
             </div>
