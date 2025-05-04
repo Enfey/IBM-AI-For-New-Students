@@ -40,12 +40,11 @@
         &:focus {
             border: none !important;
         }
-        
+
         &::placeholder {
             @include var-theme-color("text-secondary", color);
         }
     }
-    
 }
 
 .send_button {

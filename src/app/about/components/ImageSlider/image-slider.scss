@@ -26,7 +26,6 @@
     object-fit: cover;
     object-position: center;
     border-radius: radius("md");
-    box-shadow: shadow("md");
 }
 
 .number-text {
@@ -35,7 +34,7 @@
     padding: spacing("sm") spacing("md");
     position: absolute;
     top: 0;
-    background-color: rgba(color("black"), 0.5);
+    background-color: rgba(color("black"), 0.5); //transparent black
     border-radius: radius("sm");
 }
 
@@ -49,14 +48,13 @@
     height: 13px;
     width: 13px;
     margin: spacing("xs") spacing("xs") * 0.4;
-    background-color: color("gray", "20");
     border-radius: 50%;
     display: inline-block;
     transition: background-color duration("normal") ease;
+    @include var-theme-color("background", background-color);
 
-    &.active,
-    &:hover {
-        background-color: color("gray", "70");
+    &.active {
+        @include var-theme-color("text-secondary", background-color);
     }
 }
 

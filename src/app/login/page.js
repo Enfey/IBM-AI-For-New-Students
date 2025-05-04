@@ -17,20 +17,24 @@ import { useAuth } from "@/hooks/useAuth";
  *
  * @returns {JSX.Element} Rendered login page with authentication form.
  */
-export default function LoginPage() {
-	const { isLoggedIn, isInitialised } = useAuth();
-	const router = useRouter();
-
-	// Redirect if user is already logged in
-	useEffect(() => {
-		if (isInitialised && isLoggedIn) {
-			router.replace("/loading");
-		}
-	}, [isLoggedIn, isInitialised, router]);
-
-	if (!isInitialised || isLoggedIn) {
-		return null;
-	}
+function LoginPage() {
+    const router = useRouter();
+    const { isLoggedIn, isInitialised } = useAuth();
+    
+    useEffect(() => {
+        // Wait for auth to be determined
+        if (!isInitialised) return;
+    
+        if (isLoggedIn && router) {
+        // Redirect to loading page if user is already logged in
+        router.push("/loading");
+        }
+    }, [isLoggedIn, isInitialised, router]);
+    
+    //Prevents flicker while waiting for auth to be determined
+    if (!isInitialised) return null;
 
 	return <AuthForm defaultMode="login" />;
 }
+
+export default LoginPage;

@@ -3,10 +3,17 @@ import { TrashCan } from "@carbon/icons-react";
 import "./history-input.scss";
 
 /**
- * Shamelessly stolen from ChatInput.js (sorry Felix)
- * 
- * @param {Function} onDelete (function to handle deletion of chat history)
- * @returns {JSX.Element} Rendered component
+ * HistoryInput component for managing chat input on history pages.
+ *
+ * Provides a button to delete chat history.
+ *
+ * Uses:
+ * - {@link Button} from Carbon Design System for button rendering
+ * - {@link TrashCan} icon from Carbon Design System for delete icon
+ *
+ * @param {Object} props - Component props
+ * @param {Function} props.onDelete - Function to handle deletion of chat history
+ * @returns {JSX.Element} Rendered HistoryInput component
  */
 export default function HistoryInput({ onDelete }) {
     return (
@@ -17,7 +24,7 @@ export default function HistoryInput({ onDelete }) {
                         className={"delete_button"}
                         kind="danger"
                         renderIcon={TrashCan}
-                        onClick = {onDelete}
+                        onClick={onDelete}
                     >
                         Delete chat history
                     </Button>

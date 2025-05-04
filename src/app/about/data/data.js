@@ -1,5 +1,5 @@
 /**
- * Data for the About Us section
+ * Data for the About Us section, formatted for use in an InfoSection component.
  */
 export const aboutData = {
     title: "About Us",
@@ -18,7 +18,7 @@ export const aboutData = {
   };
 
 /**
- * Data for the Project section
+ *  * Data for the Project section, formatted for use in an InfoSection component.
  */
 export const projectData = {
     title: "About Our Project",

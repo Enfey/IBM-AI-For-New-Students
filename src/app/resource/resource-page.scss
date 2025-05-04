@@ -1,7 +1,7 @@
-@use '../styles/mixins' as *;
-@use '../styles/variables' as *;
+@use "../styles/mixins" as *;
+@use "../styles/variables" as *;
 
 .resource-container {
-  @include page-container(80px);
-  gap: spacing("md");
+    @include page-container(80px);
+    gap: spacing("md");
 }

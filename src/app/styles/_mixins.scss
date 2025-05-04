@@ -2,7 +2,7 @@
 @use 'variables' as *;
 @use 'theming' as *;
 /// ───────────────
-/// MIXINS
+/// MIXINS - note some are speculative and may not be used.
 /// ───────────────
 
 /// Media query for minimum width - limited to previously defined breakpoints via $breakpoints map

@@ -23,8 +23,8 @@
     }
 
     &__subtitle {
-        @include typography("lg", "medium", "tight");
-        color: var-theme-color("text-secondary", color);
+        @include typography("lg", "semibold", "tight");
+        @include var-theme-color("text-secondary", color);
         margin-top: spacing("sm");
         margin-bottom: spacing("sm");
     }

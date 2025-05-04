@@ -6,6 +6,19 @@ import "./settings-page.scss";
 import LanguageBox from "@/app/settings/components/LanguageBox/LanguageBox"; // Import LanguageBox component
 import { useEffect, useState } from "react";
 
+/**
+ * Settings page component
+ * * Serves as the settings page of the application, allowing users to change theme and language settings.
+ * * Protected by auth - redirects to login by default if not authenticated.
+ * 
+ * Uses:
+ * - {@link ThemeToggle} Component for toggling between light and dark themes
+ * - {@link LanguageBox} Component for selecting the language
+ * - {@link withAuth} Custom auth HOC for delegating authentication checks for pages
+ * 
+ * @returns {JSX.Element|null} The settings page UI, null if not authenticated.
+ * */
+
 function SettingsPage() {
     const [currentLanguage, setCurrentLanguage] = useState("English");
 

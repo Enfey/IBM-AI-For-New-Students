@@ -1,15 +1,28 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import { useRouter } from "next/navigation";
-import { useAuth } from "@/hooks/useAuth";
 import "./loading-page.scss";
 import withAuth from "@/components/AuthBlock/AuthBlock";
+
+/**
+ * LoadingPage component.
+ *
+ * Serves as a splash screen welcoming users to the application (technically nothing is loaded here).
+ * Redirects to the chat page after a delay.
+ * Uses a particle animation for visual effect.
+ *
+ * Uses:
+ * - {@link withAuth} Custom auth HOC for delegating authentication checks for pages
+ * - {@link useRouter} from next/navigation for routing
+ *
+ * @returns {JSX.Element|null} The loading page UI, or null if not authenticated.
+ */
 
 function LoadingPage() {
     const router = useRouter();
 
-	// Splash screen after 4.5 seconds
+	// Redirect to chat page after 4.5 seconds
 	useEffect(() => {
 		let timer;
         timer = setTimeout(() => {router.push("/chat")}, 4500);

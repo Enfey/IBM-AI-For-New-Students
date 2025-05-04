@@ -1,0 +1,7 @@
+@use "../../../styles/main" as *;
+
+#language-dropdown {
+    @include var-theme-color("tile-background", background-color);
+    border-radius: 4px;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+}

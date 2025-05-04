@@ -31,10 +31,12 @@ const AuthForm = ({ defaultMode = "login" }) => {
         handleSignInGoogle,
     } = useAuthForm(defaultMode);
 
+    // Set button text and loading text based on mode
     const buttonText = isSignupMode ? "Sign Up" : "Login";
-    const loadingText = isSignupMode ? "Creating account..." : "Logging in...";
+    const loadingText = isSignupMode ? "Creating account..." : "Logging in..."; 
 
     return (
+        //Note: Many form elements are conditionally rendered according to the isSignupMode state.
         <div className="auth-form-container">
             <h2 className="auth-form-title">
                 {isSignupMode ? "Create Account" : "Login"}
