@@ -21,7 +21,7 @@ import "./language-box.scss";
  * NOTE: Contains more state and logic than other components.
  */
 const LanguageBox = ({ onLanguageChange }) => {
-    const [selectedLanguage, setSelectedLanguage] = useState('English'); // 默认语言为英语
+    const [selectedLanguage, setSelectedLanguage] = useState('English'); // Default is English
 
     // language options
     const items = [
@@ -35,7 +35,7 @@ const LanguageBox = ({ onLanguageChange }) => {
     ];
 
     useEffect(() => {
-        const language = localStorage.getItem('language') || 'English'; // 默认为英语
+        const language = localStorage.getItem('language') || 'English'; // Default is English
         setSelectedLanguage(language);
         onLanguageChange(language);
     }, [onLanguageChange]);
@@ -60,8 +60,8 @@ const LanguageBox = ({ onLanguageChange }) => {
                 titleText="Choose your language"
                 type="default"
                 warnText="Please select a language"
-                onChange={({ selectedItem }) => handleLanguageChange(selectedItem)} // 处理语言选择
-                selectedItem={items.find(item => item.text === selectedLanguage)} // 默认选中当前语言
+                onChange={({ selectedItem }) => handleLanguageChange(selectedItem)} // Handles language selection using callback
+                selectedItem={items.find(item => item.text === selectedLanguage)} // The current language is considered selected by default
             />
         </div>
     );
