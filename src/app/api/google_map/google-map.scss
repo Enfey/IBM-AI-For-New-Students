@@ -3,13 +3,13 @@
   top: 60px;
   left: 0px;
   width: 310px;
-  height: 260px;
+  height: 310px;
 }
 
 .map-container {
   position: absolute;
   width: 310px;
-  height: 260px;
+  height: 310px;
   transition: all 1s ease-in-out;
 
   .map-content {
@@ -30,7 +30,7 @@
   color: white;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.4);
   cursor: pointer;
-  margin-top: 265px;
+  margin-top: 40px;
   transition: all 0.2s ease;
 
   &:hover {

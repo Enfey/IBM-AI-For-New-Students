@@ -53,7 +53,6 @@ export default function DynamicMap({ location }) {
 
     return (
         <div className={"map-wrapper"}>
-            <Animation></Animation>
             <Button
                 className={"toggle-button"}
                 renderIcon={Map}
@@ -64,6 +63,7 @@ export default function DynamicMap({ location }) {
                     setAnimation(!startAnimation);
                 }}
             ></Button>
+            <Animation></Animation>
         </div>
     );
 }
