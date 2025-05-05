@@ -34,7 +34,16 @@ function LoginPage() {
     //Prevents flicker while waiting for auth to be determined
     if (!isInitialised) return null;
 
-	return <AuthForm defaultMode="login" />;
+	return (<div>
+        <AuthForm defaultMode="login" />
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <span className={"declaimer"}>By signing up, you allow us to collect your google account information for future use.</span>
+    </div>);
 }
 
 export default LoginPage;

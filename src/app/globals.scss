@@ -5,6 +5,7 @@
 @use 'announcement/announcement-page';
 @use 'about/about-page';
 @use 'contact/contact-page';
+@use 'login/login-page';
 
 /// Remove overrides once Carbon bugs are fixed upstream.
 /// Need grid option to not add page gutters at large viewports, to also use when nesting grids
