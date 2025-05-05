@@ -4,7 +4,7 @@ import { useState, useCallback } from "react";
  * This hook loads the chat histories from localStorage (by seeing if it starts)
  * with `chatHistory` and then sets the `chatHistories` defined to the loaded
  * chat histories
- * 
+ *
  * @returns {function} getHistories - A function that loads the chat histories
  * @returns {Array} chatHistories - An array containing the chat histories
  */
@@ -24,14 +24,15 @@ export function useChatHistory() {
                    similar to ChatGPT */
                 // This is Zefei magic btw idk what `history?` and `history?.[0]?` does
                 const firstMessage = history?.[0]?.content || "No messages";
-                const messageId = firstMessage.length > 30
-                    ? firstMessage.substring(0, 30) + "..."
-                    : firstMessage;
+                const messageId =
+                    firstMessage.length > 30
+                        ? firstMessage.substring(0, 30) + "..."
+                        : firstMessage;
 
                 histories.push({
                     ...history,
                     key: key.replace("chatHistory", ""),
-                    id: messageId
+                    id: messageId,
                 });
             }
         }
@@ -41,6 +42,6 @@ export function useChatHistory() {
 
     return {
         chatHistories,
-        getHistories
+        getHistories,
     };
 }

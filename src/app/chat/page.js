@@ -2,7 +2,6 @@
 
 import { useEffect, useRef, useCallback } from "react";
 import { useRouter } from "next/navigation";
-import { useAuth } from "@/hooks/useAuth";
 import DynamicMap from "../api/google_map/route";
 
 // Import local
@@ -25,17 +24,20 @@ import withAuth from "@/components/AuthBlock/AuthBlock";
  * Composes independent hooks to create the complete chat functionality.
  *
  * Uses:
- * @see {@link useAuth} Custom hook for authentication state
+ * @see {@link withAuth} Custom auth HOC for delegating authentication checks for pages
  * @see {@link useRouter} From next/navigation for routing
  * @see {@link useChatSession} Custom hook for session management
  * @see {@link useSendMessage} Custom hook for API communication
  * @see {@link useMessages} Custom hook for message state management
  * @see {@link useScrollToBottom} Custom hook for scroll behavior
- * @see {@link setupLive2D} 2d character initialization
+ * @see {@link setupLive2D} Live2d character initialisation
  * @see {@link MessageContainer} Component for displaying messages
  * @see {@link ChatInput} Component for user input
+ * 
+ * @param {Object} props - Component props
+ * @param {props.historyKey} historyKey - Optional key for loading previous chat history from localStorage
  *
- * @returns {JSX.Element} Rendered chatPage component
+ * @returns {JSX.Element||null} Rendered chatPage component, null if not logged in
  */
 function ChatPage({ historyKey = null }) {
     const messageContainerRef = useRef(null);
@@ -49,13 +51,13 @@ function ChatPage({ historyKey = null }) {
         handleSubmit: submitMessage,
         clearMessages,
         location,
-    } = useMessages({sendMessage});
+    } = useMessages({ sendMessage });
     const scrollToBottom = useScrollToBottom(messageContainerRef);
 
     // Wire together
     const isLoading = isSessionLoading || isSending || isSubmitting;
 
-    // Init my goat
+    // Initialise duck
     useEffect(() => {
         setupLive2D();
     }, []);

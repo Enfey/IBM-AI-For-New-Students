@@ -1,5 +1,5 @@
 /**
- * Data for the Contact Us tiles
+ * Data for the Contact Us tiles, formatted for use in an ExpandableTile component.
  */
 export const contactMethods = [
     {

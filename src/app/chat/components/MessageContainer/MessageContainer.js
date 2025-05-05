@@ -10,9 +10,15 @@ import { useAuth } from "@/hooks/useAuth";
  * * Scrolls to the bottom of the message container when new messages are added.
  * * Handles display of loading for AI messages.
  * * Displays initial welcome message.
+ * 
+ * Uses:
+ * @see {@link useScrollToBottom} Custom hook for scroll behavior
+ * @see {@link useAuth} Custom hook for authentication state, used to retrieve profile picture
+ * @see {@link marked} Library for parsing markdown content in messages
+ * @see {@link Loading} Carbon component for loading state while Watson has not yet returned a response
  *
  * @param {Object} props - Component props
- * @param {Array} props.messages - Array of messages to render - SUGGESTION BUTTONS: @see {@link https://react.dev/learn/rendering-lists#why-does-react-need-keys} cannot be used directly for the suggestion buttons to disable specific divs that contain clicked buttons as prop is never placed on DOM node. @todo
+ * @param {Array} props.messages - Array of messages to render - Note on suggestion button implementation: {@link https://react.dev/learn/rendering-lists#why-does-react-need-keys} cannot be used directly for the suggestion buttons to disable specific divs that contain clicked buttons as prop is never placed on DOM node. 
  * @param {React.RefObject} props.containerRef - Reference to the message container
  * @returns {JSX.Element} Rendered component
  */

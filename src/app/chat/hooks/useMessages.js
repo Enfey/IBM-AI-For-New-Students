@@ -12,10 +12,13 @@ import { processResponse } from "../utils/messages";
  * * Handling errors
  * * Persisting messages to localStorage
  *
- * @see {@link ../utils/message.js} for handling message processing which don't need React features
- *
- * @param {Object} options - Configuration options
- * @param {Function} options.sendMessage - Function to send messages to the API
+ * Uses:
+ * - {@link saveMessagesToLocalStorage} Utility function to save messages to localStorage
+ * - {@link processResponse} Utility function to process API responses
+ * 
+ * * @param {Object} options - Configuration options
+ * * @param {Function} options.sendMessage - Function to send messages to the API
+ * 
  * @returns {{messages: *[], isSubmitting: boolean, handleSubmit: ((function(*): Promise<void>)|*), clearMessages: ((function(): void)|*), location: string}} Message state and operations
  * @returns {Array} return.messages - Array of chat messages
  * @returns {boolean} return.isSubmitting - Whether a message is currently being submitted

@@ -6,22 +6,22 @@
  * It currently can only exist for 15min without any activity. After that, the session will be automatically deleted.
  */
 
-import {NextResponse} from "next/server";
+import { NextResponse } from "next/server";
 
-const AssistantV2 = require('ibm-watson/assistant/v2');
-const { IamAuthenticator } = require('ibm-watson/auth');
+const AssistantV2 = require("ibm-watson/assistant/v2");
+const { IamAuthenticator } = require("ibm-watson/auth");
 
-export const dynamic = 'force-dynamic';
+export const dynamic = "force-dynamic";
 
 
 const assistant = new AssistantV2({
     version: '2025-05-01',
     authenticator: new IamAuthenticator({
         // !!!!  Replace with your API key !!!!
-        apikey: process.env.APIKEY
+        apikey: process.env.APIKEY,
     }),
-    serviceUrl: process.env.APIURL
-})
+    serviceUrl: process.env.APIURL,
+});
 
 export async function GET(request) {
     try {
@@ -32,12 +32,12 @@ export async function GET(request) {
         console.log("New session!")
 
         return NextResponse.json({
-            payload: res.result.session_id
-        })
+            payload: res.result.session_id,
+        });
     } catch (err) {
-        console.log(err)
+        console.log(err);
         return NextResponse.json({
-            message: "There was an error handling your request."
-        })
+            message: "There was an error handling your request.",
+        });
     }
 }

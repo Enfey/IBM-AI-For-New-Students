@@ -1,8 +1,27 @@
 import React, { useState, useEffect } from 'react';
 import { Dropdown } from '@carbon/react';
+import "./language-box.scss";
 
+/**
+ * LanguageBox component for selecting a language from a dropdown menu.
+ *
+ * * Allows users to select their preferred language from a list of options.
+ * * The selected language is stored in local storage and can be retrieved later.
+ * * The selected language is also passed to the parent component through the onLanguageChange callback.
+ *
+ * 
+ * Uses:
+ * - {@link Dropdown} from Carbon Design System for dropdown menu rendering
+ *
+ * @param {Object} props - Component props
+ * @param {Function} props.onLanguageChange - Callback function to handle language change
+ * 
+ * @returns {JSX.Element} Rendered LanguageBox component
+ * 
+ * NOTE: Contains more state and logic than other components.
+ */
 const LanguageBox = ({ onLanguageChange }) => {
-    const [selectedLanguage, setSelectedLanguage] = useState('English'); // 默认语言为英语
+    const [selectedLanguage, setSelectedLanguage] = useState('English'); // Default is English
 
     // language options
     const items = [
@@ -16,7 +35,7 @@ const LanguageBox = ({ onLanguageChange }) => {
     ];
 
     useEffect(() => {
-        const language = localStorage.getItem('language') || 'English'; // 默认为英语
+        const language = localStorage.getItem('language') || 'English'; // Default is English
         setSelectedLanguage(language);
         onLanguageChange(language);
     }, [onLanguageChange]);
@@ -31,6 +50,7 @@ const LanguageBox = ({ onLanguageChange }) => {
     return (
         <div style={{ width: 400 }}>
             <Dropdown
+                aria-Label="Language selection dropdown"
                 helperText="Select your preferred language"
                 id="language-dropdown"
                 invalidText="Invalid selection"
@@ -40,8 +60,8 @@ const LanguageBox = ({ onLanguageChange }) => {
                 titleText="Choose your language"
                 type="default"
                 warnText="Please select a language"
-                onChange={({ selectedItem }) => handleLanguageChange(selectedItem)} // 处理语言选择
-                selectedItem={items.find(item => item.text === selectedLanguage)} // 默认选中当前语言
+                onChange={({ selectedItem }) => handleLanguageChange(selectedItem)} // Handles language selection using callback
+                selectedItem={items.find(item => item.text === selectedLanguage)} // The current language is considered selected by default
             />
         </div>
     );

@@ -10,22 +10,23 @@ import { useCallback } from "react";
  */
 export function useScrollToBottom(containerRef) {
 	return useCallback(() => {
-		if (!containerRef.current) return;
+		if (!containerRef.current) return; 
 
 		const container = containerRef.current;
 		const lastChild = container.lastElementChild;
 		if (!lastChild) return;
 
 		const containerHeight = container.clientHeight;
-		const lastChildOffset = lastChild.offsetTop - container.scrollTop;
+		const lastChildOffset = lastChild.offsetTop - container.scrollTop; // Calculate the offset of the last child from the top of the container
 
+        {/* Check if the last child offset is greater than 60% of the container height, i.e., closer to offscreen than on */}
 		if (lastChildOffset > containerHeight * 0.6) {
 			setTimeout(() => {
 				window.scrollTo({
 					top: document.documentElement.scrollHeight,
 					behavior: "smooth",
 				});
-			}, 100);
+			}, 100); // Delay 
 		}
 	}, [containerRef]);
 }

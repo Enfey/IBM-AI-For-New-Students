@@ -30,6 +30,7 @@
     margin: spacing("md");
 
     span {
+        @include var-theme-color("text-primary");
         padding: 0 spacing("sm");
         @include typography("sm");
         @include text-emphasis("small");
@@ -140,6 +141,7 @@
     }
 
     span {
+        @include var-theme-color("text-primary");
         @include typography("sm");
         @include text-emphasis("small");
     }
@@ -155,7 +157,7 @@
 }
 
 // ───────────────
-// Carbon design system overrides
+// Carbon design system override headache
 // ───────────────
 .cds--btn {
     max-inline-size: none !important;
@@ -166,6 +168,7 @@
 .cds--btn.cds--text-input--password__visibility__toggle.cds--tooltip__trigger {
     outline: none !important;
     border-bottom-color: var(--colors-primary) !important;
+    
 }
 
 .cds--btn--ghost {
@@ -177,4 +180,10 @@
         outline: none !important;
         box-shadow: none !important;
     }
+}
+
+label.cds--label {
+    
+    @include var-theme-color("text-secondary");
+    margin-bottom: spacing("xs");
 }
