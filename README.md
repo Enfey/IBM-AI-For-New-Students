@@ -12,6 +12,17 @@ Project Goals and Vision
 The website was deployed using [Vercel](https://vercel.com/), here is the link: [https://team32-project-sandy.vercel.app/](https://team32-project-sandy.vercel.app/) 
 
 
+## API Documentation
+
+1. [Watsonx Assistant API](https://cloud.ibm.com/apidocs/assistant-v2)
+2. [OpenAI API](https://platform.openai.com/docs/overview)
+3. [Google Map API](https://developers.google.com/maps/documentation)
+4. [Milvus](https://milvus.io/docs/v2.0.0/overview.md)
+5. [Langchain](https://www.langchain.com/docs/api-reference)
+6. [Firebase](https://firebase.google.com/docs)
+7. [FastAPI](https://fastapi.tiangolo.com/)
+8. [RAG](https://huggingface.co/transformers/model_doc/rag)
+9. [Carbon React](https://carbondesignsystem.com/components/overview/components/)
 
 ## Mascot and Main Page
 
