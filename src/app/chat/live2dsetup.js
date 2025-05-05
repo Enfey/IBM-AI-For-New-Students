@@ -29,6 +29,7 @@ export function setupLive2D() {
 			window.OML2D.loadOml2d({
 				primaryColor: "#4589FFFF",
 				mobileDisplay: true,
+				initialStatus: "sleep",
 				models: [
 					{
 						stageStyle: {
@@ -61,8 +62,8 @@ export function setupLive2D() {
 					style: {
 						marginBottom: "80px",
 					},
-					restMessage: "Resting",
-					loadSuccessMessage: "Ready",
+					restMessage: "Click to wake up",
+					loadSuccessMessage: "Success",
 				},
 				tips: {
 					mobileStyle: {
@@ -92,7 +93,7 @@ export function setupLive2D() {
 									oml2d.stageSlideIn();
 									oml2d.statusBarClose("Success");
 								});
-								oml2d.statusBarOpen("Resting");
+								oml2d.statusBarOpen("Click to wake up");
 							},
 						},
 					],
