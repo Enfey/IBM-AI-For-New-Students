@@ -27,17 +27,18 @@ export const projectData = {
       {
         title: "Key Features",
         items: [
-          "Personalized Assistance: Answers common questions about campus life, academics, and extracurricular activities.",
-          "Smart Recommendations: Provides tailored suggestions based on individual preferences and needs.",
-          "24/7 Availability: Always ready to help, day or night."
+          "RAG: Provides the university related information for the chatbot.",
+          "Map Embedding: Google Maps API is used to provide the location-based information for the chatbot.",
+          "Translation: The chatbot can translate text from one language to another.",
+          "Firebase: The chatbot is integrated with Firebase for user authentication and database storage."
         ]
       },
       {
         title: "Technology Stack",
         items: [
-          "AI Platform: Watsonx API",
-          "Natural Language Processing (NLP): For understanding and generating human-like responses",
-          "Machine Learning: To improve recommendations and adapt to user behavior over time"
+          "AI Platform: Watsonx Assistant API.",
+          "Milvus: For building the knowledge base for the chatbot.",
+          "FastAPI: To deploy the RAG extension on Azure cloud container."
         ]
       }
     ],
