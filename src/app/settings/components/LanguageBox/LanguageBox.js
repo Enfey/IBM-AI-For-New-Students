@@ -30,9 +30,35 @@ const LanguageBox = ({ onLanguageChange }) => {
         { text: 'French' },
         { text: 'German' },
         { text: 'Italian' },
+        { text: 'Portuguese' },
+        { text: 'Russian' },
+        { text: 'Chinese (Simplified)' },
+        { text: 'Chinese (Traditional)' },
         { text: 'Japanese' },
-        { text: 'Chinese' }
+        { text: 'Korean' },
+        { text: 'Arabic' },
+        { text: 'Hindi' },
+        { text: 'Bengali' },
+        { text: 'Urdu' },
+        { text: 'Turkish' },
+        { text: 'Vietnamese' },
+        { text: 'Thai' },
+        { text: 'Dutch' },
+        { text: 'Polish' },
+        { text: 'Swedish' },
+        { text: 'Greek' },
+        { text: 'Hebrew' },
+        { text: 'Indonesian' },
+        { text: 'Malay' },
+        { text: 'Czech' },
+        { text: 'Hungarian' },
+        { text: 'Romanian' },
+        { text: 'Finnish' },
+        { text: 'Norwegian' },
+        { text: 'Danish' },
+        { text: 'Filipino' }
     ];
+
 
     useEffect(() => {
         const language = localStorage.getItem('language') || 'English'; // Default is English
