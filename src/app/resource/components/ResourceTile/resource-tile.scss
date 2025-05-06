@@ -1,0 +1,17 @@
+@use "../../../styles/main" as *;
+
+.resource_tile {
+    @include content-tile(80%);
+    padding: spacing("md") spacing("xl");
+    height: 100%;
+    @include var-theme-color("tile-background", background-color);
+
+    &:hover {
+        transform: scale(1.05);
+        @include transition(transform, "fast");
+    }
+}
+
+.resource_title {
+    @include typography("md", "bold");
+}

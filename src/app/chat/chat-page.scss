@@ -1,0 +1,63 @@
+@use "../styles/main" as *;
+@use "components/ChatInput/chat-input" as chat-input;
+@use "components/MessageContainer/message-container" as message-container;
+
+// ───────────────
+// Shared Styles
+// ───────────────
+%column-shared {
+    grid-row: 1 / 2;
+    height: height('screen');
+
+    @include respond-below('md') {
+        display: none;
+    }
+}
+
+// ───────────────
+// Layout Styles
+// ───────────────
+.layout_container {
+    @include three-column-layout('sm');
+    min-width: width('screen');
+    margin-top: calc(-1 * spacing("lg")); //negate
+
+    @include respond-below('md') {
+        @include flex-direction($direction: column);
+        min-height: height("screen");
+    }
+}
+
+.left_column {
+    @extend %column-shared;
+    grid-column: 1;
+}
+
+.right_column {
+    @extend %column-shared;
+    grid-column: 3;
+}
+
+// ───────────────
+// Animations
+// ───────────────
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+// ───────────────
+// Body Styles
+// ───────────────
+body {
+    @include var-theme-color("background", background-color);
+    @include flex($direction: row, $justify: center, $align: center);
+    min-height: height("screen");
+    max-width: width("screen");
+    padding: spacing("md");
+    overflow-x: hidden !important;
+}

@@ -1,0 +1,6 @@
+@use "../styles/main.scss" as *;
+
+.contact_tile_container {
+  gap: spacing("md");
+  @include page-container();
+}

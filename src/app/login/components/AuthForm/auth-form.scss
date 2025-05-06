@@ -1,0 +1,189 @@
+@use "@/app/styles/main.scss" as *;
+
+// ───────────────
+// Layout and container styles
+// ───────────────
+.auth-form-container {
+    width: 450px;
+    background-color: var(--colors-surface);
+    padding: spacing("lg");
+    border-radius: radius("lg");
+    box-shadow: shadow("lg");
+    margin: 0 auto;
+
+    @include respond-below("lg") {
+        width: 400px;
+    }
+
+    @include respond-below("md") {
+        width: 350px;
+        padding: spacing("md");
+    }
+}
+
+.auth-input {
+    margin-bottom: spacing("md");
+}
+
+.auth-separator {
+    @include center;
+    margin: spacing("md");
+
+    span {
+        @include var-theme-color("text-primary");
+        padding: 0 spacing("sm");
+        @include typography("sm");
+        @include text-emphasis("small");
+        position: relative;
+    }
+
+    &::before,
+    &::after {
+        content: "";
+        flex: 1;
+        height: border-width("xs");
+        background-color: var(--colors-border);
+    }
+}
+
+// ───────────────
+// Typography styles
+// ───────────────
+.auth-form-title {
+    @include typography("xl", "semibold");
+    margin-bottom: spacing("lg");
+    text-align: center;
+    @include var-theme-color("text-primary");
+}
+
+.error {
+    @include var-theme-color("error");
+    margin-top: spacing("sm");
+    @include typography("sm");
+    text-align: center;
+}
+
+// ───────────────
+// Button styles
+// ───────────────
+%button-shared {
+    width: width("full");
+    @include border-radius("sm");
+    padding: spacing("sm") spacing("md") !important;
+    @include transition(background);
+    margin: spacing("md") 0;
+    display: block;
+}
+
+.auth-button {
+    @extend %button-shared;
+    @include var-theme-color("primary", "background-color");
+    @include typography("base", "medium");
+
+    &:hover {
+        @include var-theme-color("primary-hover", "background-color");
+    }
+
+    &:disabled {
+        @include var-theme-color("secondary", "background-color");
+        cursor: not-allowed;
+    }
+}
+
+.oauth-button {
+    @extend %button-shared;
+    @include flex(row, flex-start, center);
+    gap: spacing("md");
+
+    //adherence to google developer guidelines - also using color mixin directly, maybe change at some point.
+    .button-text {
+        font-family:
+            "Roboto",
+            -apple-system,
+            BlinkMacSystemFont,
+            "Segoe UI",
+            sans-serif;
+        font-weight: font-weight("medium");
+        font-size: font-size("sm");
+        letter-spacing: 0.25px;
+    }
+
+    .oauth-icon {
+        width: 18px;
+        height: 18px;
+    }
+
+    &.google {
+        background-color: color("white", "base") !important;
+        color: rgba(0, 0, 0, 0.87) !important;
+        border: border-width("xs") solid var(--colors-border) !important;
+        box-shadow: shadow("sm") !important;
+
+        &:hover {
+            background-color: color("white", "off") !important;
+            box-shadow: shadow("md") !important;
+        }
+    }
+    
+}
+
+// ───────────────
+// Mode toggle style
+// ───────────────
+.mode-toggle {
+    @include center;
+    margin-top: spacing("md");
+    gap: spacing("xs");
+
+    span,
+    button {
+        align-items: center; // this + padding for the toggle button centers the toggle and puts it directly next to the text
+    }
+
+    span {
+        @include var-theme-color("text-primary");
+        @include typography("sm");
+        @include text-emphasis("small");
+    }
+
+    .toggle-button {
+        padding: 0;
+        @include var-theme-color("primary");
+
+        &:hover {
+            @include var-theme-color("primary-hover");
+        }
+    }
+}
+
+// ───────────────
+// Carbon design system override headache
+// ───────────────
+.cds--btn {
+    max-inline-size: none !important;
+    max-width: width("full") !important;
+}
+
+.cds--text-input:focus,
+.cds--btn.cds--text-input--password__visibility__toggle.cds--tooltip__trigger {
+    outline: none !important;
+    border-bottom-color: var(--colors-primary) !important;
+    
+}
+
+.cds--btn--ghost {
+    background-color: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+
+    &:focus {
+        outline: none !important;
+        box-shadow: none !important;
+    }
+}
+
+label.cds--label {
+    
+    @include var-theme-color("text-secondary");
+    margin-bottom: spacing("xs");
+}

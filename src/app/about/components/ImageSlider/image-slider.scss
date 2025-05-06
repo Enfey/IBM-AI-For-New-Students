@@ -1,0 +1,73 @@
+@use "../../../styles/main" as *;
+
+.slideshow-container {
+    width: 80%;
+    height: height("screen") * 0.25;
+    aspect-ratio: 16 / 9;
+    margin: 0 auto;
+    position: relative;
+
+    @include respond-below("md") {
+        max-width: width("full");
+    }
+}
+
+.mySlides {
+    display: none;
+
+    &.active {
+        display: block;
+    }
+}
+
+.slide-image {
+    width: width("full");
+    height: height("screen") * 0.2;
+    object-fit: cover;
+    object-position: center;
+    border-radius: radius("md");
+}
+
+.number-text {
+    color: color("white", "base");
+    @include typography("xs", "regular", "normal");
+    padding: spacing("sm") spacing("md");
+    position: absolute;
+    top: 0;
+    background-color: rgba(color("black"), 0.5); //transparent black
+    border-radius: radius("sm");
+}
+
+.dots-container {
+    text-align: center;
+    margin-top: spacing("sm");
+}
+
+.dot {
+    cursor: pointer;
+    height: 13px;
+    width: 13px;
+    margin: spacing("xs") spacing("xs") * 0.4;
+    border-radius: 50%;
+    display: inline-block;
+    transition: background-color duration("normal") ease;
+    @include var-theme-color("background", background-color);
+
+    &.active {
+        @include var-theme-color("text-secondary", background-color);
+    }
+}
+
+.fade {
+    animation-name: fade;
+    animation-duration: duration("slow") * 3;
+}
+
+@keyframes fade {
+    from {
+        opacity: 0.4;
+    }
+    to {
+        opacity: 1;
+    }
+}

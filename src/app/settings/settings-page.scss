@@ -1,0 +1,52 @@
+@use "@/app/styles/main.scss" as *;
+
+.settings-container {
+    max-width: 50%;
+    margin: 0 auto;
+    padding: spacing("xl");
+
+    h1 {
+        @include typography("xl", "bold");
+        @include var-theme-color("text-primary", color);
+        margin-bottom: spacing("xl");
+    }
+
+    @include respond-below("md") {
+        max-width: 90%;
+    }
+}
+
+.settings-section {
+    margin-bottom: spacing("xl");
+
+    h2 {
+        @include typography("lg", "medium");
+        @include var-theme-color("text-primary", color);
+        padding-bottom: spacing("xs");
+        border-bottom: 1px solid var(--colors-border);
+    }
+}
+
+.setting-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: spacing("md") 0;
+
+    .setting-label {
+        h3 {
+            @include typography("md", "medium");
+            @include var-theme-color("text-primary", color);
+        }
+
+        p {
+            @include typography("sm");
+            @include var-theme-color("text-secondary", color);
+            margin: spacing("xs") 0 0;
+        }
+    }
+}
+
+body {
+    display: block; // #trusttheprocess
+}

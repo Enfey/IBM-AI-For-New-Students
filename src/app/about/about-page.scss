@@ -1,0 +1,22 @@
+@use "../styles/main" as *;
+
+.about-container {
+    gap: spacing("md");
+    min-width: width("screen");
+    max-width: width("screen");
+    min-height: height("screen");
+    padding: spacing("xl") spacing("lg") spacing("lg") spacing("lg");
+    margin: calc(-1 * spacing("xxl"));
+}
+
+.about-inner-container {
+    gap: spacing("md");
+    @include var-theme-color("surface", background-color);
+    padding: spacing("lg") spacing("md");
+    border-radius: radius("md");
+    box-shadow: shadow("md");
+
+    @include respond-below("md") {
+        padding: spacing("md") spacing("sm");
+    }
+}

@@ -1,0 +1,5 @@
+@use "@/app/styles/main.scss" as *;
+
+.declaimer{
+  @include var-theme-color("text-primary", color);
+}
