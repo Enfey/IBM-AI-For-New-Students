@@ -1,0 +1,29 @@
+@use '@carbon/react';
+@use '../components/AppHeader/app-header';
+@use 'chat/chat-page';
+@use 'resource/resource-page';
+@use 'announcement/announcement-page';
+@use 'about/about-page';
+@use 'contact/contact-page';
+@use 'login/login-page';
+
+/// Remove overrides once Carbon bugs are fixed upstream.
+/// Need grid option to not add page gutters at large viewports, to also use when nesting grids
+/// @link https://github.com/carbon-design-system/carbon/issues/2792
+@media (min-width: 42rem) {
+  .cds--grid--no-gutter {
+    padding-left: 1rem;
+    padding-right: 1rem;
+    padding-top: 0;
+  }
+}
+
+/// Padding was introduced in 10.3.0, needs an option to let grid set the viewport gutter
+/// @link https://github.com/carbon-design-system/carbon/issues/3010
+.cds--content {
+  margin-top: 3rem;
+  padding-left: 0;
+  padding-right: 0;
+  padding-top: 0;
+  background: var(--cds-background);
+}

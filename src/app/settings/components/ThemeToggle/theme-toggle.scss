@@ -1,0 +1,19 @@
+@use "@/app/styles/main.scss" as *;
+
+.theme-toggle-container {
+    margin-top: spacing("lg");
+    @include center;
+    gap: 0.5rem;
+}
+
+.cds--toggle__switch {
+    @include var-theme-color("surface", color);
+
+    &::before {
+        @include var-theme-color("surface", color);
+    }
+}
+
+.cds--toggle__switch--checked {
+    @include var-theme-color("primary", background-color);
+}

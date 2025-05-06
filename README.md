@@ -87,6 +87,7 @@ The vision of this project is to create an intuitive AI assistant that empowers 
 AI-for-New-Students/
 │
 ├── src/               # Source code files
+├── public/            # The resources folder for React / Next.js
 ├── tests/             # Test files
 ├── docs/              # Project documentation
 ├── config/            # Configuration files

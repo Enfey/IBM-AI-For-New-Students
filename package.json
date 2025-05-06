@@ -1,0 +1,30 @@
+{
+  "name": "carbon-tutorial-nextjs",
+  "version": "0.1.0",
+  "private": true,
+  "repository": "git@github.com:carbon-design-system/carbon-tutorial-nextjs.git",
+  "bugs": "https://github.com/carbon-design-system/carbon-tutorial-nextjs/issues",
+  "license": "Apache-2.0",
+  "scripts": {
+    "build": "next build",
+    "dev": "next dev",
+    "start": "next start",
+    "clean": "yarn cache clean && yarn install"
+  },
+  "dependencies": {
+    "@carbon/icons-react": "^11.52.0",
+    "@carbon/react": "1.33.0",
+    "@ibm-watson/assistant-web-chat-react": "^2.0.0",
+    "encoding": "^0.1.13",
+    "firebase": "^11.3.1",
+    "ibm-watson": "^9.1.0",
+    "marked": "^15.0.7",
+    "next": "13.4.9",
+    "oh-my-live2d": "^0.19.3",
+    "openai": "^4.96.2",
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
+    "sass": "1.63.6"
+  },
+  "packageManager": "yarn@1.22.22+sha512.a6b2f7906b721bba3d67d4aff083df04dad64c399707841b7acf00f6b133b7ac24255f2652fa22ae3534329dc6180534e98d17432037ff6fd140556e2bb3137e"
+}
