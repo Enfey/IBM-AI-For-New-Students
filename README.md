@@ -23,6 +23,9 @@ The website was deployed using [Vercel](https://vercel.com/), here is the link: 
 7. [FastAPI](https://fastapi.tiangolo.com/)
 8. [RAG](https://huggingface.co/transformers/model_doc/rag)
 9. [Carbon React](https://carbondesignsystem.com/components/overview/components/)
+10. [Vercel](https://vercel.com/)
+11. [Oh-my-live2d](https://github.com/oh-my-live2d/oh-my-live2d)
+12. [Live2d Cubism](https://www.live2d.com/en)
 
 ## Mascot and Main Page
 
