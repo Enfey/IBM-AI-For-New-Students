@@ -9,6 +9,12 @@ Project Goals and Vision
 
 ## Website
 
+> [!IMPORTANT]
+>
+> If you want to enable the RAG function, you have to deploy your own webhook on some cloud servers
+> These are the main functions still work without RAG:
+> Location Searching/ Key Dates/ IT service/ introduction/ ...
+
 The website was deployed using [Vercel](https://vercel.com/), here is the link: [https://team32-project-sandy.vercel.app/](https://team32-project-sandy.vercel.app/) 
 
 
